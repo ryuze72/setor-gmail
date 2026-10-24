@@ -1,36 +1,50 @@
 # SetorGmail
 
-Platform komunitas sederhana untuk **setor** & **klaim** Gmail yang idle / tidak terpakai.
+Platform komunitas untuk **setor** & **klaim** Gmail idle.
 
-> Demo konsep dengan desain **Neo Brutalism** (dark mode + orange accent).
+Ada **2 versi desain**:
 
-## Fitur
+| Versi | Style | Path |
+|-------|-------|------|
+| **v1** | Neo Brutalism (dark + orange) | root (`index.html`) |
+| **v2** | Soft modern (teal, mirip STORGMAILPRIME) | `v2/` |
 
-- Landing page + hero stats
-- Cara Kerja (3 langkah)
-- Pool Gmail interaktif (search + filter: Semua / Fresh / Verified)
-- Form setor Gmail (validasi `@gmail.com`, cek duplikat)
-- Klaim Gmail dengan konfirmasi
+---
+
+## v1 — Neo Brutalism
+
+- Landing + Pool Gmail interaktif
+- Form setor & klaim (localStorage)
+- Search + filter (Fresh / Verified / Idle)
 - FAQ
-- Responsive mobile
-- Data disimpan di `localStorage` (client-side)
-
-## File
 
 ```
+index.html
+style.css
+script.js
+```
+
+## v2 — Soft Modern (STORGMAILPRIME style)
+
+- Landing page clean
+- Auth page: Masuk / Daftar (toggle)
+- Form daftar: Nama, Email, Referral, Password
+- Soft gradient background + teal accent
+
+```
+v2/
 ├── index.html
+├── auth.html
 ├── style.css
 └── script.js
 ```
 
-## Cara Menjalankan
-
-Cukup buka `index.html` di browser, atau pakai Live Server.
-
-## Catatan
-
-Ini hanya **demo konsep**. Membagikan akun Gmail milik orang lain atau melanggar ToS Google adalah risiko sendiri. Gunakan hanya untuk akun milik sendiri yang sudah tidak terpakai.
+Buka `v2/auth.html?mode=daftar` untuk halaman daftar.
 
 ---
 
-© 2026 SetorGmail · Ide & desain orisinal
+## Catatan
+
+Ini hanya **demo konsep**. Membagikan akun Gmail milik orang lain atau melanggar ToS Google adalah risiko sendiri.
+
+© 2026 SetorGmail

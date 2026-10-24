@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SetorGmail — Setor & Klaim Gmail Idle</title>
+  <meta name="description" content="Platform komunitas buat setor Gmail yang nganggur dan klaim Gmail fresh. Cepat, transparan, no ribet." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">SG</span>
+        <span class="logo-text">SetorGmail</span>
+      </a>
+      <div class="nav-links">
+        <a href="#cara">Cara Kerja</a>
+        <a href="#pool">Pool</a>
+        <a href="#setor">Setor</a>
+        <button class="btn btn-sm btn-accent" id="btn-login">Masuk</button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="badge">Komunitas · Beta</div>
+      <h1>
+        Gmail nganggur?<br />
+        <span class="highlight">Setor.</span> Butuh Gmail?<br />
+        <span class="highlight">Klaim.</span>
+      </h1>
+      <p class="hero-desc">
+        Platform sederhana buat saling berbagi Gmail yang sudah idle.
+        Transparan, cepat, dan gratis untuk komunitas.
+      </p>
+      <div class="hero-cta">
+        <a href="#setor" class="btn btn-primary">Setor Gmail Sekarang</a>
+        <a href="#pool" class="btn btn-ghost">Lihat Pool →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <strong id="stat-total">128</strong>
+          <span>Gmail tersedia</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-today">23</strong>
+          <span>Klaim hari ini</span>
+        </div>
+        <div class="stat">
+          <strong>4.9</strong>
+          <span>Rating komunitas</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CARA KERJA -->
+  <section id="cara" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Cara Kerja</h2>
+        <p>Tiga langkah. Gak perlu ribet.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Setor Gmail</h3>
+          <p>Masukkan Gmail idle kamu (yang sudah lama tidak dipakai). Sistem cek format & status dasar.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Masuk Pool</h3>
+          <p>Gmail kamu masuk ke pool komunitas. Bisa dilihat statusnya (fresh / sedang diklaim).</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Klaim & Pakai</h3>
+          <p>Butuh Gmail? Klaim satu dari pool. Setelah diklaim, otomatis hilang dari daftar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POOL -->
+  <section id="pool" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Pool Gmail</h2>
+        <p>Gmail yang siap diklaim. Klik untuk ambil.</p>
+      </div>
+
+      <div class="pool-toolbar">
+        <div class="search-box">
+          <input type="text" id="search-pool" placeholder="Cari domain / keyword..." />
+        </div>
+        <div class="filter-chips">
+          <button class="chip active" data-filter="all">Semua</button>
+          <button class="chip" data-filter="fresh">Fresh</button>
+          <button class="chip" data-filter="verified">Verified</button>
+        </div>
+      </div>
+
+      <div class="pool-grid" id="pool-grid">
+        <!-- diisi oleh JS -->
+      </div>
+
+      <p class="pool-note">
+        * Demo mode — data bersifat simulasi. Di versi real, setiap klaim akan menghapus Gmail dari pool secara permanen.
+      </p>
+    </div>
+  </section>
+
+  <!-- SETOR -->
+  <section id="setor" class="section">
+    <div class="container narrow">
+      <div class="section-head">
+        <h2>Setor Gmail</h2>
+        <p>Sumbangkan Gmail idle kamu ke komunitas.</p>
+      </div>
+
+      <form class="setor-form" id="setor-form">
+        <div class="form-group">
+          <label for="email">Alamat Gmail</label>
+          <input type="email" id="email" name="email" placeholder="contoh@gmail.com" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="age">Usia akun (perkiraan)</label>
+            <select id="age" name="age">
+              <option value="baru">Baru (< 1 tahun)</option>
+              <option value="sedang" selected>Sedang (1–3 tahun)</option>
+              <option value="lama">Lama (> 3 tahun)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="idle" selected>Idle / Tidak terpakai</option>
+              <option value="verified">Sudah verified phone</option>
+              <option value="fresh">Baru dibuat</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="note">Catatan (opsional)</label>
+          <textarea id="note" name="note" rows="3" placeholder="Misal: belum pernah dipakai login, sudah recovery, dll."></textarea>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="agree" required />
+          <label for="agree">Saya paham Gmail yang disetor akan masuk pool publik dan bisa diklaim orang lain.</label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Setor ke Pool</button>
+      </form>
+
+      <div class="toast" id="toast" hidden></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt">
+    <div class="container narrow">
+      <div class="section-head">
+        <h2>FAQ</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Apakah ini legal?</summary>
+          <p>Ini hanya demo konsep komunitas. Membagikan akun Gmail milik orang lain atau melanggar ToS Google adalah risiko sendiri. Gunakan dengan bijak dan hanya untuk akun milik sendiri yang memang sudah tidak terpakai.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Gmail yang saya setor bisa diambil siapa saja?</summary>
+          <p>Ya. Begitu masuk pool, siapa pun bisa klaim. Setelah diklaim, Gmail tersebut hilang dari daftar.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Apakah ada sistem poin / reward?</summary>
+          <p>Di versi demo belum. Nanti bisa ditambahkan sistem kontribusi poin untuk yang sering setor Gmail berkualitas.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Data disimpan di mana?</summary>
+          <p>Demo ini 100% client-side (localStorage). Tidak ada server. Versi production tentu butuh backend + autentikasi.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">SG</span>
+        <span>SetorGmail</span>
+      </div>
+      <p>Dibuat sebagai konsep demo. Bukan layanan resmi Google.</p>
+      <p class="footer-copy">© 2026 SetorGmail · Ide & desain orisinal</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

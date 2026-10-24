@@ -3,12 +3,129 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark light"/>
 <title>SETOR GMAIL</title>
-<meta http-equiv="refresh" content="0; url=https://raw.githubusercontent.com/ryuze72/setor-gmail/main/firebase/README.md"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-<p>File index.html lengkap (~47KB) ada di folder lokal artifacts. Upload manual atau minta push ulang jika tool limit.</p>
-<p>Sementara buka README: <a href="README.md">README.md</a></p>
-<p>Admin demo: admin@setor.local / 12345678_</p>
+<div id="offline" style="display:none;position:fixed;z-index:150;left:0;right:0;top:0;padding:calc(8px + var(--safe-t)) 12px 8px;text-align:center;font-size:13px;font-weight:600;background:var(--bad);color:#fff">Anda offline</div>
+<div id="toasts"></div>
+
+<div id="view-land" class="land">
+  <nav class="land-nav">
+    <div class="logo"><span class="logo-mark">SG</span><span>SETOR GMAIL</span></div>
+    <div class="row">
+      <span class="demo-tag">FIREBASE</span>
+      <button class="btn sm" id="btn-theme" title="Tema"><i data-lucide="sun"></i></button>
+      <button class="btn sm primary" data-go="login">Masuk</button>
+    </div>
+  </nav>
+  <header class="hero page">
+    <span class="demo-tag">PLATFORM PREMIUM</span>
+    <h1>Kelola Setoran, Pantau Status</h1>
+    <p>Semua Lebih Praktis. Platform modern untuk mencatat dan mengelola setoran Gmail secara terorganisasi. Tidak pernah meminta password atau OTP Gmail.</p>
+    <div class="row" style="justify-content:center">
+      <button class="btn primary" data-go="register">Mulai Sekarang</button>
+      <button class="btn" data-go="login">Saya sudah punya akun</button>
+    </div>
+  </header>
+  <div class="stat-row stagger">
+    <div class="glass card"><div class="big" id="ls-t">—</div><div class="muted">Total setoran</div></div>
+    <div class="glass card"><div class="big" id="ls-o">—</div><div class="muted">Diterima</div></div>
+    <div class="glass card"><div class="big" id="ls-s">Aktif</div><div class="muted">Status sistem</div></div>
+  </div>
+  <h2 class="sec-title">Cara Kerja</h2>
+  <p class="muted" style="margin-bottom:14px">Tiga langkah sederhana</p>
+  <div class="steps stagger">
+    <div class="glass card"><div class="step-n">1</div><h3>Daftar & Masuk</h3><p class="muted" style="margin-top:6px;font-size:14px">Buat akun dengan email & password, lalu masuk ke dashboard.</p></div>
+    <div class="glass card"><div class="step-n">2</div><h3>Kirim Setoran</h3><p class="muted" style="margin-top:6px;font-size:14px">Isi formulir. Tidak pernah diminta password, OTP, atau recovery Gmail.</p></div>
+    <div class="glass card"><div class="step-n">3</div><h3>Pantau Status</h3><p class="muted" style="margin-top:6px;font-size:14px">Lacak progres: menunggu → diproses → diterima/ditolak.</p></div>
+  </div>
+  <h2 class="sec-title">Fitur Unggulan</h2>
+  <div class="features stagger">
+    <div class="glass card"><div class="ico"><i data-lucide="shield-check"></i></div><h3>Aman & Privat</h3><p class="muted" style="font-size:14px;margin-top:6px">Email disamarkan. Tidak minta kredensial Google.</p></div>
+    <div class="glass card"><div class="ico"><i data-lucide="activity"></i></div><h3>Live Status</h3><p class="muted" style="font-size:14px;margin-top:6px">Timeline progres + notifikasi perubahan status.</p></div>
+    <div class="glass card"><div class="ico"><i data-lucide="search"></i></div><h3>Smart Search</h3><p class="muted" style="font-size:14px;margin-top:6px">Filter status, periode, dan pencarian ID.</p></div>
+    <div class="glass card"><div class="ico"><i data-lucide="layout-dashboard"></i></div><h3>Dashboard</h3><p class="muted" style="font-size:14px;margin-top:6px">Statistik real dari data Firebase Anda.</p></div>
+  </div>
+  <footer class="foot">© 2026 SETOR GMAIL · Backend Firebase Auth + Firestore<br/>Kebijakan Privasi · Ketentuan Layanan</footer>
+</div>
+
+<div id="view-auth" class="land hidden">
+  <nav class="land-nav">
+    <div class="logo"><span class="logo-mark">SG</span><span>SETOR GMAIL</span></div>
+    <button class="btn sm" data-go="land">← Beranda</button>
+  </nav>
+  <div class="glass card auth-box page">
+    <div class="seg" id="authSeg">
+      <button type="button" class="on" data-tab="login">Masuk</button>
+      <button type="button" data-tab="register">Daftar</button>
+    </div>
+    <div id="panel-login">
+      <h2>Selamat datang</h2>
+      <p class="sub">Masuk ke platform Setor Gmail</p>
+      <form id="f-login">
+        <div class="field"><label>Email</label><input class="input" type="email" id="li-e" required placeholder="email@contoh.com" autocomplete="email"/></div>
+        <div class="field"><label>Password</label><input class="input" type="password" id="li-p" required minlength="6" placeholder="Minimal 6 karakter" autocomplete="current-password"/></div>
+        <button type="submit" class="btn primary" style="width:100%">Masuk</button>
+      </form>
+    </div>
+    <div id="panel-register" class="hidden">
+      <h2>Buat akun</h2>
+      <p class="sub">Daftar gratis untuk mulai setor</p>
+      <form id="f-reg">
+        <div class="field"><label>Nama</label><input class="input" id="re-n" required minlength="2" maxlength="40" placeholder="Nama Anda" autocomplete="name"/></div>
+        <div class="field"><label>Email</label><input class="input" type="email" id="re-e" required placeholder="email@contoh.com" autocomplete="email"/></div>
+        <div class="field"><label>Password</label><input class="input" type="password" id="re-p" required minlength="6" placeholder="Minimal 6 karakter" autocomplete="new-password"/></div>
+        <button type="submit" class="btn primary" style="width:100%">Daftar</button>
+      </form>
+    </div>
+    <p class="muted" style="margin-top:16px;font-size:12.5px;text-align:center">Kami tidak pernah meminta password Gmail, OTP, atau recovery code.</p>
+  </div>
+</div>
+
+<div id="app" class="app">
+  <aside class="side">
+    <div class="logo" style="padding:6px 8px 18px"><span class="logo-mark">SG</span><span>SETOR GMAIL</span></div>
+    <button class="nav-i on" data-p="dash"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
+    <button class="nav-i" data-p="setor"><i data-lucide="send"></i><span>Setor</span></button>
+    <button class="nav-i" data-p="riwayat"><i data-lucide="history"></i><span>Riwayat</span></button>
+    <button class="nav-i adm-only hidden" data-p="admin"><i data-lucide="shield"></i><span>Admin</span></button>
+    <button class="nav-i" data-p="notif"><i data-lucide="bell"></i><span>Notifikasi</span></button>
+    <button class="nav-i" data-p="profil"><i data-lucide="user"></i><span>Profil</span></button>
+    <div class="side-foot">
+      <button class="nav-i" id="side-out"><i data-lucide="log-out"></i><span>Keluar</span></button>
+    </div>
+  </aside>
+  <div class="main-col">
+    <header class="top">
+      <h2 id="page-title">Dashboard</h2>
+      <div class="top-r">
+        <span class="demo-tag">FIREBASE</span>
+        <button class="btn icon sm" id="btn-theme2" title="Tema"><i data-lucide="sun"></i></button>
+        <span class="muted" id="hdr-name" style="font-size:13px"></span>
+      </div>
+    </header>
+    <div id="view"></div>
+  </div>
+  <nav class="bottom glass">
+    <button class="on" data-p="dash"><i data-lucide="layout-dashboard"></i>Home</button>
+    <button data-p="setor"><i data-lucide="send"></i>Setor</button>
+    <button data-p="riwayat"><i data-lucide="history"></i>Riwayat</button>
+    <button class="adm-only hidden" data-p="admin"><i data-lucide="shield"></i>Admin</button>
+    <button data-p="profil"><i data-lucide="user"></i>Profil</button>
+  </nav>
+</div>
+
+<div class="scrim" id="scrim"><div class="modal glass" id="modal"></div></div>
+
+<script src="app.js"></script>
 </body>
 </html>

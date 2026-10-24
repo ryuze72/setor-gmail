@@ -1,203 +1,1018 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SetorGmail — Setor & Klaim Gmail Idle</title>
-  <meta name="description" content="Platform komunitas buat setor Gmail yang nganggur dan klaim Gmail fresh. Cepat, transparan, no ribet." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>SETOR GMAIL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
+<style>
+/* ============ TOKENS (bersih & minimalis) ============ */
+:root{
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --bg:#ffffff; --bg-soft:#f6f7fb; --surface:#ffffff;
+  --border:#e4e6f0; --text:#12122b; --muted:#5f6380;
+  --primary:#2a2593; --primary-h:#1f1b78; --primary-soft:#eeeefb; --on-primary:#fff;
+  --ok:#0f9d6e; --warn:#c77a00; --info:#2563eb; --bad:#d4324a;
+  --shadow-sm:0 1px 2px rgba(18,18,43,.06);
+  --shadow:0 12px 36px rgba(18,18,43,.08);
+  --r:12px; --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  /* alias untuk kompatibilitas */
+  --glass:var(--bg-soft); --glass-strong:var(--primary-soft);
+  --accent:var(--primary); --accent2:var(--primary); --accent-glow:rgba(42,37,147,.18);
+}
+:root[data-theme="dark"]{
+  --bg:#0d0e1b; --bg-soft:#090a14; --surface:#151730;
+  --border:#262a4a; --text:#f1f2fb; --muted:#9da2c5;
+  --primary:#6762f0; --primary-h:#7b77f5; --primary-soft:#1d1f45; --on-primary:#fff;
+  --ok:#2dd4a0; --warn:#fbbf24; --info:#60a5fa; --bad:#fb7185;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow:0 12px 36px rgba(0,0,0,.45);
+  --accent-glow:rgba(103,98,240,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+i[data-lucide],svg.lucide{width:1.15em;height:1.15em;stroke-width:2;flex-shrink:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+h1,h2,h3{letter-spacing:-.025em;line-height:1.15}
+
+/* ============ PRIMITIVES ============ */
+.glass,.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.card{padding:22px}
+.card h3{font-size:17px;margin-bottom:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-weight:600;font-size:15px;transition:transform .12s,background .15s,border-color .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{background:var(--bg-soft);border-color:color-mix(in srgb,var(--text) 22%,var(--border))}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.btn.primary:hover{background:var(--primary-h);border-color:var(--primary-h)}
+.btn.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 35%,var(--border));background:color-mix(in srgb,var(--bad) 8%,var(--surface))}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.ghost:hover{background:var(--bg-soft)}
+.btn.sm{min-height:36px;padding:0 14px;font-size:13.5px}
+.btn.lg{min-height:50px;padding:0 28px;font-size:16px}
+.btn.icon{width:44px;padding:0}
+.btn.sm.icon{width:36px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600;color:var(--text)}
+.input,select.input,textarea.input{width:100%;min-height:46px;padding:11px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:16px;transition:border .15s,box-shadow .15s;appearance:none;-webkit-appearance:none}
+select.input{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:38px}
+select.input option{color:#111;background:#fff}
+textarea.input{min-height:90px;resize:vertical}
+.input:hover{border-color:color-mix(in srgb,var(--text) 25%,var(--border))}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--accent-glow);outline:none}
+.input.err{border-color:var(--bad)}
+.err-msg{font-size:12.5px;color:var(--bad);min-height:18px}
+.hint{font-size:12.5px;color:var(--muted)}
+.muted{color:var(--muted)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid transparent;white-space:nowrap}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-menunggu{color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent);border-color:color-mix(in srgb,var(--warn) 28%,transparent)}
+.b-diproses{color:var(--info);background:color-mix(in srgb,var(--info) 12%,transparent);border-color:color-mix(in srgb,var(--info) 28%,transparent)}
+.b-diterima{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent);border-color:color-mix(in srgb,var(--ok) 28%,transparent)}
+.b-ditolak{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent);border-color:color-mix(in srgb,var(--bad) 28%,transparent)}
+.banner{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:10px;font-size:13.5px;background:color-mix(in srgb,var(--warn) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--warn) 30%,var(--border))}
+.banner.sec{background:var(--primary-soft);border-color:color-mix(in srgb,var(--primary) 25%,var(--border))}
+.banner i,.banner svg{color:var(--primary);margin-top:2px}
+
+/* ============ ANIMASI ============ */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes shimmer{to{background-position:-200% 0}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.page{animation:rise .4s cubic-bezier(.2,.8,.2,1) both}
+.stagger>*{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.stagger>*:nth-child(1){animation-delay:.03s}.stagger>*:nth-child(2){animation-delay:.08s}.stagger>*:nth-child(3){animation-delay:.13s}.stagger>*:nth-child(4){animation-delay:.18s}.stagger>*:nth-child(5){animation-delay:.23s}.stagger>*:nth-child(6){animation-delay:.28s}
+.spin{animation:spin .9s linear infinite}
+.skeleton{border-radius:10px;background:linear-gradient(90deg,var(--bg-soft) 25%,var(--border) 50%,var(--bg-soft) 75%);background-size:200% 100%;animation:shimmer 1.3s infinite}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* ============ LANDING ============ */
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}
+.logo-mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--primary);color:#fff}
+.lnav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding-top:var(--safe-t)}
+.lnav-in{max-width:1180px;margin:0 auto;height:68px;padding:0 24px;display:flex;align-items:center;gap:28px}
+.lnav-links{display:flex;gap:6px;margin-left:12px}
+.lnav-links button{border:0;background:none;padding:8px 12px;border-radius:8px;font-weight:500;font-size:14.5px;color:var(--muted);cursor:pointer}
+.lnav-links button:hover{color:var(--text);background:var(--bg-soft)}
+.lnav-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+.lmain{max-width:1180px;margin:0 auto;padding:0 24px 40px}
+.hero2{text-align:center;padding:84px 0 44px;max-width:1000px;margin:0 auto}
+.hero2 h1{font-size:clamp(34px,6vw,64px);font-weight:800;letter-spacing:-.035em;line-height:1.06}
+.hero2 p{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:620px;margin:22px auto 30px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-sub{margin-top:16px;font-size:13.5px;color:var(--muted);display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.hero-sub span{display:inline-flex;gap:6px;align-items:center}
+.hero-sub span::first-letter{color:var(--ok);font-weight:700}
+.shot{border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden;margin:26px auto 0;max-width:1060px}
+.shot-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg-soft)}
+.shot-bar i{width:10px;height:10px;border-radius:50%;background:var(--border)}
+.shot-bar b{margin:0 auto;font-size:12px;font-weight:600;color:var(--muted)}
+.shot-bar em{font-style:normal;font-size:11px;color:var(--muted)}
+.shot-body{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:26px;background:var(--bg-soft);text-align:left}
+.shot-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow-sm)}
+.shot-card h4{font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.shot-card h4 i,.shot-card h4 svg{color:var(--primary);width:16px;height:16px}
+.sk-line{height:9px;border-radius:6px;background:var(--border);margin-bottom:10px}
+.sk-field{height:34px;border-radius:8px;border:1px solid var(--border);background:var(--bg-soft);margin-bottom:10px;padding:9px 10px}
+.sk-field u{display:block;height:8px;width:55%;border-radius:5px;background:var(--border)}
+.sk-btn{height:34px;border-radius:8px;background:var(--primary);margin-top:14px;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:600}
+.sk-step{display:flex;gap:10px;align-items:flex-start;padding-bottom:14px;position:relative}
+.sk-step::before{content:"";position:absolute;left:5px;top:14px;bottom:0;width:2px;background:var(--border)}
+.sk-step:last-child::before{display:none}
+.sk-step s{width:12px;height:12px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:3px;text-decoration:none}
+.sk-step.off s{background:var(--border)}
+.sk-step div{flex:1}
+.sk-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border)}
+.sk-row:last-child{border:0}
+.sk-row u{height:9px;width:50%;border-radius:6px;background:var(--border)}
+.shot-cap{text-align:center;font-size:12px;color:var(--muted);margin-top:12px}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;margin:56px 0 0;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.trust .t{display:flex;gap:12px;align-items:center;padding:18px 20px;font-size:14px;font-weight:600;border-right:1px solid var(--border)}
+.trust .t:last-child{border-right:0}
+.trust .t i,.trust .t svg{color:var(--primary);width:22px;height:22px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 0}
+.stat-row .card{text-align:center;padding:20px 10px}
+.big{font-size:clamp(26px,5vw,36px);font-weight:800;letter-spacing:-.02em}
+.sec-title{scroll-margin-top:84px;text-align:center;margin:96px 0 8px;font-size:clamp(26px,4vw,38px);font-weight:800}
+.sec-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 6px;font-size:16px}
+.steps,.features{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:30px 0 0}
+.steps .card,.features .card{padding:26px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.steps .card:hover,.features .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--primary) 30%,var(--border))}
+.step-n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--primary);color:#fff;font-weight:700;margin-bottom:16px}
+.ico{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary);margin-bottom:16px}
+.steps h3,.features h3{margin-bottom:6px}
+.faq{display:flex;flex-direction:column;gap:10px;max-width:760px;margin:30px auto 0}
+.faq details{border-radius:10px;background:var(--surface);border:1px solid var(--border);overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:54px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;font-weight:400;color:var(--muted);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 18px 16px;color:var(--muted);font-size:15px}
+.cta-band{text-align:center;padding:56px 24px;margin:96px 0 0;border-radius:18px;background:var(--primary);color:#fff;border:0}
+.cta-band h2{font-size:clamp(24px,4vw,36px);margin-bottom:10px;font-weight:800}
+.cta-band p{opacity:.8;margin-bottom:26px}
+.cta-band .btn{background:#fff;color:#1f1b78;border-color:#fff}
+.cta-band .btn:hover{background:#eeeefb}
+footer.foot{border-top:1px solid var(--border);padding:28px 0 0;margin-top:56px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13.5px;color:var(--muted)}
+footer.foot a{margin-right:18px}
+footer.foot a:hover{color:var(--text);text-decoration:underline}
+.legal{max-width:760px;margin:40px auto;padding:34px;line-height:1.75}
+.legal h1{margin-bottom:6px}
+.legal h2{margin:24px 0 8px;font-size:19px}
+.legal ul{padding-left:20px}
+.auth-page{min-height:100dvh;background:var(--bg-soft);display:flex;flex-direction:column}
+.auth-top{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;max-width:1180px;width:100%;margin:0 auto}
+.auth-box{flex:1;display:grid;place-items:start center;padding:20px 16px 60px}
+.auth-box form{width:min(440px,100%);padding:30px;box-shadow:var(--shadow)}
+.auth-box h2{font-size:26px}
+
+/* ============ APP SHELL ============ */
+.app{display:grid;grid-template-columns:248px 1fr;min-height:100dvh;background:var(--bg-soft)}
+.app.collapsed{grid-template-columns:76px 1fr}
+.side{position:sticky;top:0;height:100dvh;padding:16px 12px;display:flex;flex-direction:column;gap:4px;border-right:1px solid var(--border);background:var(--surface);overflow-y:auto}
+.side .logo{padding:6px 8px 20px}
+.nav-i{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;font-weight:600;font-size:14.5px;color:var(--muted);cursor:pointer;border:0;background:none;width:100%;text-align:left;min-height:42px;transition:background .15s,color .15s}
+.nav-i:hover{background:var(--bg-soft);color:var(--text)}
+.nav-i.on{background:var(--primary-soft);color:var(--primary)}
+.app.collapsed .nav-i span,.app.collapsed .logo span,.app.collapsed .me-chip div{display:none}
+.app.collapsed .nav-i,.app.collapsed .me-chip{justify-content:center}
+.me-chip{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:var(--bg-soft);border:1px solid var(--border);margin-top:auto;margin-bottom:6px;min-width:0}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;background:var(--primary);flex-shrink:0}
+.me-chip div{min-width:0;line-height:1.25}
+.me-chip strong{display:block;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.me-chip small{font-size:11.5px;color:var(--muted)}
+.side-foot{display:flex;flex-direction:column;gap:4px}
+.main-col{min-width:0;display:flex;flex-direction:column}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(12px + var(--safe-t)) 28px 12px;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);min-height:64px}
+.top h2{font-size:20px}
+.top-r{display:flex;gap:8px;align-items:center}
+.bell{position:relative}
+.dot{position:absolute;top:6px;right:6px;min-width:17px;height:17px;border-radius:99px;background:var(--bad);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+#view{padding:24px 28px 48px;max-width:1120px;width:100%}
+.bottom{display:none}
+.grid{display:grid;gap:14px}
+.g-stats{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.g-2{grid-template-columns:1fr 1fr}
+.stat .lbl{font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:500}
+.stat .val{font-size:30px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.seg{display:inline-flex;padding:3px;border-radius:9px;background:var(--bg-soft);border:1px solid var(--border)}
+.seg button{border:0;background:none;padding:6px 14px;border-radius:7px;cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);min-height:32px}
+.seg button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm)}
+.chip{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
+.c-blue{background:color-mix(in srgb,var(--info) 14%,transparent);color:var(--info)}
+.c-amber{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn)}
+.c-green{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.c-red{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.c-violet{background:var(--primary-soft);color:var(--primary)}
+.welcome{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 24px;margin-bottom:14px;background:var(--primary);color:#fff;border:0}
+.welcome h3{font-size:clamp(20px,3.4vw,26px);margin:0}
+.welcome .muted{color:rgba(255,255,255,.75)}
+.welcome .btn{background:#fff;color:#1f1b78;border-color:#fff}
+.welcome .btn:hover{background:#eeeefb}
+.dist{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--bg-soft);margin:14px 0;border:1px solid var(--border)}
+.dist span{display:block;height:100%;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend b{color:var(--text)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+
+/* chart */
+.chart{display:flex;align-items:flex-end;gap:4px;height:200px;padding-top:10px;background-image:linear-gradient(var(--border) 1px,transparent 1px);background-size:100% calc((100% - 24px) / 4);background-position:0 10px;background-repeat:repeat-y}
+.bar-w{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0;gap:6px}
+.bar{width:100%;max-width:30px;border-radius:6px 6px 2px 2px;background:var(--primary);transform-origin:bottom;animation:grow .7s cubic-bezier(.2,.8,.2,1) both;min-height:3px;position:relative}
+.bar-l{font-size:10px;color:var(--muted);white-space:nowrap;height:14px}
+.bar[data-v]:hover::after{content:attr(data-v);position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:11px;background:var(--text);color:var(--bg);padding:2px 8px;border-radius:6px;white-space:nowrap}
+
+/* tabel & daftar */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;padding:10px 12px;color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
+.tbl td{padding:14px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:var(--bg-soft)}
+.cards-list{display:none;flex-direction:column;gap:10px}
+.item{padding:16px;border-radius:10px;background:var(--surface);border:1px solid var(--border)}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;margin-bottom:16px}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty .ico{margin:0 auto 14px;width:56px;height:56px;border-radius:14px}
+.empty h3{color:var(--text);margin-bottom:6px}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.checklist li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--muted)}
+.checklist li strong{color:var(--text);display:block}
+
+/* timeline */
+.tl{position:relative;padding-left:26px;display:flex;flex-direction:column;gap:18px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.tl-i{position:relative}
+.tl-i::before{content:"";position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 4px var(--accent-glow)}
+.tl-i.s-diterima::before{background:var(--ok)}.tl-i.s-ditolak::before{background:var(--bad)}.tl-i.s-menunggu::before{background:var(--warn)}
+
+/* modal & toast */
+.scrim{position:fixed;inset:0;z-index:100;background:rgba(10,10,30,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:grid;place-items:center;padding:16px;animation:fade .2s both}
+.modal{width:min(560px,100%);max-height:88dvh;overflow:auto;padding:26px;animation:pop .22s cubic-bezier(.2,.8,.2,1) both;background:var(--surface);box-shadow:var(--shadow)}
+.modal h3{font-size:20px;margin-bottom:14px}
+.modal .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:10px 12px;font-size:14px}
+.kv dt{color:var(--muted);font-size:13px}
+#toasts{position:fixed;z-index:200;top:calc(14px + var(--safe-t));left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;width:min(420px,calc(100vw - 24px));pointer-events:none}
+.toast{pointer-events:auto;display:flex;gap:10px;align-items:center;padding:12px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:rise .28s both;font-size:14px;transition:opacity .3s,transform .3s}
+.toast.out{opacity:0;transform:translateY(-10px)}
+.toast.ok i,.toast.ok svg{color:var(--ok)}.toast.bad i,.toast.bad svg{color:var(--bad)}.toast.info i,.toast.info svg{color:var(--info)}
+#offline{display:none;position:fixed;z-index:150;left:0;right:0;top:0;padding:calc(8px + var(--safe-t)) 12px 8px;text-align:center;font-size:13px;font-weight:600;background:var(--bad);color:#fff}
+body.offline #offline{display:block}
+
+/* sakelar & checkbox */
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.switch:last-child{border:0}
+.tg{position:relative;width:46px;height:28px;flex-shrink:0}
+.tg input{opacity:0;position:absolute;inset:0;width:100%;height:100%;cursor:pointer;z-index:2}
+.tg span{position:absolute;inset:0;border-radius:99px;background:var(--border);transition:.2s}
+.tg span::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.tg input:checked+span{background:var(--primary)}
+.tg input:checked+span::after{transform:translateX(18px)}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.chk input{width:20px;height:20px;margin-top:1px;accent-color:var(--primary);flex-shrink:0}
+.chk a{text-decoration:underline}
+
+/* ============ RESPONSIF ============ */
+@media (max-width:900px){
+  .d-br{display:none}
+  .lnav-links{display:none}
+  .lnav-in{padding:0 16px;height:60px}
+  .lmain{padding:0 16px 30px}
+  .hero2{padding:52px 0 30px}
+  .shot-body{grid-template-columns:1fr;padding:16px}
+  .shot-card:nth-child(n+2){display:none}
+  .trust .t{border-right:0;border-bottom:1px solid var(--border)}
+  .trust .t:last-child{border-bottom:0}
+  .sec-title{margin-top:72px}
+}
+@media (max-width:860px){
+  .app,.app.collapsed{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:calc(10px + var(--safe-t)) 16px 10px}
+  #view{padding:16px 16px calc(100px + var(--safe-b))}
+  .bottom{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:6px 8px calc(6px + var(--safe-b));background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);justify-content:space-around;border-radius:0;box-shadow:none}
+  .bottom button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;padding:8px 4px;border-radius:10px;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;min-height:50px}
+  .bottom button.on{color:var(--primary);background:var(--primary-soft)}
+  .bottom i,.bottom svg{width:21px;height:21px}
+  .tbl-wrap{display:none}
+  .cards-list{display:flex}
+  .filters{grid-template-columns:1fr 1fr}
+  .filters .f-q{grid-column:1/-1}
+  .g-2{grid-template-columns:1fr}
+  .stat .val{font-size:26px}
+  .kv{grid-template-columns:100px 1fr}
+  .stat-row{gap:8px}
+  .welcome{padding:18px}
+}
+@media (max-width:420px){.card{padding:18px}.lnav-r .btn.ghost.lnav-login{display:none}}
+
+</style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="#" class="logo">
-        <span class="logo-mark">SG</span>
-        <span class="logo-text">SetorGmail</span>
-      </a>
-      <div class="nav-links">
-        <a href="#cara">Cara Kerja</a>
-        <a href="#pool">Pool</a>
-        <a href="#setor">Setor</a>
-        <button class="btn btn-sm btn-accent" id="btn-login">Masuk</button>
-      </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
-        <span></span><span></span>
-      </button>
-    </div>
-  </nav>
+<div id="offline">Tidak ada koneksi internet. Tindakan yang membutuhkan server akan gagal sampai tersambung kembali.</div>
+<div id="toasts" aria-live="polite"></div>
+<div id="root"></div>
+<div id="modal-root"></div>
 
-  <header class="hero">
-    <div class="hero-bg"></div>
-    <div class="container hero-content">
-      <div class="badge">Komunitas · Beta</div>
-      <h1>
-        Gmail nganggur?<br />
-        <span class="highlight">Setor.</span> Butuh Gmail?<br />
-        <span class="highlight">Klaim.</span>
-      </h1>
-      <p class="hero-desc">
-        Platform sederhana buat saling berbagi Gmail yang sudah idle.
-        Transparan, cepat, dan gratis untuk komunitas.
-      </p>
+<script>
+/* =====================================================================
+   SETOR GMAIL — Frontend
+   Semua data berasal dari backend (/api/*). Tidak ada data palsu dan
+   tidak ada pesan sukses jika server gagal menyimpan.
+   Tidak ada password Gmail / OTP yang pernah diminta atau disimpan.
+   ===================================================================== */
+'use strict';
+
+/* ---------- Utilities ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const TZ = 'Asia/Jakarta';
+const fmtDT = d => new Intl.DateTimeFormat('id-ID', {dateStyle:'medium', timeStyle:'short', timeZone:TZ}).format(new Date(d));
+const fmtD = d => new Intl.DateTimeFormat('id-ID', {day:'2-digit', month:'short', timeZone:TZ}).format(new Date(d));
+const ic = (n, cls = '') => `<i data-lucide="${n}" class="${cls}"></i>`;
+const STATUS = {menunggu:'Menunggu', diproses:'Diproses', diterima:'Diterima', ditolak:'Ditolak'};
+const badge = s => `<span class="badge b-${esc(s)}">${esc(STATUS[s] || s)}</span>`;
+function refreshIcons(){ try { window.lucide && lucide.createIcons(); } catch (e) {} }
+
+/* ---------- Preferensi tampilan (tidak sensitif) ---------- */
+const prefs = { theme:'light', collapsed:false, notifStatus:true, notifInfo:true };
+try { Object.assign(prefs, JSON.parse(localStorage.getItem('sg_prefs') || '{}')); } catch (e) {}
+function savePrefs(){ try { localStorage.setItem('sg_prefs', JSON.stringify(prefs)); } catch (e) {} }
+function applyTheme(){ document.documentElement.dataset.theme = prefs.theme; }
+applyTheme();
+
+/* ---------- State ---------- */
+const state = { me:null, cats:[], unread:0 };
+const ui = {
+  range:7,
+  flt:{q:'', status:'', period:'', sort:'new', page:1},
+  aflt:{q:'', status:'', period:'', sort:'new', page:1},
+  submitting:false, pendingKey:null, draft:{name:'', email:'', category:'', note:'', agree:false},
+  adminTab:'subs'
+};
+const PER = 8;
+const root = $('#root');
+let renderToken = 0;
+
+/* ---------- API client ---------- */
+async function req(path, {method = 'GET', body, headers = {}} = {}){
+  if (!navigator.onLine) throw new Error('Anda sedang offline. Periksa koneksi lalu coba lagi.');
+  let res;
+  try {
+    res = await fetch('/api' + path, {
+      method, credentials:'same-origin',
+      headers:{...(method !== 'GET' ? {'Content-Type':'application/json'} : {}), ...headers},
+      body: method !== 'GET' ? JSON.stringify(body || {}) : undefined
+    });
+  } catch (e){ throw new Error('Tidak dapat terhubung ke server. Coba lagi beberapa saat lagi.'); }
+  let data = null; try { data = await res.json(); } catch (e) {}
+  if (!res.ok){
+    const err = new Error((data && data.error) || `Permintaan gagal (${res.status}).`);
+    err.status = res.status;
+    if (res.status === 401 && state.me){ state.me = null; setTimeout(() => go('#/masuk'), 0); }
+    throw err;
+  }
+  return data;
+}
+const api = {
+  me: () => req('/auth/me'),
+  register: b => req('/auth/register', {method:'POST', body:b}),
+  login: b => req('/auth/login', {method:'POST', body:b}),
+  logout: () => req('/auth/logout', {method:'POST'}),
+  publicStats: () => req('/public/stats'),
+  cats: () => req('/categories'),
+  stats: () => req('/dashboard/stats'),
+  list: () => req('/submissions'),
+  get: id => req('/submissions/' + encodeURIComponent(id)),
+  create: (b, key) => req('/submissions', {method:'POST', body:b, headers:{'Idempotency-Key':key}}),
+  notifs: () => req('/notifications'),
+  readAll: () => req('/notifications/read', {method:'POST'}),
+  aList: () => req('/admin/submissions'),
+  aGet: id => req('/admin/submissions/' + encodeURIComponent(id)),
+  aSet: (id, status, note) => req('/admin/submissions/' + encodeURIComponent(id), {method:'PATCH', body:{status, note}}),
+  aStats: () => req('/admin/stats'),
+  aAudit: () => req('/admin/audit'),
+  aAddCat: name => req('/admin/categories', {method:'POST', body:{name}}),
+  aDelCat: id => req('/admin/categories/' + id, {method:'DELETE'})
+};
+
+/* ---------- Toast & Modal ---------- */
+function toast(msg, type = 'info'){
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  const icon = type === 'ok' ? 'check-circle-2' : type === 'bad' ? 'alert-triangle' : 'info';
+  el.innerHTML = `${ic(icon)}<span>${esc(msg)}</span>`;
+  $('#toasts').appendChild(el); refreshIcons();
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, 3800);
+}
+let modalResolve = null;
+function openModal(html){
+  closeModal();
+  $('#modal-root').innerHTML = `<div class="scrim" data-act="modal-bg"><div class="modal glass" role="dialog" aria-modal="true">${html}</div></div>`;
+  refreshIcons();
+  const f = $('.modal button, .modal input, .modal select, .modal textarea'); f && f.focus();
+}
+function closeModal(val = false){
+  $('#modal-root').innerHTML = '';
+  if (modalResolve){ const r = modalResolve; modalResolve = null; r(val); }
+}
+function confirmBox(title, body, okLabel = 'Lanjutkan', danger = false){
+  return new Promise(res => {
+    openModal(`<h3>${esc(title)}</h3><div class="muted">${body}</div>
+      <div class="acts"><button class="btn" data-act="modal-cancel">Batal</button>
+      <button class="btn ${danger ? 'danger' : 'primary'}" data-act="modal-ok">${esc(okLabel)}</button></div>`);
+    modalResolve = res;
+  });
+}
+
+/* ---------- Router ---------- */
+function parseHash(){
+  const h = location.hash.replace(/^#\/?/, '');
+  const [p, arg] = h.split('/');
+  return {p:p || '', arg:arg ? decodeURIComponent(arg) : ''};
+}
+function go(h){ if (location.hash === h) route(); else location.hash = h; }
+window.addEventListener('hashchange', route);
+window.addEventListener('online', () => { document.body.classList.remove('offline'); toast('Koneksi kembali tersambung.', 'ok'); });
+window.addEventListener('offline', () => document.body.classList.add('offline'));
+if (!navigator.onLine) document.body.classList.add('offline');
+
+const TITLES = {dashboard:'Dashboard', setor:'Setor Gmail', riwayat:'Riwayat Setoran', notifikasi:'Notifikasi', profil:'Profil & Pengaturan', admin:'Panel Admin'};
+
+async function route(){
+  const {p, arg} = parseHash();
+  window.scrollTo(0, 0);
+  if (p === '') return renderLanding();
+  if (p === 'privasi' || p === 'ketentuan') return renderLegal(p);
+  if (p === 'masuk' || p === 'daftar'){ if (state.me) return go('#/dashboard'); return renderAuth(p); }
+  if (!TITLES[p]) return go('#/');
+  if (!state.me) return go('#/masuk');
+  if (p === 'admin' && state.me.role !== 'admin'){ toast('Anda tidak memiliki akses ke panel admin.', 'bad'); return go('#/dashboard'); }
+  renderShell(p, async () => {
+    switch (p){
+      case 'dashboard': return viewDashboard();
+      case 'setor': return viewSetor();
+      case 'riwayat': return viewRiwayat();
+      case 'notifikasi': return viewNotifs();
+      case 'profil': return viewProfil();
+      case 'admin': return viewAdmin();
+    }
+  });
+  if (p === 'riwayat' && arg) showDetail(arg);
+}
+
+/* ---------- Shell ---------- */
+function navItems(){
+  const a = [['dashboard','layout-dashboard','Dashboard'],['setor','send','Setor'],['riwayat','history','Riwayat'],['notifikasi','bell','Notifikasi'],['profil','user-round','Profil']];
+  if (state.me && state.me.role === 'admin') a.push(['admin','shield-check','Admin']);
+  return a;
+}
+function bellDot(){ return state.unread ? `<span class="dot">${state.unread > 99 ? '99+' : state.unread}</span>` : ''; }
+function renderShell(page, loader){
+  const token = ++renderToken;
+  const side = navItems().map(([k, i, l]) => `<button class="nav-i ${k === page ? 'on' : ''}" data-go="#/${k}" title="${l}">${ic(i)}<span>${l}</span></button>`).join('');
+  const bot = [['dashboard','layout-dashboard','Dashboard'],['setor','send','Setor'],['riwayat','history','Riwayat'],['profil','user-round','Profil']]
+    .map(([k, i, l]) => `<button class="${k === page ? 'on' : ''}" data-go="#/${k}">${ic(i)}<span>${l}</span></button>`).join('');
+  root.innerHTML = `
+  <div class="app ${prefs.collapsed ? 'collapsed' : ''}">
+    <aside class="side">
+      <a class="logo" href="#/"><div class="logo-mark"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg></div><span>SETOR GMAIL</span></a>
+      ${side}
+      <div class="me-chip"><div class="avatar">${esc((state.me.name || '?').trim().charAt(0).toUpperCase())}</div><div><strong>${esc(state.me.name)}</strong><small>${state.me.role === 'admin' ? 'Admin' : 'Pengguna'}</small></div></div>
+      <div class="side-foot">
+        <button class="nav-i" data-act="collapse">${ic('panel-left')}<span>Ciutkan</span></button>
+        <button class="nav-i" data-act="theme">${ic(prefs.theme === 'dark' ? 'sun' : 'moon')}<span>Ganti tema</span></button>
+      </div>
+    </aside>
+    <div class="main-col">
+      <header class="top">
+        <h2>${TITLES[page]}</h2>
+        <div class="top-r">
+          <button class="btn icon bell" data-go="#/notifikasi" aria-label="Notifikasi">${ic('bell')}<span id="dotBox">${bellDot()}</span></button>
+          <button class="btn icon" data-act="theme" aria-label="Ganti tema">${ic(prefs.theme === 'dark' ? 'sun' : 'moon')}</button>
+        </div>
+      </header>
+      <main id="view" class="page"></main>
+    </div>
+    <nav class="bottom glass" aria-label="Navigasi utama">${bot}</nav>
+  </div>`;
+  const view = $('#view');
+  const run = async () => {
+    view.innerHTML = skeleton(); refreshIcons();
+    try {
+      const html = await loader();
+      if (token !== renderToken) return;
+      if (html != null) view.innerHTML = html;
+      refreshIcons(); afterView(page);
+    } catch (e){
+      if (token !== renderToken) return;
+      view.innerHTML = `<div class="glass card empty"><div class="ico">${ic(navigator.onLine ? 'alert-triangle' : 'wifi-off')}</div><h3>Gagal memuat data</h3><p>${esc(e.message)}</p><br><button class="btn primary" data-act="retry">${ic('rotate-ccw')} Coba lagi</button></div>`;
+      refreshIcons();
+    }
+  };
+  view._retry = run; refreshIcons(); run();
+  refreshUnread();
+}
+async function refreshUnread(){
+  try { const r = await api.me(); state.unread = r.unread || 0; const b = $('#dotBox'); if (b) b.innerHTML = bellDot(); } catch (e) {}
+}
+function skeleton(){
+  return `<div class="grid g-stats">${'<div class="skeleton" style="height:96px"></div>'.repeat(4)}</div>
+  <div class="skeleton" style="height:220px;margin-top:14px"></div><div class="skeleton" style="height:140px;margin-top:14px"></div>`;
+}
+function afterView(page){ if (page === 'dashboard') bindChartToggle(); }
+function emptyHTML(title, body, cta){
+  return `<div class="empty"><div class="ico glass">${ic('inbox')}</div><h3>${esc(title)}</h3><p>${esc(body)}</p>${cta ? `<br><button class="btn primary" data-go="#/setor">${ic('send')} Setor sekarang</button>` : ''}</div>`;
+}
+
+/* ---------- Landing ---------- */
+function landNav(loggedIn){
+  return `<header class="lnav"><div class="lnav-in">
+    <a class="logo" href="#/"><span class="logo-mark"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg></span>SETOR GMAIL</a>
+    <nav class="lnav-links" aria-label="Navigasi"><button data-scroll="cara">Cara kerja</button><button data-scroll="fitur">Fitur</button><button data-scroll="faq">FAQ</button><button data-go="#/privasi">Privasi</button></nav>
+    <div class="lnav-r">
+      <button class="btn ghost icon sm" data-act="theme" aria-label="Ganti tema">${ic(prefs.theme === 'dark' ? 'sun' : 'moon')}</button>
+      ${loggedIn ? `<button class="btn primary sm" data-go="#/dashboard">Dashboard</button>` : `<button class="btn ghost sm lnav-login" data-go="#/masuk">Masuk</button><button class="btn primary sm" data-go="#/daftar">Daftar gratis</button>`}
+    </div></div></header>`;
+}
+async function renderLanding(){
+  renderToken++;
+  const loggedIn = !!state.me;
+  const cta = loggedIn ? '#/dashboard' : '#/daftar';
+  root.innerHTML = `<div class="page">${landNav(loggedIn)}
+  <main class="lmain">
+    <section class="hero2">
+      <h1>Kelola Setoran, Pantau Status,<br class="d-br"> Semua Lebih Praktis.</h1>
+      <p>Daftar akun, setorkan Gmail Anda secara terorganisasi, lalu pantau progresnya lewat timeline yang transparan — dari Menunggu sampai Diterima.</p>
       <div class="hero-cta">
-        <a href="#setor" class="btn btn-primary">Setor Gmail Sekarang</a>
-        <a href="#pool" class="btn btn-ghost">Lihat Pool →</a>
+        <button class="btn primary lg" data-go="${cta}">${loggedIn ? 'Buka Dashboard' : 'Daftar gratis'}</button>
+        <button class="btn lg" data-scroll="cara">Lihat cara kerja</button>
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <strong id="stat-total">8</strong>
-          <span>Gmail tersedia</span>
-        </div>
-        <div class="stat">
-          <strong id="stat-today">0</strong>
-          <span>Klaim hari ini</span>
-        </div>
-        <div class="stat">
-          <strong>4.9</strong>
-          <span>Rating komunitas</span>
-        </div>
-      </div>
-    </div>
-  </header>
+      <div class="hero-sub"><span>✓ Tanpa password Gmail</span><span>✓ Tanpa kode OTP</span><span>✓ Email disamarkan</span></div>
+    </section>
 
-  <section id="cara" class="section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Cara Kerja</h2>
-        <p>Tiga langkah. Gak perlu ribet.</p>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <h3>Setor Gmail</h3>
-          <p>Masukkan Gmail idle kamu (yang sudah lama tidak dipakai). Sistem cek format & status dasar.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <h3>Masuk Pool</h3>
-          <p>Gmail kamu masuk ke pool komunitas. Bisa dilihat statusnya (fresh / sedang diklaim).</p>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <h3>Klaim & Pakai</h3>
-          <p>Butuh Gmail? Klaim satu dari pool. Setelah diklaim, otomatis hilang dari daftar.</p>
-        </div>
+    <div class="shot" aria-hidden="true">
+      <div class="shot-bar"><i></i><i></i><i></i><b>SETOR GMAIL — Dashboard</b><em>Ilustrasi</em></div>
+      <div class="shot-body">
+        <div class="shot-card"><h4>${ic('send')} Formulir setor</h4>
+          <div class="sk-line" style="width:38%"></div><div class="sk-field"><u></u></div>
+          <div class="sk-line" style="width:30%"></div><div class="sk-field"><u style="width:72%"></u></div>
+          <div class="sk-line" style="width:34%"></div><div class="sk-field"><u style="width:40%"></u></div>
+          <div class="sk-btn">Kirim Setoran</div></div>
+        <div class="shot-card"><h4>${ic('activity')} Timeline status</h4>
+          <div class="sk-step"><s></s><div><div class="sk-line" style="width:60%"></div><div class="sk-line" style="width:40%;opacity:.6"></div></div></div>
+          <div class="sk-step"><s></s><div><div class="sk-line" style="width:52%"></div><div class="sk-line" style="width:70%;opacity:.6"></div></div></div>
+          <div class="sk-step"><s></s><div><div class="sk-line" style="width:66%"></div><div class="sk-line" style="width:45%;opacity:.6"></div></div></div>
+          <div class="sk-step off"><s></s><div><div class="sk-line" style="width:48%"></div></div></div></div>
+        <div class="shot-card"><h4>${ic('history')} Riwayat</h4>
+          <div class="sk-row"><u></u><span class="badge b-menunggu">Menunggu</span></div>
+          <div class="sk-row"><u style="width:42%"></u><span class="badge b-diproses">Diproses</span></div>
+          <div class="sk-row"><u style="width:58%"></u><span class="badge b-diterima">Diterima</span></div>
+          <div class="sk-row"><u style="width:46%"></u><span class="badge b-ditolak">Ditolak</span></div></div>
       </div>
     </div>
-  </section>
+    <p class="shot-cap">Ilustrasi tampilan aplikasi</p>
 
-  <section id="pool" class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <h2>Pool Gmail</h2>
-        <p>Gmail yang siap diklaim. Klik untuk ambil.</p>
-      </div>
+    <section class="trust stagger">
+      <div class="t">${ic('lock')} Tidak pernah meminta password</div>
+      <div class="t">${ic('eye-off')} Email tidak tampil publik</div>
+      <div class="t">${ic('list-checks')} Timeline status lengkap</div>
+    </section>
+    <section class="stat-row stagger" id="pubStats" style="display:none"></section>
 
-      <div class="pool-toolbar">
-        <div class="search-box">
-          <input type="text" id="search-pool" placeholder="Cari email / keyword..." />
-        </div>
-        <div class="filter-chips">
-          <button type="button" class="chip active" data-filter="all">Semua</button>
-          <button type="button" class="chip" data-filter="fresh">Fresh</button>
-          <button type="button" class="chip" data-filter="verified">Verified</button>
-          <button type="button" class="chip" data-filter="idle">Idle</button>
-        </div>
-      </div>
+    <h2 class="sec-title" id="cara">Cara kerja</h2><p class="sec-sub">Tiga langkah sederhana dari pendaftaran sampai status akhir.</p>
+    <section class="steps stagger">
+      <div class="card"><div class="step-n">1</div><h3>Daftar akun</h3><p class="muted">Buat akun SETOR GMAIL dengan email dan password khusus untuk layanan ini.</p></div>
+      <div class="card"><div class="step-n">2</div><h3>Isi &amp; kirim setoran</h3><p class="muted">Masukkan alamat Gmail dan kategori. Anda langsung mendapat ID setoran otomatis.</p></div>
+      <div class="card"><div class="step-n">3</div><h3>Pantau status</h3><p class="muted">Lihat timeline Menunggu → Diproses → Diterima/Ditolak beserta catatan admin.</p></div>
+    </section>
 
-      <div class="pool-grid" id="pool-grid"></div>
+    <h2 class="sec-title" id="fitur">Fitur unggulan</h2><p class="sec-sub">Dirancang rapi, aman, dan nyaman dipakai di HP maupun desktop.</p>
+    <section class="features stagger">
+      <div class="card"><div class="ico">${ic('shield-check')}</div><h3>Privasi dahulu</h3><p class="muted">Email disamarkan di semua daftar dan tidak pernah tampil publik.</p></div>
+      <div class="card"><div class="ico">${ic('activity')}</div><h3>Live status tracker</h3><p class="muted">Timeline perubahan status dengan catatan dari admin.</p></div>
+      <div class="card"><div class="ico">${ic('bell')}</div><h3>Notifikasi</h3><p class="muted">Dapat kabar di Activity Center setiap kali status setoran berubah.</p></div>
+      <div class="card"><div class="ico">${ic('search')}</div><h3>Pencarian cerdas</h3><p class="muted">Cari berdasarkan ID, filter status dan periode, lalu urutkan.</p></div>
+      <div class="card"><div class="ico">${ic('smartphone')}</div><h3>Mobile first</h3><p class="muted">Navigasi bawah, tabel menjadi kartu, aman untuk safe area iPhone.</p></div>
+      <div class="card"><div class="ico">${ic('moon')}</div><h3>Mode terang &amp; gelap</h3><p class="muted">Ganti tema kapan saja sesuai kenyamanan mata Anda.</p></div>
+    </section>
 
-      <p class="pool-note">
-        * Demo mode — data di browser kamu (localStorage). Klaim menyalin email ke clipboard.
-      </p>
-    </div>
-  </section>
+    <h2 class="sec-title" id="faq">Pertanyaan umum</h2><p class="sec-sub">Hal yang paling sering ditanyakan sebelum mulai.</p>
+    <section class="faq">
+      <details><summary>Apakah saya perlu memberikan password Gmail?</summary><p>Tidak. SETOR GMAIL hanya mencatat alamat email. Kami tidak pernah meminta password, kode OTP, recovery code, atau akses ke akun Google Anda.</p></details>
+      <details><summary>Siapa yang bisa melihat alamat Gmail saya?</summary><p>Di semua daftar, alamat disamarkan. Hanya admin yang memproses setoran yang dapat melihat alamat lengkap, dan setiap perubahan status tercatat di log.</p></details>
+      <details><summary>Bagaimana cara memantau status setoran?</summary><p>Buka menu Riwayat lalu pilih Detail. Anda akan melihat timeline perubahan status beserta catatan dari admin, dan mendapat notifikasi saat status berubah.</p></details>
+      <details><summary>Apakah satu alamat Gmail bisa disetor dua kali?</summary><p>Tidak selama setoran sebelumnya masih aktif. Jika setoran ditolak, alamat tersebut dapat diajukan kembali.</p></details>
+    </section>
 
-  <section id="setor" class="section">
-    <div class="container narrow">
-      <div class="section-head">
-        <h2>Setor Gmail</h2>
-        <p>Sumbangkan Gmail idle kamu ke komunitas.</p>
-      </div>
+    <section class="cta-band"><h2>Siap mulai menyetor?</h2><p>Buat akun dalam hitungan detik dan kirim setoran pertama Anda.</p>
+      <button class="btn lg" data-go="${cta}">${loggedIn ? 'Buka Dashboard' : 'Daftar gratis'} ${ic('arrow-right')}</button></section>
 
-      <form class="setor-form" id="setor-form">
-        <div class="form-group">
-          <label for="email">Alamat Gmail</label>
-          <input type="email" id="email" name="email" placeholder="contoh@gmail.com" required />
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="age">Usia akun (perkiraan)</label>
-            <select id="age" name="age">
-              <option value="baru">Baru (< 1 tahun)</option>
-              <option value="sedang" selected>Sedang (1–3 tahun)</option>
-              <option value="lama">Lama (> 3 tahun)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status" name="status">
-              <option value="idle" selected>Idle / Tidak terpakai</option>
-              <option value="verified">Sudah verified phone</option>
-              <option value="fresh">Baru dibuat</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="note">Catatan (opsional)</label>
-          <textarea id="note" name="note" rows="3" placeholder="Misal: belum pernah dipakai login, sudah recovery, dll."></textarea>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" id="agree" required />
-          <label for="agree">Saya paham Gmail yang disetor akan masuk pool publik dan bisa diklaim orang lain.</label>
-        </div>
-        <button type="submit" class="btn btn-primary btn-full">Setor ke Pool</button>
-      </form>
+    <footer class="foot"><div><strong>SETOR GMAIL</strong> — platform pencatatan dan pemantauan setoran.</div>
+      <div><a href="#/privasi">Kebijakan Privasi</a><a href="#/ketentuan">Ketentuan Layanan</a></div></footer>
+  </main></div>`;
+  refreshIcons();
+  try {
+    const s = await api.publicStats();
+    const box = $('#pubStats'); if (!box || parseHash().p !== '') return;
+    box.style.display = '';
+    box.innerHTML = `<div class="card"><div class="big">${+s.total}</div><div class="muted hint">Total setoran</div></div>
+      <div class="card"><div class="big">${+s.accepted}</div><div class="muted hint">Diterima</div></div>
+      <div class="card"><div class="big" style="color:var(--ok);font-size:22px;padding-top:8px">Online</div><div class="muted hint">Status sistem</div></div>`;
+  } catch (e) { /* statistik disembunyikan jika server tidak tersedia */ }
+}
+function renderLegal(p){
+  renderToken++;
+  const priv = p === 'privasi';
+  root.innerHTML = `<div class="page">${landNav(!!state.me)}<main class="lmain">
+  <article class="card legal">${priv ? `<h1>Kebijakan Privasi</h1>
+    <p class="muted">Mohon tinjau dan sesuaikan teks ini dengan operator layanan serta hukum yang berlaku sebelum peluncuran.</p>
+    <h2>Data yang dikumpulkan</h2><ul><li>Akun: nama, email login, dan hash password (password asli tidak pernah disimpan).</li><li>Setoran: nama panggilan, alamat Gmail, kategori, catatan opsional, dan waktu pengajuan.</li></ul>
+    <h2>Data yang TIDAK pernah diminta</h2><ul><li>Password Gmail, kode OTP, recovery code, cookie, token sesi, atau data pemulihan akun Google.</li></ul>
+    <h2>Perlindungan</h2><ul><li>Email disamarkan pada daftar dan tidak ditampilkan publik.</li><li>Prinsip minimisasi data dan HTTPS.</li><li>Data dihapus sesuai kebijakan retensi yang ditetapkan operator.</li></ul>
+    <h2>Hak Anda</h2><p>Anda dapat meminta akses atau penghapusan data melalui kontak operator layanan.</p>`
+  : `<h1>Ketentuan Layanan</h1><p class="muted">Sesuaikan dengan kebijakan operator sebelum peluncuran.</p>
+    <h2>Penggunaan</h2><ul><li>Hanya kirim alamat Gmail milik Anda atau yang Anda berwenang untuk mengelolanya.</li><li>Dilarang mengirim kredensial dalam bentuk apa pun, termasuk di kolom catatan.</li><li>Pengiriman berulang atau spam dapat dibatasi atau diblokir.</li></ul>
+    <h2>Status</h2><p>Admin dapat memproses, menerima, atau menolak setoran dengan catatan alasan.</p>
+    <h2>Batasan</h2><p>Layanan disediakan apa adanya. Operator dapat mengubah ketentuan dengan pemberitahuan.</p>`}</article></main></div>`;
+  refreshIcons();
+}
 
-      <div class="toast" id="toast" hidden></div>
-    </div>
-  </section>
+/* ---------- Daftar / Masuk ---------- */
+const MAIL_RE = /^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/;
+function renderAuth(mode){
+  renderToken++;
+  const reg = mode === 'daftar';
+  root.innerHTML = `<div class="auth-page page">
+    <div class="auth-top"><a class="logo" href="#/"><span class="logo-mark"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg></span>SETOR GMAIL</a>
+      <div class="row"><button class="btn ghost icon sm" data-act="theme" aria-label="Ganti tema">${ic(prefs.theme === 'dark' ? 'sun' : 'moon')}</button><button class="btn sm" data-go="#/">${ic('arrow-left')} Beranda</button></div></div>
+    <div class="auth-box"><form class="card" id="authForm" data-mode="${mode}" novalidate style="display:flex;flex-direction:column;gap:14px">
+      <div><h2>${reg ? 'Buat akun' : 'Masuk ke akun'}</h2><p class="muted" style="margin-top:6px">${reg ? 'Daftar dulu untuk mulai menyetor Gmail.' : 'Selamat datang kembali. Masuk untuk melanjutkan.'}</p></div>
+      ${reg ? `<div class="field"><label for="a-name">Nama</label><input class="input" id="a-name" name="name" maxlength="40" autocomplete="name"><div class="err-msg" data-e="name"></div></div>` : ''}
+      <div class="field"><label for="a-email">Email akun</label><input class="input" id="a-email" name="email" type="email" inputmode="email" autocomplete="${reg ? 'email' : 'username'}" autocapitalize="none" spellcheck="false"><div class="err-msg" data-e="email"></div></div>
+      <div class="field"><label for="a-pass">Password akun</label><input class="input" id="a-pass" name="password" type="password" autocomplete="${reg ? 'new-password' : 'current-password'}"><div class="err-msg" data-e="password"></div>${reg ? `<div class="hint">Minimal 10 karakter.</div>` : ''}</div>
+      <div class="banner sec">${ic('lock')}<div>Password ini hanya untuk akun SETOR GMAIL. <strong>Jangan pernah memasukkan password Gmail Anda</strong> di sini atau di bagian mana pun.</div></div>
+      ${reg ? `<label class="chk"><input type="checkbox" id="a-agree"><span>Saya menyetujui <a href="#/ketentuan" target="_blank">Ketentuan Layanan</a> dan <a href="#/privasi" target="_blank">Kebijakan Privasi</a>.</span></label><div class="err-msg" data-e="agree"></div>` : ''}
+      <div class="err-msg" data-e="form" role="alert"></div>
+      <button class="btn primary lg" type="submit" id="authBtn">${reg ? 'Daftar' : 'Masuk'}</button>
+      <p class="muted" style="text-align:center;font-size:14px">${reg ? 'Sudah punya akun? <a href="#/masuk" style="text-decoration:underline;color:var(--primary);font-weight:600">Masuk</a>' : 'Belum punya akun? <a href="#/daftar" style="text-decoration:underline;color:var(--primary);font-weight:600">Daftar</a>'}</p>
+    </form></div></div>`;
+  refreshIcons();
+}
 
-  <section class="section section-alt">
-    <div class="container narrow">
-      <div class="section-head">
-        <h2>FAQ</h2>
-      </div>
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary>Apakah ini legal?</summary>
-          <p>Ini hanya demo konsep komunitas. Membagikan akun Gmail milik orang lain atau melanggar ToS Google adalah risiko sendiri. Gunakan dengan bijak dan hanya untuk akun milik sendiri yang memang sudah tidak terpakai.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Gmail yang saya setor bisa diambil siapa saja?</summary>
-          <p>Ya. Begitu masuk pool, siapa pun bisa klaim. Setelah diklaim, Gmail tersebut hilang dari daftar.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Apakah ada sistem poin / reward?</summary>
-          <p>Di versi demo belum. Nanti bisa ditambahkan sistem kontribusi poin untuk yang sering setor Gmail berkualitas.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Data disimpan di mana?</summary>
-          <p>Demo ini 100% client-side (localStorage). Tidak ada server. Versi production tentu butuh backend + autentikasi.</p>
-        </details>
-      </div>
-    </div>
-  </section>
+async function onAuthSubmit(e){
+  e.preventDefault();
+  const f = e.target, reg = f.dataset.mode === 'daftar';
+  const v = { name:reg ? $('#a-name').value.trim() : '', email:$('#a-email').value.trim(), password:$('#a-pass').value, agree:reg ? $('#a-agree').checked : true };
+  const errs = {};
+  if (reg && (v.name.length < 2 || v.name.length > 40)) errs.name = 'Nama 2–40 karakter.';
+  if (!MAIL_RE.test(v.email)) errs.email = 'Format email tidak valid.';
+  if (reg ? v.password.length < 10 : !v.password) errs.password = reg ? 'Password minimal 10 karakter.' : 'Password wajib diisi.';
+  if (reg && !v.agree) errs.agree = 'Anda harus menyetujui ketentuan layanan.';
+  $$('[data-e]', f).forEach(el => { el.textContent = errs[el.dataset.e] || ''; const i = $(`[name="${el.dataset.e}"]`, f); if (i) i.classList.toggle('err', !!errs[el.dataset.e]); });
+  if (Object.keys(errs).length) return;
+  const btn = $('#authBtn'); btn.disabled = true; btn.innerHTML = `${ic('loader-circle', 'spin')} Memproses…`; refreshIcons();
+  try {
+    const r = reg ? await api.register({name:v.name, email:v.email, password:v.password}) : await api.login({email:v.email, password:v.password});
+    state.me = r.user; state.unread = r.unread || 0;
+    toast(reg ? 'Akun berhasil dibuat.' : 'Berhasil masuk.', 'ok');
+    go('#/dashboard');
+  } catch (err){
+    $('[data-e="form"]', f).textContent = err.message;
+    btn.disabled = false; btn.textContent = reg ? 'Daftar' : 'Masuk';
+  }
+}
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <span class="logo-mark">SG</span>
-        <span>SetorGmail</span>
-      </div>
-      <p>Dibuat sebagai konsep demo. Bukan layanan resmi Google.</p>
-      <p class="footer-copy">© 2026 SetorGmail · Ide & desain orisinal</p>
-    </div>
-  </footer>
+/* ---------- Dashboard ---------- */
+function chartHTML(series, days){
+  const arr = series.slice(-days).map(s => ({l:fmtD(s.d + 'T12:00:00+07:00'), v:+s.c}));
+  const max = Math.max(1, ...arr.map(a => a.v));
+  const step = days > 7 ? 5 : 1;
+  return arr.map((a, i) => `<div class="bar-w"><div class="bar" data-v="${a.v} setoran" style="height:${Math.max(2, a.v / max * 100)}%;animation-delay:${i * 18}ms"></div><div class="bar-l">${(arr.length - 1 - i) % step === 0 ? a.l.replace(/ /g, '&nbsp;') : ''}</div></div>`).join('');
+}
+async function viewDashboard(){
+  const [st, list] = await Promise.all([api.stats(), api.list()]);
+  window._series = st.series;
+  const cards = [['Total setoran', st.total, 'inbox', 'c-violet'], ['Setoran hari ini', st.today, 'zap', 'c-blue'], ['Menunggu verifikasi', st.pending, 'clock', 'c-amber'], ['Diterima', st.ok, 'check-circle-2', 'c-green'], ['Ditolak', st.bad, 'ban', 'c-red']];
+  const recent = list.slice(0, 4);
+  const hr = +new Intl.DateTimeFormat('en-GB', {hour:'numeric', hour12:false, timeZone:TZ}).format(new Date());
+  const greet = hr < 11 ? 'Selamat pagi' : hr < 15 ? 'Selamat siang' : hr < 19 ? 'Selamat sore' : 'Selamat malam';
+  const tot = Math.max(1, st.total);
+  const pct = n => (n / tot * 100).toFixed(1);
+  const dist = st.total ? `<div class="glass card" style="margin-top:14px"><h3>Komposisi status</h3>
+    <div class="dist"><span style="width:${pct(st.pending)}%;background:var(--warn)"></span><span style="width:${pct(st.ok)}%;background:var(--ok)"></span><span style="width:${pct(st.bad)}%;background:var(--bad)"></span></div>
+    <div class="legend"><span><i style="background:var(--warn)"></i>Menunggu/Diproses <b>${+st.pending}</b></span><span><i style="background:var(--ok)"></i>Diterima <b>${+st.ok}</b></span><span><i style="background:var(--bad)"></i>Ditolak <b>${+st.bad}</b></span></div></div>` : '';
+  return `<div class="glass welcome"><div><h3>${greet}, ${esc(state.me.name.split(' ')[0])}</h3><p class="muted" style="margin-top:4px">${st.total ? 'Berikut ringkasan setoran Anda.' : 'Anda belum punya setoran. Kirim yang pertama sekarang.'}</p></div><button class="btn primary" data-go="#/setor">${ic('send')} Setor Gmail</button></div>
+  <div class="grid g-stats stagger">${cards.map(([l, v, i, c]) => `<div class="glass card stat"><div class="lbl">${l}<span class="chip ${c}">${ic(i)}</span></div><div class="val">${+v}</div></div>`).join('')}</div>${dist}
+  <div class="glass card" style="margin-top:14px">
+    <div class="row between" style="margin-bottom:8px"><h3>Aktivitas setoran</h3>
+      <div class="seg" id="rangeSeg"><button data-range="7" class="${ui.range === 7 ? 'on' : ''}">7 hari</button><button data-range="30" class="${ui.range === 30 ? 'on' : ''}">30 hari</button></div></div>
+    <div class="chart" id="chart">${chartHTML(st.series, ui.range)}</div></div>
+  <div class="glass card" style="margin-top:14px"><div class="row between" style="margin-bottom:10px"><h3>Terbaru</h3><button class="btn sm" data-go="#/riwayat">Lihat semua</button></div>
+    ${recent.length ? recent.map(s => `<div class="row between" style="padding:10px 0;border-bottom:1px solid var(--border)"><div><div class="mono">${esc(s.id)}</div><div class="hint">${esc(s.emailMasked)} • ${fmtDT(s.createdAt)}</div></div>${badge(s.status)}</div>`).join('') : emptyHTML('Belum ada setoran', 'Mulai dengan mengirim setoran pertama Anda.', true)}</div>`;
+}
+function bindChartToggle(){
+  const seg = $('#rangeSeg'); if (!seg) return;
+  seg.onclick = e => { const b = e.target.closest('[data-range]'); if (!b) return;
+    ui.range = +b.dataset.range;
+    $$('#rangeSeg button').forEach(x => x.classList.toggle('on', x === b));
+    $('#chart').innerHTML = chartHTML(window._series, ui.range); };
+}
 
-  <script src="script.js"></script>
+/* ---------- Formulir Setor ---------- */
+const EMAIL_RE = /^[a-z0-9](?:[a-z0-9]|\.(?!\.)){4,28}[a-z0-9]@(?:gmail|googlemail)\.com$/i;
+const SECRET_RE = /(password|kata\s*sandi|sandi|passwd|\botp\b|kode\s*(verifikasi|otp|pemulihan)|recovery|token|cookie|session|\bpin\b)/i;
+function validate(d){
+  const e = {};
+  if (!d.name.trim() || d.name.trim().length < 2) e.name = 'Nama minimal 2 karakter.';
+  else if (d.name.length > 40) e.name = 'Nama maksimal 40 karakter.';
+  if (!d.email.trim()) e.email = 'Alamat Gmail wajib diisi.';
+  else if (!EMAIL_RE.test(d.email.trim())) e.email = 'Format tidak valid. Contoh: namaanda@gmail.com (6–30 karakter sebelum @).';
+  if (!d.category) e.category = 'Pilih kategori setoran.';
+  if (d.note && d.note.length > 200) e.note = 'Catatan maksimal 200 karakter.';
+  else if (d.note && SECRET_RE.test(d.note)) e.note = 'Jangan tulis kata sandi, OTP, atau data pemulihan di catatan.';
+  if (!d.agree) e.agree = 'Anda harus menyetujui ketentuan layanan.';
+  return e;
+}
+async function viewSetor(){
+  const cats = await api.cats(); state.cats = cats;
+  const d = ui.draft;
+  return `<div class="grid g-2" style="align-items:start">
+  <form class="glass card" id="form" novalidate style="display:flex;flex-direction:column;gap:14px">
+    <div class="banner sec">${ic('lock')}<div><strong>Kami tidak pernah meminta password, kode OTP, atau recovery code.</strong> Hanya alamat email yang dicatat.</div></div>
+    <div class="field"><label for="f-name">Nama pengirim / panggilan</label><input class="input" id="f-name" name="name" maxlength="40" autocomplete="nickname" value="${esc(d.name)}"><div class="err-msg" data-e="name"></div></div>
+    <div class="field"><label for="f-email">Alamat Gmail</label><input class="input" id="f-email" name="email" type="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="namaanda@gmail.com" value="${esc(d.email)}"><div class="err-msg" data-e="email"></div></div>
+    <div class="field"><label for="f-cat">Kategori</label><select class="input" id="f-cat" name="category"><option value="">Pilih kategori…</option>${cats.map(c => `<option ${d.category === c.name ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select><div class="err-msg" data-e="category"></div></div>
+    <div class="field"><label for="f-note">Catatan (opsional)</label><textarea class="input" id="f-note" name="note" maxlength="200">${esc(d.note)}</textarea><div class="row between"><div class="err-msg" data-e="note"></div><span class="hint" id="cnt">${d.note.length}/200</span></div></div>
+    <label class="chk"><input type="checkbox" id="f-agree" ${d.agree ? 'checked' : ''}><span>Saya menyetujui <a href="#/ketentuan" target="_blank" style="text-decoration:underline">Ketentuan Layanan</a> dan <a href="#/privasi" target="_blank" style="text-decoration:underline">Kebijakan Privasi</a>.</span></label>
+    <div class="err-msg" data-e="agree"></div>
+    <button class="btn primary" type="submit" id="btn-send" style="min-height:52px">${ic('send')} Kirim Setoran</button>
+  </form>
+  <div class="glass card"><h3 style="margin-bottom:14px">Sebelum menyetor</h3>
+    <ul class="checklist">
+      <li><span class="chip c-blue">${ic('mail')}</span><div><strong>Gunakan Gmail yang valid</strong>Format: namaanda@gmail.com, 6–30 karakter sebelum @.</div></li>
+      <li><span class="chip c-green">${ic('lock')}</span><div><strong>Jangan kirim kredensial</strong>Password, OTP, dan data pemulihan tidak pernah diperlukan.</div></li>
+      <li><span class="chip c-amber">${ic('clipboard-check')}</span><div><strong>Tinjau sebelum kirim</strong>Ringkasan ditampilkan untuk Anda konfirmasi.</div></li>
+      <li><span class="chip c-violet">${ic('activity')}</span><div><strong>Pantau di Riwayat</strong>Sukses hanya ditampilkan setelah server menyimpan data Anda.</div></li>
+    </ul></div>
+  </div>`;
+}
+function showErrors(errs, only){
+  $$('#form [data-e]').forEach(el => { const k = el.dataset.e; if (only && k !== only) return; el.textContent = errs[k] || '';
+    const inp = $(`#form [name="${k}"]`); if (inp) inp.classList.toggle('err', !!errs[k]); });
+}
+function readForm(){
+  return { name:$('#f-name').value, email:$('#f-email').value, category:$('#f-cat').value, note:$('#f-note').value, agree:$('#f-agree').checked };
+}
+function onFormInput(e){
+  const t = e.target; if (!t.closest('#form')) return;
+  ui.draft = readForm();
+  $('#cnt').textContent = ui.draft.note.length + '/200';
+  const key = t.name || (t.id === 'f-agree' ? 'agree' : null);
+  if (key){ const errs = validate(ui.draft); if (t.dataset.touched || e.type === 'change' || t.type === 'checkbox') showErrors(errs, key); }
+}
+async function onFormSubmit(e){
+  e.preventDefault();
+  if (ui.submitting) return;
+  const d = readForm(); ui.draft = d;
+  const errs = validate(d); showErrors(errs);
+  const first = Object.keys(errs)[0];
+  if (first){ const el = $(`#form [name="${first}"]`) || $('#f-agree'); el && el.focus(); toast('Periksa kembali isian formulir.', 'bad'); return; }
+  if (!ui.pendingKey) ui.pendingKey = 'k' + Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+  const ok = await confirmBox('Tinjau setoran', `<dl class="kv"><dt>Nama</dt><dd>${esc(d.name.trim())}</dd><dt>Gmail</dt><dd>${esc(d.email.trim().toLowerCase())}</dd><dt>Kategori</dt><dd>${esc(d.category)}</dd><dt>Catatan</dt><dd>${esc(d.note.trim() || '—')}</dd></dl>`, 'Kirim sekarang');
+  if (!ok) return;
+  ui.submitting = true;
+  const btn = $('#btn-send');
+  if (btn){ btn.disabled = true; btn.innerHTML = `${ic('loader-circle', 'spin')} Mengirim…`; refreshIcons(); }
+  try {
+    const sub = await api.create({name:d.name.trim(), gmail:d.email.trim().toLowerCase(), category:d.category, note:d.note.trim()}, ui.pendingKey);
+    ui.draft = {name:'', email:'', category:'', note:'', agree:false}; ui.pendingKey = null;
+    toast(`Setoran ${sub.id} berhasil dicatat.`, 'ok');
+    go('#/riwayat/' + encodeURIComponent(sub.id));
+  } catch (err){
+    toast(err.message || 'Gagal menyimpan setoran.', 'bad');
+    if (err.status === 409 || err.status === 400) ui.pendingKey = null; // kunci baru untuk percobaan berikutnya
+    if (btn){ btn.disabled = false; btn.innerHTML = `${ic('send')} Kirim Setoran`; refreshIcons(); }
+  } finally { ui.submitting = false; }
+}
+
+/* ---------- Filter & daftar ---------- */
+function applyFilter(list, f){
+  const q = f.q.trim().toLowerCase();
+  let r = list.filter(s => (!q || s.id.toLowerCase().includes(q)) && (!f.status || s.status === f.status));
+  if (f.period){ const lim = Date.now() - (+f.period) * 864e5; r = r.filter(s => new Date(s.createdAt).getTime() >= lim); }
+  r.sort((a, b) => f.sort === 'old' ? new Date(a.createdAt) - new Date(b.createdAt) : new Date(b.createdAt) - new Date(a.createdAt));
+  return r;
+}
+function filtersHTML(f, pfx){
+  return `<div class="filters" data-pfx="${pfx}">
+    <div class="f-q"><input class="input" data-f="q" type="search" placeholder="Cari ID setoran…" value="${esc(f.q)}" aria-label="Cari ID"></div>
+    <select class="input" data-f="status" aria-label="Status"><option value="">Semua status</option>${Object.entries(STATUS).map(([k, v]) => `<option value="${k}" ${f.status === k ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <select class="input" data-f="period" aria-label="Periode">${[['','Semua waktu'],['1','24 jam'],['7','7 hari'],['30','30 hari']].map(([k, v]) => `<option value="${k}" ${f.period === k ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <select class="input" data-f="sort" aria-label="Urutkan"><option value="new" ${f.sort === 'new' ? 'selected' : ''}>Terbaru</option><option value="old" ${f.sort === 'old' ? 'selected' : ''}>Terlama</option></select>
+    <button class="btn" data-act="reset-${pfx}">${ic('rotate-ccw')} Reset</button></div>`;
+}
+function listHTML(list, f, admin){
+  const total = list.length, pages = Math.max(1, Math.ceil(total / PER));
+  if (f.page > pages) f.page = pages;
+  const slice = list.slice((f.page - 1) * PER, f.page * PER);
+  const count = `<div class="hint" style="margin-bottom:8px">${total} hasil ditemukan</div>`;
+  const filtered = f.q || f.status || f.period;
+  if (!total) return count + emptyHTML(filtered ? 'Tidak ada hasil' : 'Belum ada setoran', filtered ? 'Coba ubah atau reset filter.' : (admin ? 'Belum ada pengajuan masuk.' : 'Setoran Anda akan muncul di sini.'), !filtered && !admin);
+  const act = s => admin
+    ? `<button class="btn sm" data-detail="${esc(s.id)}">${ic('pencil')} Kelola</button>`
+    : `<button class="btn sm" data-detail="${esc(s.id)}">${ic('eye')} Detail</button>`;
+  return count + `<div class="tbl-wrap" style="overflow-x:auto"><table class="tbl"><thead><tr><th>ID</th><th>Waktu</th><th>Email</th><th>Kategori</th><th>Status</th><th></th></tr></thead><tbody>
+    ${slice.map(s => `<tr><td class="mono">${esc(s.id)}</td><td>${fmtDT(s.createdAt)}</td><td>${esc(s.emailMasked)}</td><td>${esc(s.category)}</td><td>${badge(s.status)}</td><td style="text-align:right">${act(s)}</td></tr>`).join('')}</tbody></table></div>
+    <div class="cards-list">${slice.map(s => `<div class="item"><div class="row between"><span class="mono">${esc(s.id)}</span>${badge(s.status)}</div><div style="margin:6px 0">${esc(s.emailMasked)}</div><div class="hint">${fmtDT(s.createdAt)} • ${esc(s.category)}</div><div style="margin-top:10px">${act(s)}</div></div>`).join('')}</div>
+    <div class="pager"><span class="hint">Halaman ${f.page} dari ${pages}</span><div class="row"><button class="btn sm" data-page="${f.page - 1}" ${f.page <= 1 ? 'disabled' : ''} aria-label="Sebelumnya">${ic('chevron-left')}</button><button class="btn sm" data-page="${f.page + 1}" ${f.page >= pages ? 'disabled' : ''} aria-label="Berikutnya">${ic('chevron-right')}</button></div></div>`;
+}
+function rerenderList(pfx){
+  if (pfx === 'flt'){ const b = $('#listBox'); if (b){ b.innerHTML = listHTML(applyFilter(window._hist, ui.flt), ui.flt, false); refreshIcons(); } }
+  else { const b = $('#alistBox'); if (b){ b.innerHTML = listHTML(applyFilter(window._all, ui.aflt), ui.aflt, true); refreshIcons(); } }
+}
+
+/* ---------- Riwayat & detail ---------- */
+async function viewRiwayat(){
+  window._hist = await api.list();
+  return `<div class="glass card">${filtersHTML(ui.flt, 'flt')}<div id="listBox">${listHTML(applyFilter(window._hist, ui.flt), ui.flt, false)}</div></div>`;
+}
+async function showDetail(id){
+  openModal(`<div class="skeleton" style="height:200px"></div>`);
+  try {
+    const s = await api.get(id);
+    const tl = s.timeline.map(t => `<div class="tl-i s-${esc(t.status)}"><div class="row between">${badge(t.status)}<span class="hint">${fmtDT(t.at)}</span></div><div class="muted" style="margin-top:4px;font-size:14px">${esc(t.note)}</div></div>`).join('');
+    openModal(`<h3>Detail ${esc(s.id)}</h3>
+      <dl class="kv"><dt>ID</dt><dd class="mono">${esc(s.id)}</dd><dt>Diajukan</dt><dd>${fmtDT(s.createdAt)}</dd><dt>Status</dt><dd>${badge(s.status)}</dd><dt>Email</dt><dd>${esc(s.emailMasked)}</dd><dt>Kategori</dt><dd>${esc(s.category)}</dd><dt>Catatan admin</dt><dd>${esc(s.adminNote || 'Belum ada catatan.')}</dd></dl>
+      <h3 style="margin:20px 0 12px;font-size:16px">Timeline status</h3><div class="tl">${tl}</div>
+      <div class="acts"><button class="btn primary" data-act="close-detail">${ic('arrow-left')} Kembali ke riwayat</button></div>`);
+  } catch (e){
+    openModal(`<h3>Gagal memuat detail</h3><p class="muted">${esc(e.message)}</p><div class="acts"><button class="btn" data-act="close-detail">Tutup</button></div>`);
+  }
+}
+
+/* ---------- Notifikasi ---------- */
+async function viewNotifs(){
+  const all = await api.notifs();
+  const list = all.filter(n => n.type === 'status' ? prefs.notifStatus : prefs.notifInfo);
+  state.unread = all.filter(n => !n.read).length;
+  const b = $('#dotBox'); if (b) b.innerHTML = bellDot();
+  return `<div class="glass card"><div class="row between" style="margin-bottom:8px"><h3>Activity Center</h3><button class="btn sm" data-act="read-all">${ic('check-check')} Tandai semua dibaca</button></div>
+  ${list.length ? list.map(n => `<div class="row" style="padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;flex-wrap:nowrap"><div class="ico" style="margin:0">${ic(n.type === 'status' ? 'activity' : 'info')}</div><div style="flex:1;min-width:0"><div class="row between"><strong>${esc(n.title)}</strong>${n.read ? '' : '<span class="badge b-diproses">Baru</span>'}</div><div class="muted" style="font-size:14px">${esc(n.body)}</div><div class="hint">${fmtDT(n.at)}</div></div></div>`).join('') : emptyHTML('Belum ada notifikasi', 'Pembaruan status setoran akan muncul di sini.')}</div>`;
+}
+
+/* ---------- Profil ---------- */
+function viewProfil(){
+  const me = state.me;
+  return `<div class="grid g-2" style="align-items:start">
+  <div class="glass card"><h3 style="margin-bottom:6px">Akun</h3><p class="muted" style="margin-bottom:14px">${esc(me.name)} • ${esc(me.email)}<br>Peran: ${me.role === 'admin' ? 'Admin' : 'Pengguna'}</p>
+    <button class="btn danger" data-act="logout">${ic('log-out')} Keluar</button></div>
+  <div class="glass card"><h3 style="margin-bottom:6px">Tampilan</h3>
+    <div class="switch"><div><strong>Mode terang</strong><div class="hint">Ganti antara tema gelap dan terang.</div></div><label class="tg"><input type="checkbox" data-pref="light" ${prefs.theme === 'light' ? 'checked' : ''}><span></span></label></div>
+    <div class="switch"><div><strong>Sidebar diciutkan</strong><div class="hint">Berlaku di desktop.</div></div><label class="tg"><input type="checkbox" data-pref="collapsed" ${prefs.collapsed ? 'checked' : ''}><span></span></label></div></div>
+  <div class="glass card"><h3 style="margin-bottom:6px">Activity Center</h3>
+    <div class="switch"><div><strong>Perubahan status</strong><div class="hint">Tampilkan notifikasi saat status setoran berubah.</div></div><label class="tg"><input type="checkbox" data-pref="notifStatus" ${prefs.notifStatus ? 'checked' : ''}><span></span></label></div>
+    <div class="switch"><div><strong>Informasi layanan</strong></div><label class="tg"><input type="checkbox" data-pref="notifInfo" ${prefs.notifInfo ? 'checked' : ''}><span></span></label></div></div>
+  <div class="glass card"><h3 style="margin-bottom:6px">Informasi</h3><div class="row"><a class="btn sm" href="#/privasi">Kebijakan Privasi</a><a class="btn sm" href="#/ketentuan">Ketentuan Layanan</a><a class="btn sm" href="#/">Beranda</a></div></div></div>`;
+}
+
+/* ---------- Admin (otorisasi ditegakkan di server) ---------- */
+async function viewAdmin(){
+  const [st, list] = await Promise.all([api.aStats(), api.aList()]);
+  window._all = list; window._aseries = st.series;
+  const tab = ui.adminTab;
+  const body = await adminBody(tab);
+  return `<div class="grid g-stats stagger" style="margin-bottom:14px">${[['Semua',st.total],['Menunggu/Proses',st.pending],['Diterima',st.ok],['Ditolak',st.bad]].map(([l, v]) => `<div class="glass card stat"><div class="lbl">${l}</div><div class="val">${+v}</div></div>`).join('')}</div>
+  <div class="row between" style="margin-bottom:12px"><div class="seg" id="adminSeg">${[['subs','Pengajuan'],['cats','Kategori'],['log','Log']].map(([k, v]) => `<button data-atab="${k}" class="${tab === k ? 'on' : ''}">${v}</button>`).join('')}</div>
+  <button class="btn sm" data-act="export">${ic('download')} Ekspor CSV</button></div>
+  <div class="glass card" id="adminBody">${body}</div>
+  <div class="glass card" style="margin-top:14px"><h3 style="margin-bottom:10px">Statistik aktivitas (30 hari)</h3><div class="chart">${chartHTML(st.series, 30)}</div></div>`;
+}
+async function adminBody(tab){
+  if (tab === 'subs') return filtersHTML(ui.aflt, 'aflt') + `<div id="alistBox">${listHTML(applyFilter(window._all, ui.aflt), ui.aflt, true)}</div>`;
+  if (tab === 'cats'){
+    const cats = await api.cats(); state.cats = cats;
+    return `<form id="catForm" class="row" style="margin-bottom:14px"><input class="input" id="catIn" maxlength="24" placeholder="Nama kategori baru" style="flex:1;min-width:180px"><button class="btn primary" type="submit">${ic('plus')} Tambah</button></form>
+    ${cats.map(c => `<div class="row between" style="padding:10px 0;border-bottom:1px solid var(--border)"><span>${esc(c.name)}</span><button class="btn sm danger" data-delcat="${+c.id}" data-name="${esc(c.name)}">${ic('trash-2')} Hapus</button></div>`).join('') || '<div class="empty">Belum ada kategori.</div>'}`;
+  }
+  const log = await api.aAudit();
+  return log.length ? log.map(a => `<div class="row between" style="padding:10px 0;border-bottom:1px solid var(--border)"><div><div>${esc(a.action)}</div><div class="hint">oleh ${esc(a.actor)}</div></div><span class="hint">${fmtDT(a.at)}</span></div>`).join('') : '<div class="empty">Belum ada aktivitas.</div>';
+}
+async function adminManage(id){
+  let s;
+  try { s = await api.aGet(id); } catch (e){ return toast(e.message, 'bad'); }
+  openModal(`<h3>Kelola ${esc(s.id)}</h3><p class="muted" style="margin-bottom:12px">${esc(s.name)} • ${esc(s.email)} • ${esc(s.category)} • ${badge(s.status)}</p>
+    ${s.note ? `<p class="hint" style="margin-bottom:12px">Catatan pengirim: ${esc(s.note)}</p>` : ''}
+    <div class="field"><label>Status baru</label><select class="input" id="a-st">${['diproses','diterima','ditolak'].map(k => `<option value="${k}" ${s.status === k ? 'selected' : ''}>${STATUS[k]}</option>`).join('')}</select></div><br>
+    <div class="field"><label>Catatan untuk pengguna</label><textarea class="input" id="a-note" maxlength="200">${esc(s.adminNote)}</textarea></div>
+    <div class="acts"><button class="btn" data-act="modal-cancel">Batal</button><button class="btn primary" data-act="a-save" data-id="${esc(s.id)}">Simpan</button></div>`);
+}
+function exportCSV(){
+  const safe = v => { v = String(v ?? ''); if (/^[=+\-@\t\r]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; };
+  const rows = [['ID','Waktu','Email (disamarkan)','Kategori','Status','Catatan admin']];
+  applyFilter(window._all, ui.aflt).forEach(s => rows.push([s.id, s.createdAt, s.emailMasked, s.category, STATUS[s.status], s.adminNote]));
+  const blob = new Blob(['﻿' + rows.map(r => r.map(safe).join(',')).join('\n')], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'setor-gmail.csv'; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast('CSV diekspor (email disamarkan).', 'ok');
+}
+
+/* ---------- Event global ---------- */
+document.addEventListener('click', async e => {
+  const t = e.target;
+  const sc = t.closest('[data-scroll]'); if (sc){ const el = document.getElementById(sc.dataset.scroll); el && el.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+  const g = t.closest('[data-go]'); if (g){ go(g.dataset.go); return; }
+  const det = t.closest('[data-detail]'); if (det){ parseHash().p === 'admin' ? adminManage(det.dataset.detail) : showDetail(det.dataset.detail); return; }
+  const pg = t.closest('[data-page]'); if (pg){ const adm = parseHash().p === 'admin'; (adm ? ui.aflt : ui.flt).page = +pg.dataset.page; rerenderList(adm ? 'aflt' : 'flt'); return; }
+  const at = t.closest('[data-atab]'); if (at){
+    ui.adminTab = at.dataset.atab; $$('#adminSeg button').forEach(b => b.classList.toggle('on', b === at));
+    $('#adminBody').innerHTML = skeleton();
+    try { $('#adminBody').innerHTML = await adminBody(ui.adminTab); } catch (err){ $('#adminBody').innerHTML = `<div class="empty"><p>${esc(err.message)}</p></div>`; }
+    refreshIcons(); return; }
+  const dc = t.closest('[data-delcat]'); if (dc){
+    if (await confirmBox('Hapus kategori?', `Kategori <strong>${esc(dc.dataset.name)}</strong> akan dihapus dari pilihan formulir.`, 'Hapus', true)){
+      try { await api.aDelCat(+dc.dataset.delcat); $('#adminBody').innerHTML = await adminBody('cats'); refreshIcons(); toast('Kategori dihapus.', 'ok'); }
+      catch (err){ toast(err.message, 'bad'); } }
+    return; }
+  const a = t.closest('[data-act]'); if (!a) return;
+  switch (a.dataset.act){
+    case 'modal-bg': if (t === a) closeModal(false); break;
+    case 'modal-cancel': closeModal(false); break;
+    case 'modal-ok': closeModal(true); break;
+    case 'close-detail': closeModal(false); if (parseHash().arg) history.replaceState(null, '', '#/riwayat'); break;
+    case 'theme': prefs.theme = prefs.theme === 'dark' ? 'light' : 'dark'; savePrefs(); applyTheme(); route(); break;
+    case 'collapse': prefs.collapsed = !prefs.collapsed; savePrefs(); $('.app').classList.toggle('collapsed', prefs.collapsed); break;
+    case 'retry': { const v = $('#view'); v._retry && v._retry(); break; }
+    case 'read-all':
+      try { await api.readAll(); toast('Semua notifikasi ditandai dibaca.', 'ok'); route(); } catch (err){ toast(err.message, 'bad'); }
+      break;
+    case 'logout':
+      if (await confirmBox('Keluar dari akun?', 'Anda perlu masuk lagi untuk melanjutkan.', 'Keluar')){
+        try { await api.logout(); state.me = null; state.unread = 0; toast('Anda telah keluar.', 'info'); go('#/'); } catch (err){ toast(err.message, 'bad'); } }
+      break;
+    case 'reset-flt': ui.flt = {q:'', status:'', period:'', sort:'new', page:1}; route(); break;
+    case 'reset-aflt': ui.aflt = {q:'', status:'', period:'', sort:'new', page:1}; route(); break;
+    case 'export': exportCSV(); break;
+    case 'a-save': {
+      const id = a.dataset.id, st = $('#a-st').value, note = $('#a-note').value.trim();
+      a.disabled = true; a.innerHTML = `${ic('loader-circle', 'spin')} Menyimpan…`; refreshIcons();
+      try { await api.aSet(id, st, note); closeModal(false); toast(`Status ${id} diperbarui.`, 'ok'); route(); }
+      catch (err){ toast(err.message, 'bad'); a.disabled = false; a.textContent = 'Simpan'; }
+      break; }
+  }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('.scrim')) closeModal(false); });
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset && t.dataset.f){
+    const pfx = t.closest('[data-pfx]').dataset.pfx; const f = pfx === 'aflt' ? ui.aflt : ui.flt;
+    f[t.dataset.f] = t.value; f.page = 1; rerenderList(pfx); return; }
+  if (t.closest && t.closest('#form')){ t.dataset.touched = '1'; onFormInput(e); }
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.dataset && t.dataset.f){ const pfx = t.closest('[data-pfx]').dataset.pfx; const f = pfx === 'aflt' ? ui.aflt : ui.flt; f[t.dataset.f] = t.value; f.page = 1; rerenderList(pfx); return; }
+  if (t.dataset && t.dataset.pref){
+    const k = t.dataset.pref;
+    if (k === 'light'){ prefs.theme = t.checked ? 'light' : 'dark'; applyTheme(); } else prefs[k] = t.checked;
+    savePrefs(); if (k === 'collapsed') $('.app').classList.toggle('collapsed', prefs.collapsed); return; }
+  if (t.closest && t.closest('#form')) onFormInput(e);
+});
+document.addEventListener('submit', async e => {
+  if (e.target.id === 'form') return onFormSubmit(e);
+  if (e.target.id === 'authForm') return onAuthSubmit(e);
+  if (e.target.id === 'catForm'){
+    e.preventDefault();
+    const v = $('#catIn').value.trim();
+    if (!v) return toast('Nama kategori tidak boleh kosong.', 'bad');
+    try { await api.aAddCat(v); $('#adminBody').innerHTML = await adminBody('cats'); refreshIcons(); toast('Kategori ditambahkan.', 'ok'); }
+    catch (err){ toast(err.message, 'bad'); }
+  }
+});
+
+/* ---------- Start ---------- */
+(async function init(){
+  try { const r = await api.me(); state.me = r.user; state.unread = r.unread || 0; }
+  catch (e) { state.me = null; }
+  route();
+  setTimeout(refreshIcons, 300);
+})();
+
+</script>
 </body>
 </html>

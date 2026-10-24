@@ -1,0 +1,10 @@
+Project Firebase: setor-50777
+
+Config sudah diisi di app.js (lokal).
+
+Langkah berikutnya:
+1. Authentication → Email/Password ON
+2. Firestore → Create database
+3. Firestore Rules → paste firestore.rules → Publish
+4. Buka index.html + style.css + app.js di browser
+5. Daftar akun → set role admin di Firestore users/{uid}

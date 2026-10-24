@@ -10,16 +10,11 @@ const DEMO_GMAILS = [
   { id: 8, email: "nina.clean99@gmail.com", age: "sedang", status: "fresh", tag: "Fresh" },
 ];
 
-// Load from localStorage or use demo
 function loadPool() {
-  const saved = localStorage.getItem("setor_gmail_pool");
-  if (saved) {
-    try {
-      return JSON.parse(saved);
-    } catch {
-      return [...DEMO_GMAILS];
-    }
-  }
+  try {
+    const saved = localStorage.getItem("setor_gmail_pool");
+    if (saved) return JSON.parse(saved);
+  } catch (_) {}
   return [...DEMO_GMAILS];
 }
 
@@ -27,10 +22,28 @@ function savePool(pool) {
   localStorage.setItem("setor_gmail_pool", JSON.stringify(pool));
 }
 
+function todayKey() {
+  const d = new Date();
+  return `setor_klaim_${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
+
+function getClaimsToday() {
+  return Number(localStorage.getItem(todayKey()) || "0");
+}
+
+function bumpClaimsToday() {
+  const n = getClaimsToday() + 1;
+  localStorage.setItem(todayKey(), String(n));
+  return n;
+}
+
 let pool = loadPool();
 let currentFilter = "all";
 
-// ========== RENDER POOL ==========
+function $(id) {
+  return document.getElementById(id);
+}
+
 function getTagClass(status) {
   if (status === "fresh") return "tag-fresh";
   if (status === "verified") return "tag-verified";
@@ -44,14 +57,13 @@ function getAgeLabel(age) {
 }
 
 function renderPool() {
-  const grid = document.getElementById("pool-grid");
-  const search = document.getElementById("search-pool").value.toLowerCase().trim();
+  const grid = $("pool-grid");
+  if (!grid) return;
+  const searchEl = $("search-pool");
+  const search = (searchEl?.value || "").toLowerCase().trim();
 
-  let filtered = pool.filter((item) => {
-    const matchFilter =
-      currentFilter === "all" ||
-      item.status === currentFilter ||
-      (currentFilter === "verified" && item.status === "verified");
+  const filtered = pool.filter((item) => {
+    const matchFilter = currentFilter === "all" || item.status === currentFilter;
     const matchSearch = !search || item.email.toLowerCase().includes(search);
     return matchFilter && matchSearch;
   });
@@ -74,124 +86,174 @@ function renderPool() {
         <span class="tag tag-lama">${getAgeLabel(item.age)}</span>
       </div>
       <div class="actions">
-        <button class="btn btn-primary btn-claim" data-id="${item.id}">Klaim</button>
+        <button type="button" class="btn btn-primary btn-claim" data-id="${item.id}">Klaim</button>
       </div>
     </div>`
     )
     .join("");
 
-  // Bind claim buttons
-  document.querySelectorAll(".btn-claim").forEach((btn) => {
+  grid.querySelectorAll(".btn-claim").forEach((btn) => {
     btn.addEventListener("click", () => claimGmail(Number(btn.dataset.id)));
   });
 }
 
-// ========== CLAIM ==========
-function claimGmail(id) {
+async function claimGmail(id) {
   const item = pool.find((g) => g.id === id);
   if (!item) return;
 
   const confirmed = confirm(
-    `Klaim Gmail ini?\n\n${item.email}\n\nSetelah diklaim, Gmail akan hilang dari pool (demo).`
+    `Klaim Gmail ini?\n\n${item.email}\n\nEmail akan disalin ke clipboard dan dihapus dari pool (demo).`
   );
   if (!confirmed) return;
 
+  try {
+    await navigator.clipboard.writeText(item.email);
+  } catch (_) {
+    const ta = document.createElement("textarea");
+    ta.value = item.email;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (_) {}
+    ta.remove();
+  }
+
   pool = pool.filter((g) => g.id !== id);
   savePool(pool);
+  bumpClaimsToday();
   updateStats();
   renderPool();
-  showToast(`Berhasil klaim: ${item.email}`);
+  showToast(`Berhasil klaim & disalin: ${item.email}`);
 }
 
-// ========== SETOR ==========
-document.getElementById("setor-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const email = document.getElementById("email").value.trim().toLowerCase();
-  const age = document.getElementById("age").value;
-  const status = document.getElementById("status").value;
-  const note = document.getElementById("note").value.trim();
-
-  if (!email.endsWith("@gmail.com")) {
-    showToast("Hanya Gmail (@gmail.com) yang diterima.", true);
-    return;
-  }
-
-  // Cek duplikat
-  if (pool.some((g) => g.email === email)) {
-    showToast("Gmail ini sudah ada di pool.", true);
-    return;
-  }
-
-  const newItem = {
-    id: Date.now(),
-    email,
-    age,
-    status,
-    tag: status === "fresh" ? "Fresh" : status === "verified" ? "Verified" : "Idle",
-    note: note || null,
-  };
-
-  pool.unshift(newItem);
-  savePool(pool);
-  updateStats();
-  renderPool();
-
-  // Reset form
-  e.target.reset();
-  document.getElementById("age").value = "sedang";
-  document.getElementById("status").value = "idle";
-
-  showToast("Gmail berhasil disetor ke pool!");
-  // Scroll ke pool
-  document.getElementById("pool").scrollIntoView({ behavior: "smooth" });
-});
-
-// ========== FILTER & SEARCH ==========
-document.querySelectorAll(".chip").forEach((chip) => {
-  chip.addEventListener("click", () => {
-    document.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
-    chip.classList.add("active");
-    currentFilter = chip.dataset.filter;
-    renderPool();
-  });
-});
-
-document.getElementById("search-pool").addEventListener("input", () => {
-  renderPool();
-});
-
-// ========== STATS ==========
 function updateStats() {
-  document.getElementById("stat-total").textContent = pool.length;
-  // "klaim hari ini" tetap demo random-ish
-  const today = localStorage.getItem("setor_klaim_today") || "23";
-  document.getElementById("stat-today").textContent = today;
+  const total = $("stat-total");
+  const today = $("stat-today");
+  if (total) total.textContent = String(pool.length);
+  if (today) today.textContent = String(getClaimsToday() || 0);
 }
 
-// ========== TOAST ==========
 function showToast(msg, isError = false) {
-  const toast = document.getElementById("toast");
+  const toast = $("toast");
+  if (!toast) {
+    alert(msg);
+    return;
+  }
   toast.textContent = msg;
   toast.style.background = isError ? "#ef4444" : "var(--green)";
   toast.hidden = false;
-  setTimeout(() => {
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => {
     toast.hidden = true;
-  }, 2800);
+  }, 3200);
 }
 
-// ========== MOBILE NAV ==========
-const navToggle = document.getElementById("nav-toggle");
-const navLinks = document.querySelector(".nav-links");
-navToggle?.addEventListener("click", () => {
-  navLinks.classList.toggle("open");
-});
+function bindForm() {
+  const form = $("setor-form");
+  if (!form) return;
 
-// Close mobile nav on link click
-document.querySelectorAll(".nav-links a").forEach((a) => {
-  a.addEventListener("click", () => navLinks.classList.remove("open"));
-});
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-// ========== INIT ==========
-updateStats();
-renderPool();
+    const email = ($("email")?.value || "").trim().toLowerCase();
+    const age = $("age")?.value || "sedang";
+    const status = $("status")?.value || "idle";
+    const note = ($("note")?.value || "").trim();
+    const agree = $("agree");
+
+    if (agree && !agree.checked) {
+      showToast("Centang persetujuan dulu.", true);
+      return;
+    }
+
+    if (!email.endsWith("@gmail.com")) {
+      showToast("Hanya Gmail (@gmail.com) yang diterima.", true);
+      return;
+    }
+
+    if (pool.some((g) => g.email === email)) {
+      showToast("Gmail ini sudah ada di pool.", true);
+      return;
+    }
+
+    const newItem = {
+      id: Date.now(),
+      email,
+      age,
+      status,
+      tag: status === "fresh" ? "Fresh" : status === "verified" ? "Verified" : "Idle",
+      note: note || null,
+    };
+
+    pool.unshift(newItem);
+    savePool(pool);
+    updateStats();
+    renderPool();
+
+    form.reset();
+    if ($("age")) $("age").value = "sedang";
+    if ($("status")) $("status").value = "idle";
+
+    showToast("Gmail berhasil disetor ke pool!");
+    $("pool")?.scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+function bindFilters() {
+  document.querySelectorAll(".chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      currentFilter = chip.dataset.filter || "all";
+      renderPool();
+    });
+  });
+
+  $("search-pool")?.addEventListener("input", () => renderPool());
+}
+
+function bindNav() {
+  const navToggle = $("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  navToggle?.addEventListener("click", () => {
+    navLinks?.classList.toggle("open");
+  });
+
+  document.querySelectorAll(".nav-links a").forEach((a) => {
+    a.addEventListener("click", () => navLinks?.classList.remove("open"));
+  });
+
+  $("btn-login")?.addEventListener("click", () => {
+    showToast("Demo mode: belum ada akun. Langsung setor atau klaim di pool.");
+    $("setor")?.scrollIntoView({ behavior: "smooth" });
+    navLinks?.classList.remove("open");
+  });
+}
+
+function bindResetDemo() {
+  const logo = document.querySelector(".logo");
+  let t = null;
+  logo?.addEventListener("pointerdown", () => {
+    t = setTimeout(() => {
+      if (confirm("Reset pool ke data demo?")) {
+        localStorage.removeItem("setor_gmail_pool");
+        pool = [...DEMO_GMAILS];
+        savePool(pool);
+        updateStats();
+        renderPool();
+        showToast("Pool di-reset ke demo.");
+      }
+    }, 1200);
+  });
+  logo?.addEventListener("pointerup", () => clearTimeout(t));
+  logo?.addEventListener("pointerleave", () => clearTimeout(t));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  bindForm();
+  bindFilters();
+  bindNav();
+  bindResetDemo();
+  updateStats();
+  renderPool();
+});

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — SetorGmail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="panel-page">
+  <header class="panel-header">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">SG</span>
+      <span class="logo-text">SETORGMAIL</span>
+    </a>
+    <div class="panel-user">
+      <span id="user-display">—</span>
+      <button class="btn btn-secondary btn-sm" id="btn-logout">Keluar</button>
+    </div>
+  </header>
+
+  <main class="panel-main">
+    <div class="panel-welcome">
+      <h1>Halo, <span id="user-name">User</span> 👋</h1>
+      <p>Ini dashboard pengguna. Kamu bisa setor Gmail idle di sini.</p>
+    </div>
+
+    <div class="panel-grid">
+      <div class="panel-card">
+        <h3>Setor Gmail</h3>
+        <form id="setor-form" class="setor-mini">
+          <div class="field">
+            <label for="setor-email">Alamat Gmail</label>
+            <input type="email" id="setor-email" placeholder="contoh@gmail.com" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Setor ke Pool</button>
+        </form>
+      </div>
+
+      <div class="panel-card">
+        <h3>Gmail yang kamu setor</h3>
+        <ul class="simple-list" id="my-gmails">
+          <li class="empty">Belum ada Gmail yang disetor.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — SetorGmail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="panel-page">
+  <header class="panel-header">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">SG</span>
+      <span class="logo-text">SETORGMAIL</span>
+    </a>
+    <div class="panel-user">
+      <span class="badge-admin">ADMIN</span>
+      <span id="user-display">admin112</span>
+      <button class="btn btn-secondary btn-sm" id="btn-logout">Keluar</button>
+    </div>
+  </header>
+
+  <main class="panel-main">
+    <div class="panel-welcome">
+      <h1>Admin Panel</h1>
+      <p>Kelola pengguna dan pool Gmail.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <strong id="stat-users">0</strong>
+        <span>Total Pengguna</span>
+      </div>
+      <div class="stat-box">
+        <strong id="stat-gmails">0</strong>
+        <span>Gmail di Pool</span>
+      </div>
+    </div>
+
+    <div class="panel-grid">
+      <div class="panel-card">
+        <h3>Daftar Pengguna</h3>
+        <div class="table-wrap">
+          <table class="data-table" id="users-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Gmail</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr><td colspan="3" class="empty">Belum ada pengguna.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <h3>Pool Gmail</h3>
+        <ul class="simple-list" id="pool-list">
+          <li class="empty">Pool masih kosong.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="script.js"></script>
+</body>
+</html>

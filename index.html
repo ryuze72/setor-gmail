@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
       <a href="#" class="logo">
@@ -30,7 +29,6 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="container hero-content">
@@ -50,11 +48,11 @@
       </div>
       <div class="hero-stats">
         <div class="stat">
-          <strong id="stat-total">128</strong>
+          <strong id="stat-total">8</strong>
           <span>Gmail tersedia</span>
         </div>
         <div class="stat">
-          <strong id="stat-today">23</strong>
+          <strong id="stat-today">0</strong>
           <span>Klaim hari ini</span>
         </div>
         <div class="stat">
@@ -65,7 +63,6 @@
     </div>
   </header>
 
-  <!-- CARA KERJA -->
   <section id="cara" class="section">
     <div class="container">
       <div class="section-head">
@@ -92,7 +89,6 @@
     </div>
   </section>
 
-  <!-- POOL -->
   <section id="pool" class="section section-alt">
     <div class="container">
       <div class="section-head">
@@ -102,26 +98,24 @@
 
       <div class="pool-toolbar">
         <div class="search-box">
-          <input type="text" id="search-pool" placeholder="Cari domain / keyword..." />
+          <input type="text" id="search-pool" placeholder="Cari email / keyword..." />
         </div>
         <div class="filter-chips">
-          <button class="chip active" data-filter="all">Semua</button>
-          <button class="chip" data-filter="fresh">Fresh</button>
-          <button class="chip" data-filter="verified">Verified</button>
+          <button type="button" class="chip active" data-filter="all">Semua</button>
+          <button type="button" class="chip" data-filter="fresh">Fresh</button>
+          <button type="button" class="chip" data-filter="verified">Verified</button>
+          <button type="button" class="chip" data-filter="idle">Idle</button>
         </div>
       </div>
 
-      <div class="pool-grid" id="pool-grid">
-        <!-- diisi oleh JS -->
-      </div>
+      <div class="pool-grid" id="pool-grid"></div>
 
       <p class="pool-note">
-        * Demo mode — data bersifat simulasi. Di versi real, setiap klaim akan menghapus Gmail dari pool secara permanen.
+        * Demo mode — data di browser kamu (localStorage). Klaim menyalin email ke clipboard.
       </p>
     </div>
   </section>
 
-  <!-- SETOR -->
   <section id="setor" class="section">
     <div class="container narrow">
       <div class="section-head">
@@ -167,7 +161,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="section section-alt">
     <div class="container narrow">
       <div class="section-head">
@@ -194,7 +187,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">

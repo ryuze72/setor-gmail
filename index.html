@@ -2,10 +2,474 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Setor Gmail - Loading...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <title>Setor Gmail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-strong: rgba(255, 255, 255, 0.14);
+      --text: #f5f5f7;
+      --text-secondary: #a1a1a6;
+      --accent: #0a84ff;
+      --accent-hover: #409cff;
+      --success: #30d158;
+      --warning: #ff9f0a;
+      --danger: #ff453a;
+      --radius: 20px;
+      --radius-pill: 999px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --blur: 24px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100dvh; overflow-x: hidden; line-height: 1.5;
+    }
+    .bg-glow {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 80% 50% at 20% -10%, rgba(10, 132, 255, 0.25), transparent),
+                  radial-gradient(ellipse 60% 40% at 80% 110%, rgba(94, 92, 230, 0.2), transparent);
+    }
+    .hidden { display: none !important; }
+    .w-full { width: 100%; }
+    .glass {
+      background: var(--glass); backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--glass-border); border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .glass-strong { background: var(--glass-strong); border-color: rgba(255,255,255,0.18); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.9rem 1.5rem; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.95rem;
+      border: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 24px rgba(10,132,255,0.4); }
+    .btn-secondary { background: var(--glass); color: var(--text); border: 1px solid var(--glass-border); }
+    .btn-danger { background: rgba(255,69,58,0.15); color: var(--danger); border: 1px solid rgba(255,69,58,0.3); }
+    .btn-success { background: rgba(48,209,88,0.15); color: var(--success); border: 1px solid rgba(48,209,88,0.3); }
+    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+    .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .input-group label { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+    .input {
+      width: 100%; padding: 0.95rem 1.1rem; background: rgba(0,0,0,0.25); border: 1px solid var(--glass-border);
+      border-radius: 14px; color: var(--text); font-size: 1rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(10,132,255,0.2); }
+    .input::placeholder { color: #6e6e73; }
+    .password-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .password-option { position: relative; }
+    .password-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .password-option label {
+      display: flex; align-items: center; justify-content: center; padding: 0.9rem;
+      background: rgba(0,0,0,0.25); border: 1px solid var(--glass-border); border-radius: 14px;
+      font-weight: 500; cursor: pointer; transition: all 0.2s; user-select: none;
+    }
+    .password-option input:checked + label {
+      background: rgba(10,132,255,0.2); border-color: var(--accent); color: #7ec8ff;
+      box-shadow: 0 0 0 2px rgba(10,132,255,0.3);
+    }
+    #toast-container {
+      position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 9999;
+      display: flex; flex-direction: column; gap: 0.6rem; width: min(92vw, 360px); pointer-events: none;
+    }
+    .toast {
+      padding: 0.9rem 1.2rem; border-radius: 14px; font-size: 0.9rem; font-weight: 500;
+      animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .toast.success { background: rgba(48,209,88,0.2); border: 1px solid rgba(48,209,88,0.4); color: #30d158; }
+    .toast.error { background: rgba(255,69,58,0.2); border: 1px solid rgba(255,69,58,0.4); color: #ff453a; }
+    .toast.info { background: rgba(10,132,255,0.2); border: 1px solid rgba(10,132,255,0.4); color: #0a84ff; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(-16px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #auth-screen { min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; position: relative; z-index: 1; }
+    .auth-card { width: 100%; max-width: 400px; padding: 2rem 1.75rem; }
+    .logo { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 0.25rem; background: linear-gradient(135deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .auth-subtitle { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .auth-toggle { margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-secondary); }
+    .auth-toggle a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
+    #dashboard { min-height: 100dvh; position: relative; z-index: 1; padding-bottom: 5.5rem; }
+    .header { position: sticky; top: 0; z-index: 50; padding: 1rem 1.25rem; background: rgba(10,10,12,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between; }
+    .header-title { font-weight: 700; font-size: 1.15rem; }
+    .user-chip { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.75rem 0.35rem 0.35rem; background: var(--glass); border-radius: var(--radius-pill); border: 1px solid var(--glass-border); font-size: 0.85rem; font-weight: 500; }
+    .avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #5e5ce6); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: white; }
+    .container { max-width: 720px; margin: 0 auto; padding: 1.25rem; }
+    .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card { padding: 1.25rem; margin-bottom: 1.25rem; }
+    .history-item { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .history-item:last-child { border-bottom: none; }
+    .history-email { font-weight: 500; font-size: 0.95rem; word-break: break-all; }
+    .history-meta { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.15rem; }
+    .status-badge { font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.7rem; border-radius: var(--radius-pill); white-space: nowrap; }
+    .status-pending { background: rgba(255,159,10,0.15); color: var(--warning); }
+    .status-success { background: rgba(48,209,88,0.15); color: var(--success); }
+    .status-reject { background: rgba(255,69,58,0.15); color: var(--danger); }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,12,0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid var(--glass-border); display: flex; justify-content: space-around; padding: 0.55rem 0 calc(0.55rem + env(safe-area-inset-bottom)); z-index: 100; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; background: none; border: none; color: var(--text-secondary); font-size: 0.7rem; font-weight: 500; cursor: pointer; padding: 0.35rem 0.8rem; border-radius: 12px; transition: color 0.2s; }
+    .nav-item.active { color: var(--accent); }
+    .nav-item svg { width: 22px; height: 22px; }
+    .profile-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #5e5ce6); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: white; }
+    .profile-info h2 { font-size: 1.25rem; font-weight: 600; }
+    .profile-info p { color: var(--text-secondary); font-size: 0.9rem; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .stat-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .stat-card { padding: 1rem; text-align: center; }
+    .stat-value { font-size: 1.4rem; font-weight: 700; }
+    .stat-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .empty-state { text-align: center; padding: 2rem 1rem; color: var(--text-secondary); }
+    .empty-state svg { width: 48px; height: 48px; margin-bottom: 0.75rem; opacity: 0.5; }
+    .admin-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .filter-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .filter-btn { padding: 0.4rem 0.85rem; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 500; background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-secondary); cursor: pointer; }
+    .filter-btn.active { background: rgba(10,132,255,0.2); border-color: var(--accent); color: #7ec8ff; }
+    .note-box { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.75rem; padding: 0.7rem 0.9rem; background: rgba(10,132,255,0.08); border-radius: 12px; border: 1px solid rgba(10,132,255,0.15); }
+    @media (min-width: 640px) { .container { padding: 1.75rem; } .card { padding: 1.5rem; } }
+  </style>
 </head>
 <body>
-  <p>Updating... please wait and refresh.</p>
-  <script>location.reload()</script>
+  <div class="bg-glow"></div>
+  <div id="toast-container"></div>
+
+  <div id="auth-screen">
+    <div class="auth-card glass">
+      <div class="logo">Setor Gmail</div>
+      <p class="auth-subtitle" id="auth-subtitle">Masuk ke akun Anda</p>
+      <form id="login-form" style="display:flex;flex-direction:column;gap:1rem">
+        <div class="input-group"><label>Email</label><input type="email" id="login-email" class="input" placeholder="nama@email.com" required autocomplete="email" /></div>
+        <div class="input-group"><label>Password</label><input type="password" id="login-password" class="input" placeholder="••••••••" required autocomplete="current-password" /></div>
+        <button type="submit" class="btn btn-primary w-full" id="login-btn"><span>Masuk</span></button>
+      </form>
+      <form id="register-form" class="hidden" style="display:none;flex-direction:column;gap:1rem">
+        <div class="input-group"><label>Nama</label><input type="text" id="reg-name" class="input" placeholder="Nama lengkap" required /></div>
+        <div class="input-group"><label>Email</label><input type="email" id="reg-email" class="input" placeholder="nama@email.com" required autocomplete="email" /></div>
+        <div class="input-group"><label>Password</label><input type="password" id="reg-password" class="input" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="new-password" /></div>
+        <button type="submit" class="btn btn-primary w-full" id="register-btn"><span>Daftar</span></button>
+      </form>
+      <div class="auth-toggle"><span id="toggle-text">Belum punya akun?</span> <a id="toggle-link">Daftar sekarang</a></div>
+    </div>
+  </div>
+
+  <div id="dashboard" class="hidden">
+    <header class="header">
+      <div class="header-title">Setor Gmail</div>
+      <div class="user-chip"><div class="avatar" id="header-avatar">U</div><span id="header-name">User</span></div>
+    </header>
+    <div class="container">
+      <div id="page-setor">
+        <div class="card glass">
+          <div class="section-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Setor Gmail Baru</div>
+          <form id="setor-form" style="display:flex;flex-direction:column;gap:1rem">
+            <div class="input-group"><label>Alamat Gmail</label><input type="email" id="gmail-input" class="input" placeholder="contoh@gmail.com" required /></div>
+            <div class="input-group">
+              <label>Pilih Password (wajib)</label>
+              <div class="password-options">
+                <div class="password-option"><input type="radio" name="password-choice" id="pw1" value="sgsg1122" required /><label for="pw1">sgsg1122</label></div>
+                <div class="password-option"><input type="radio" name="password-choice" id="pw2" value="goldacok" /><label for="pw2">goldacok</label></div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-full" id="setor-btn"><span>Setor Sekarang</span></button>
+          </form>
+        </div>
+        <div class="card glass"><div class="section-title">Riwayat Terbaru</div><div id="recent-history"></div></div>
+      </div>
+
+      <div id="page-history" class="hidden">
+        <div class="card glass"><div class="section-title">Semua Riwayat Setoran</div><div id="full-history"></div></div>
+      </div>
+
+      <div id="page-admin" class="hidden">
+        <div class="card glass">
+          <div class="section-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Panel Admin</div>
+          <div class="stat-grid stat-grid-3" style="margin-bottom:1.25rem">
+            <div class="stat-card glass-strong"><div class="stat-value" id="admin-total">0</div><div class="stat-label">Total</div></div>
+            <div class="stat-card glass-strong"><div class="stat-value" id="admin-pending">0</div><div class="stat-label">Menunggu</div></div>
+            <div class="stat-card glass-strong"><div class="stat-value" id="admin-done">0</div><div class="stat-label">Selesai</div></div>
+          </div>
+          <div class="filter-row">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="pending">Menunggu</button>
+            <button class="filter-btn" data-filter="success">Selesai</button>
+            <button class="filter-btn" data-filter="reject">Ditolak</button>
+          </div>
+          <div id="admin-list"></div>
+          <div class="note-box">Catatan: Data disimpan di browser ini saja. Admin hanya melihat setoran di perangkat/browser yang sama.</div>
+        </div>
+      </div>
+
+      <div id="page-profile" class="hidden">
+        <div class="card glass">
+          <div class="profile-header">
+            <div class="profile-avatar" id="profile-avatar">U</div>
+            <div class="profile-info">
+              <h2 id="profile-name">User</h2>
+              <p id="profile-email">email@example.com</p>
+              <p id="profile-role" style="font-size:0.8rem;margin-top:0.2rem;color:var(--accent)"></p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card glass-strong"><div class="stat-value" id="stat-total">0</div><div class="stat-label">Total Setoran</div></div>
+            <div class="stat-card glass-strong"><div class="stat-value" id="stat-pending">0</div><div class="stat-label">Menunggu</div></div>
+          </div>
+          <button class="btn btn-danger w-full" id="logout-btn">Keluar</button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" data-page="setor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Setor</button>
+      <button class="nav-item" data-page="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Riwayat</button>
+      <button class="nav-item admin-only hidden" data-page="admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin</button>
+      <button class="nav-item" data-page="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil</button>
+    </nav>
+  </div>
+
+  <script>
+    const STORAGE_USERS = 'setor_gmail_users';
+    const STORAGE_SESSION = 'setor_gmail_session';
+    const STORAGE_HISTORY = 'setor_gmail_history';
+    const ADMIN_EMAIL = 'admin@setor.com';
+    const ADMIN_PASS = 'admin123';
+    let currentUser = null;
+    let isLoginMode = true;
+    let adminFilter = 'all';
+
+    function showToast(msg, type = 'info') {
+      const c = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = `toast ${type}`; t.textContent = msg; c.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'all 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
+    }
+    function setLoading(btn, loading) {
+      if (loading) { btn.disabled = true; btn.dataset.original = btn.innerHTML; btn.innerHTML = `<div class="spinner"></div>`; }
+      else { btn.disabled = false; btn.innerHTML = btn.dataset.original || btn.innerHTML; }
+    }
+    function validateGmail(email) { return /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email.trim()); }
+    function getUsers() { try { return JSON.parse(localStorage.getItem(STORAGE_USERS) || '[]'); } catch { return []; } }
+    function saveUsers(users) { localStorage.setItem(STORAGE_USERS, JSON.stringify(users)); }
+    function getAllHistory() { try { return JSON.parse(localStorage.getItem(STORAGE_HISTORY) || '{}'); } catch { return {}; } }
+    function getHistory(userId) { return getAllHistory()[userId] || []; }
+    function saveHistory(userId, history) { const all = getAllHistory(); all[userId] = history; localStorage.setItem(STORAGE_HISTORY, JSON.stringify(all)); }
+    function formatDate(ts) { return new Date(ts).toLocaleString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+    function statusLabel(s) { return { pending: 'Menunggu', success: 'Selesai', reject: 'Ditolak' }[s] || s; }
+    function statusClass(s) { return { pending: 'status-pending', success: 'status-success', reject: 'status-reject' }[s] || 'status-pending'; }
+
+    function ensureAdminAccount() {
+      const users = getUsers();
+      if (!users.some(u => u.email === ADMIN_EMAIL)) {
+        users.push({ id: 'admin-default', name: 'Admin', email: ADMIN_EMAIL, password: ADMIN_PASS, role: 'admin' });
+        saveUsers(users);
+      }
+    }
+
+    function initAuth() {
+      ensureAdminAccount();
+      const session = localStorage.getItem(STORAGE_SESSION);
+      if (session) { try { currentUser = JSON.parse(session); showDashboard(); } catch { localStorage.removeItem(STORAGE_SESSION); } }
+    }
+
+    document.getElementById('toggle-link').addEventListener('click', () => {
+      isLoginMode = !isLoginMode;
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+      if (isLoginMode) {
+        loginForm.classList.remove('hidden'); loginForm.style.display = 'flex';
+        regForm.classList.add('hidden'); regForm.style.display = 'none';
+        document.getElementById('auth-subtitle').textContent = 'Masuk ke akun Anda';
+        document.getElementById('toggle-text').textContent = 'Belum punya akun?';
+        document.getElementById('toggle-link').textContent = 'Daftar sekarang';
+      } else {
+        loginForm.classList.add('hidden'); loginForm.style.display = 'none';
+        regForm.classList.remove('hidden'); regForm.style.display = 'flex';
+        document.getElementById('auth-subtitle').textContent = 'Buat akun baru';
+        document.getElementById('toggle-text').textContent = 'Sudah punya akun?';
+        document.getElementById('toggle-link').textContent = 'Masuk';
+      }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('login-btn');
+      setLoading(btn, true);
+      await new Promise(r => setTimeout(r, 500));
+      const email = document.getElementById('login-email').value.trim().toLowerCase();
+      const password = document.getElementById('login-password').value;
+      const user = getUsers().find(u => u.email === email && u.password === password);
+      if (!user) { showToast('Email atau password salah', 'error'); setLoading(btn, false); return; }
+      currentUser = { id: user.id, name: user.name, email: user.email, role: user.role || 'user' };
+      localStorage.setItem(STORAGE_SESSION, JSON.stringify(currentUser));
+      showToast('Berhasil masuk!', 'success');
+      setLoading(btn, false);
+      showDashboard();
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('register-btn');
+      setLoading(btn, true);
+      await new Promise(r => setTimeout(r, 600));
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const password = document.getElementById('reg-password').value;
+      if (password.length < 6) { showToast('Password minimal 6 karakter', 'error'); setLoading(btn, false); return; }
+      const users = getUsers();
+      if (users.some(u => u.email === email)) { showToast('Email sudah terdaftar', 'error'); setLoading(btn, false); return; }
+      const newUser = { id: Date.now().toString(36) + Math.random().toString(36).slice(2), name, email, password, role: 'user' };
+      users.push(newUser); saveUsers(users);
+      currentUser = { id: newUser.id, name: newUser.name, email: newUser.email, role: 'user' };
+      localStorage.setItem(STORAGE_SESSION, JSON.stringify(currentUser));
+      showToast('Pendaftaran berhasil!', 'success');
+      setLoading(btn, false);
+      showDashboard();
+    });
+
+    function showDashboard() {
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      updateProfileUI(); renderHistory(); renderAdmin(); switchPage('setor');
+    }
+
+    function updateProfileUI() {
+      if (!currentUser) return;
+      const initial = (currentUser.name || 'U').charAt(0).toUpperCase();
+      document.getElementById('header-avatar').textContent = initial;
+      document.getElementById('header-name').textContent = (currentUser.name || 'User').split(' ')[0];
+      document.getElementById('profile-avatar').textContent = initial;
+      document.getElementById('profile-name').textContent = currentUser.name || 'User';
+      document.getElementById('profile-email').textContent = currentUser.email || '';
+      document.getElementById('profile-role').textContent = currentUser.role === 'admin' ? '👑 Admin' : 'User';
+      document.querySelectorAll('.admin-only').forEach(el => el.classList.toggle('hidden', currentUser.role !== 'admin'));
+      const history = getHistory(currentUser.id);
+      document.getElementById('stat-total').textContent = history.length;
+      document.getElementById('stat-pending').textContent = history.filter(h => h.status === 'pending').length;
+    }
+
+    function renderHistory() {
+      if (!currentUser) return;
+      const history = getHistory(currentUser.id);
+      const recent = history.slice(0, 5);
+      const render = (list, containerId) => {
+        const el = document.getElementById(containerId);
+        if (!list.length) {
+          el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><p>Belum ada setoran</p></div>`;
+          return;
+        }
+        el.innerHTML = list.map(item => `<div class="history-item"><div><div class="history-email">${item.gmail}</div><div class="history-meta">${formatDate(item.timestamp)} · ${item.password}</div></div><span class="status-badge ${statusClass(item.status)}">${statusLabel(item.status)}</span></div>`).join('');
+      };
+      render(recent, 'recent-history'); render(history, 'full-history'); updateProfileUI();
+    }
+
+    function getAllSubmissions() {
+      const all = getAllHistory(); const users = getUsers(); const list = [];
+      Object.keys(all).forEach(userId => {
+        const user = users.find(u => u.id === userId);
+        (all[userId] || []).forEach(item => list.push({ ...item, userId, userName: user ? user.name : 'Unknown', userEmail: user ? user.email : '-' }));
+      });
+      return list.sort((a, b) => b.timestamp - a.timestamp);
+    }
+
+    function renderAdmin() {
+      if (!currentUser || currentUser.role !== 'admin') return;
+      const all = getAllSubmissions();
+      const filtered = adminFilter === 'all' ? all : all.filter(i => i.status === adminFilter);
+      document.getElementById('admin-total').textContent = all.length;
+      document.getElementById('admin-pending').textContent = all.filter(i => i.status === 'pending').length;
+      document.getElementById('admin-done').textContent = all.filter(i => i.status === 'success').length;
+      const el = document.getElementById('admin-list');
+      if (!filtered.length) { el.innerHTML = `<div class="empty-state"><p>Tidak ada data</p></div>`; return; }
+      el.innerHTML = filtered.map(item => `
+        <div class="history-item">
+          <div style="flex:1;min-width:0">
+            <div class="history-email">${item.gmail}</div>
+            <div class="history-meta">${formatDate(item.timestamp)} · ${item.password}<br>oleh: ${item.userName} (${item.userEmail})</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem">
+            <span class="status-badge ${statusClass(item.status)}">${statusLabel(item.status)}</span>
+            ${item.status === 'pending' ? `<div class="admin-actions">
+              <button class="btn btn-success btn-sm" onclick="updateStatus('${item.userId}','${item.id}','success')">✓</button>
+              <button class="btn btn-danger btn-sm" onclick="updateStatus('${item.userId}','${item.id}','reject')">✕</button>
+            </div>` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+    window.updateStatus = function(userId, itemId, status) {
+      const history = getHistory(userId);
+      const idx = history.findIndex(h => h.id === itemId);
+      if (idx === -1) return;
+      history[idx].status = status;
+      saveHistory(userId, history);
+      showToast(status === 'success' ? 'Ditandai selesai' : 'Ditolak', status === 'success' ? 'success' : 'error');
+      renderAdmin(); renderHistory();
+    };
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        adminFilter = btn.dataset.filter;
+        renderAdmin();
+      });
+    });
+
+    document.querySelectorAll('.nav-item').forEach(btn => btn.addEventListener('click', () => switchPage(btn.dataset.page)));
+
+    function switchPage(page) {
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      const active = document.querySelector(`.nav-item[data-page="${page}"]`);
+      if (active) active.classList.add('active');
+      ['setor', 'history', 'admin', 'profile'].forEach(p => document.getElementById(`page-${p}`).classList.toggle('hidden', p !== page));
+      if (page === 'admin') renderAdmin();
+    }
+
+    document.getElementById('setor-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('setor-btn');
+      setLoading(btn, true);
+      const gmail = document.getElementById('gmail-input').value.trim().toLowerCase();
+      const passwordChoice = document.querySelector('input[name="password-choice"]:checked');
+      if (!validateGmail(gmail)) { showToast('Format Gmail tidak valid. Harus @gmail.com', 'error'); setLoading(btn, false); return; }
+      if (!passwordChoice) { showToast('Pilih salah satu password', 'error'); setLoading(btn, false); return; }
+      await new Promise(r => setTimeout(r, 700));
+      const history = getHistory(currentUser.id);
+      if (history.some(h => h.gmail === gmail)) { showToast('Gmail ini sudah pernah disetor', 'error'); setLoading(btn, false); return; }
+      history.unshift({ id: Date.now().toString(36), gmail, password: passwordChoice.value, status: 'pending', timestamp: Date.now() });
+      saveHistory(currentUser.id, history);
+      showToast('Gmail berhasil disetor! Status: Menunggu', 'success');
+      document.getElementById('setor-form').reset();
+      renderHistory();
+      setLoading(btn, false);
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_SESSION);
+      currentUser = null;
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('auth-screen').classList.remove('hidden');
+      document.getElementById('login-form').reset();
+      document.getElementById('register-form').reset();
+      isLoginMode = true;
+      document.getElementById('login-form').classList.remove('hidden');
+      document.getElementById('login-form').style.display = 'flex';
+      document.getElementById('register-form').classList.add('hidden');
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById('auth-subtitle').textContent = 'Masuk ke akun Anda';
+      document.getElementById('toggle-text').textContent = 'Belum punya akun?';
+      document.getElementById('toggle-link').textContent = 'Masuk';
+      showToast('Anda telah keluar', 'info');
+    });
+
+    initAuth();
+  </script>
 </body>
 </html>

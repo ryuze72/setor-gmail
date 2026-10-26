@@ -1,1 +1,190 @@
-PLACEHOLDER_WILL_REPLACE
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+<meta name="theme-color" content="#07070a"/>
+<title>Setor Gmail</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07070a;--surface:rgba(255,255,255,.045);--surface-2:rgba(255,255,255,.07);--border:rgba(255,255,255,.09);--border-strong:rgba(255,255,255,.14);--text:#f4f4f5;--muted:#8b8b93;--accent:#3b82f6;--accent-soft:rgba(59,130,246,.18);--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--radius:18px;--pill:999px;--shadow:0 12px 40px rgba(0,0,0,.45)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;line-height:1.5}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 90% 55% at 10% -20%,rgba(59,130,246,.22),transparent 55%),radial-gradient(ellipse 70% 50% at 90% 110%,rgba(139,92,246,.16),transparent 50%)}
+.hidden{display:none!important}.w-full{width:100%}
+.glass{background:var(--surface);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.glass-2{background:var(--surface-2);border:1px solid var(--border-strong);border-radius:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.88rem 1.4rem;border-radius:var(--pill);font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:all .22s ease}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 6px 20px rgba(37,99,235,.35)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-danger{background:rgba(239,68,68,.12);color:var(--danger);border:1px solid rgba(239,68,68,.25)}
+.btn-success{background:rgba(34,197,94,.12);color:var(--success);border:1px solid rgba(34,197,94,.25)}
+.btn-sm{padding:.4rem .85rem;font-size:.8rem}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.field{display:flex;flex-direction:column;gap:.35rem}
+.field label{font-size:.82rem;font-weight:500;color:var(--muted)}
+.input{width:100%;padding:.9rem 1.05rem;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:14px;color:var(--text);font-size:1rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.input::placeholder{color:#5c5c66}
+.pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.pw-opt{position:relative}
+.pw-opt input{position:absolute;opacity:0;pointer-events:none}
+.pw-opt label{display:flex;align-items:center;justify-content:center;padding:.85rem;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:14px;font-weight:500;cursor:pointer;transition:all .2s;user-select:none}
+.pw-opt input:checked+label{background:var(--accent-soft);border-color:var(--accent);color:#93c5fd;box-shadow:0 0 0 2px rgba(59,130,246,.25)}
+#toasts{position:fixed;top:1.15rem;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:.5rem;width:min(92vw,360px);pointer-events:none}
+.toast{padding:.85rem 1.15rem;border-radius:14px;font-size:.9rem;font-weight:500;animation:in .32s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(16px);box-shadow:0 8px 28px rgba(0,0,0,.4)}
+.toast.ok{background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.35);color:#4ade80}
+.toast.err{background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.35);color:#f87171}
+.toast.info{background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.35);color:#60a5fa}
+@keyframes in{from{opacity:0;transform:translateY(-12px) scale(.96)}to{opacity:1;transform:none}}
+.spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:s .7s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+#auth{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;z-index:1}
+.auth-card{width:100%;max-width:400px;padding:2rem 1.7rem}
+.brand{font-size:1.85rem;font-weight:800;letter-spacing:-.6px;margin-bottom:.2rem;background:linear-gradient(135deg,#fff 20%,#a1a1aa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--muted);font-size:.95rem;margin-bottom:1.6rem}
+.toggle{margin-top:1.4rem;text-align:center;font-size:.9rem;color:var(--muted)}
+.toggle a{color:var(--accent);font-weight:600;cursor:pointer;text-decoration:none}
+#app{min-height:100dvh;position:relative;z-index:1;padding-bottom:5.4rem}
+.top{position:sticky;top:0;z-index:40;padding:.95rem 1.2rem;background:rgba(7,7,10,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.top-title{font-weight:700;font-size:1.12rem}
+.chip{display:flex;align-items:center;gap:.45rem;padding:.3rem .7rem .3rem .3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--pill);font-size:.84rem;font-weight:500}
+.av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff}
+.wrap{max-width:680px;margin:0 auto;padding:1.2rem}
+.sec{font-size:1.05rem;font-weight:600;margin-bottom:.85rem;display:flex;align-items:center;gap:.45rem}
+.card{padding:1.2rem;margin-bottom:1.15rem}
+.row{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.row:last-child{border-bottom:none}
+.row-title{font-weight:500;font-size:.94rem;word-break:break-all}
+.row-meta{font-size:.78rem;color:var(--muted);margin-top:.12rem;line-height:1.45}
+.badge{font-size:.72rem;font-weight:600;padding:.28rem .65rem;border-radius:var(--pill);white-space:nowrap}
+.b-pending{background:rgba(245,158,11,.14);color:#fbbf24}
+.b-ok{background:rgba(34,197,94,.14);color:#4ade80}
+.b-no{background:rgba(239,68,68,.14);color:#f87171}
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.88);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:.5rem 0 calc(.5rem + env(safe-area-inset-bottom));z-index:100}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:.12rem;background:none;border:none;color:var(--muted);font-size:.68rem;font-weight:500;cursor:pointer;padding:.3rem .75rem;border-radius:12px}
+.nav button.on{color:var(--accent)}
+.nav svg{width:22px;height:22px}
+.ph{display:flex;align-items:center;gap:1rem;margin-bottom:1.35rem}
+.ph-av{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:1.45rem;font-weight:700;color:#fff}
+.ph h2{font-size:1.2rem;font-weight:600}
+.ph p{color:var(--muted);font-size:.88rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.35rem}
+.stats-3{grid-template-columns:1fr 1fr 1fr}
+.stat{padding:.95rem;text-align:center}
+.stat-v{font-size:1.35rem;font-weight:700}
+.stat-l{font-size:.76rem;color:var(--muted);margin-top:.15rem}
+.empty{text-align:center;padding:2rem 1rem;color:var(--muted)}
+.filters{display:flex;gap:.45rem;margin-bottom:.95rem;flex-wrap:wrap}
+.fbtn{padding:.38rem .8rem;border-radius:var(--pill);font-size:.78rem;font-weight:500;background:var(--surface);border:1px solid var(--border);color:var(--muted);cursor:pointer}
+.fbtn.on{background:var(--accent-soft);border-color:var(--accent);color:#93c5fd}
+.note{font-size:.78rem;color:var(--muted);margin-top:.7rem;padding:.65rem .85rem;background:rgba(59,130,246,.08);border-radius:12px;border:1px solid rgba(59,130,246,.14)}
+@media(min-width:640px){.wrap{padding:1.6rem}.card{padding:1.4rem}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div id="toasts"></div>
+<div id="auth">
+<div class="auth-card glass">
+<div class="brand">Setor Gmail</div>
+<p class="sub" id="auth-sub">Masuk ke akun Anda</p>
+<form id="f-login" style="display:flex;flex-direction:column;gap:.95rem">
+<div class="field"><label>Username</label><input type="text" id="li-user" class="input" placeholder="username" required autocomplete="username"/></div>
+<div class="field"><label>Password</label><input type="password" id="li-pass" class="input" placeholder="••••••••" required autocomplete="current-password"/></div>
+<button type="submit" class="btn btn-primary w-full" id="btn-login"><span>Masuk</span></button>
+</form>
+<form id="f-reg" class="hidden" style="display:none;flex-direction:column;gap:.95rem">
+<div class="field"><label>Nama</label><input type="text" id="re-name" class="input" placeholder="Nama lengkap" required/></div>
+<div class="field"><label>Username</label><input type="text" id="re-user" class="input" placeholder="username" required autocomplete="username"/></div>
+<div class="field"><label>Email</label><input type="email" id="re-email" class="input" placeholder="email@contoh.com" required autocomplete="email"/></div>
+<div class="field"><label>Password</label><input type="password" id="re-pass" class="input" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="new-password"/></div>
+<button type="submit" class="btn btn-primary w-full" id="btn-reg"><span>Daftar</span></button>
+</form>
+<div class="toggle"><span id="tog-text">Belum punya akun?</span> <a id="tog-link">Daftar sekarang</a></div>
+</div>
+</div>
+<div id="app" class="hidden">
+<header class="top"><div class="top-title">Setor Gmail</div><div class="chip"><div class="av" id="h-av">U</div><span id="h-name">User</span></div></header>
+<div class="wrap">
+<div id="p-setor">
+<div class="card glass">
+<div class="sec">Setor Gmail Baru</div>
+<form id="f-setor" style="display:flex;flex-direction:column;gap:.95rem">
+<div class="field"><label>Alamat Gmail</label><input type="email" id="gmail" class="input" placeholder="contoh@gmail.com" required/></div>
+<div class="field"><label>Pilih Password (wajib)</label><div class="pw-grid">
+<div class="pw-opt"><input type="radio" name="pw" id="pw1" value="sgsg1122" required/><label for="pw1">sgsg1122</label></div>
+<div class="pw-opt"><input type="radio" name="pw" id="pw2" value="goldacok"/><label for="pw2">goldacok</label></div>
+</div></div>
+<button type="submit" class="btn btn-primary w-full" id="btn-setor"><span>Setor Sekarang</span></button>
+</form></div>
+<div class="card glass"><div class="sec">Riwayat Terbaru</div><div id="list-recent"></div></div>
+</div>
+<div id="p-history" class="hidden"><div class="card glass"><div class="sec">Semua Riwayat</div><div id="list-full"></div></div></div>
+<div id="p-admin" class="hidden"><div class="card glass">
+<div class="sec">Panel Admin</div>
+<div class="stats stats-3" style="margin-bottom:1.1rem">
+<div class="stat glass-2"><div class="stat-v" id="a-total">0</div><div class="stat-l">Total</div></div>
+<div class="stat glass-2"><div class="stat-v" id="a-pending">0</div><div class="stat-l">Menunggu</div></div>
+<div class="stat glass-2"><div class="stat-v" id="a-done">0</div><div class="stat-l">Selesai</div></div>
+</div>
+<div class="filters">
+<button class="fbtn on" data-f="all">Semua</button>
+<button class="fbtn" data-f="pending">Menunggu</button>
+<button class="fbtn" data-f="success">Selesai</button>
+<button class="fbtn" data-f="reject">Ditolak</button>
+</div>
+<div id="list-admin"></div>
+<div class="note">Data di browser ini. Admin melihat setoran di perangkat yang sama.</div>
+</div></div>
+<div id="p-profile" class="hidden"><div class="card glass">
+<div class="ph"><div class="ph-av" id="p-av">U</div><div><h2 id="p-name">User</h2><p id="p-user">@username</p><p id="p-role" style="font-size:.8rem;margin-top:.15rem;color:var(--accent)"></p></div></div>
+<div class="stats">
+<div class="stat glass-2"><div class="stat-v" id="s-total">0</div><div class="stat-l">Total Setoran</div></div>
+<div class="stat glass-2"><div class="stat-v" id="s-pending">0</div><div class="stat-l">Menunggu</div></div>
+</div>
+<button class="btn btn-danger w-full" id="btn-out">Keluar</button>
+</div></div>
+</div>
+<nav class="nav" id="nav">
+<button class="on" data-p="setor">Setor</button>
+<button data-p="history">Riwayat</button>
+<button class="admin-only hidden" data-p="admin">Admin</button>
+<button data-p="profile">Profil</button>
+</nav>
+</div>
+<script>
+const K_USERS='sg_users_v3',K_SESSION='sg_session_v3',K_HIST='sg_hist_v3';
+let me=null,modeLogin=true,aFilter='all';
+function toast(msg,type='info'){const el=document.createElement('div');el.className=`toast ${type==='success'?'ok':type==='error'?'err':'info'}`;el.textContent=msg;document.getElementById('toasts').appendChild(el);setTimeout(()=>{el.style.opacity='0';el.style.transition='all .3s';setTimeout(()=>el.remove(),300)},2800)}
+function load(btn,on){if(on){btn.disabled=true;btn.dataset.o=btn.innerHTML;btn.innerHTML='<div class="spin"></div>'}else{btn.disabled=false;btn.innerHTML=btn.dataset.o||btn.innerHTML}}
+function okGmail(e){return /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(e.trim())}
+function users(){try{return JSON.parse(localStorage.getItem(K_USERS)||'[]')}catch{return[]}}
+function saveUsers(u){localStorage.setItem(K_USERS,JSON.stringify(u))}
+function allHist(){try{return JSON.parse(localStorage.getItem(K_HIST)||'{}')}catch{return{}}}
+function hist(uid){return allHist()[uid]||[]}
+function saveHist(uid,h){const a=allHist();a[uid]=h;localStorage.setItem(K_HIST,JSON.stringify(a))}
+function fmt(ts){return new Date(ts).toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+function label(s){return{pending:'Menunggu',success:'Selesai',reject:'Ditolak'}[s]||s}
+function cls(s){return{pending:'b-pending',success:'b-ok',reject:'b-no'}[s]||'b-pending'}
+function ensureAdmin(){const u=users();if(!u.some(x=>x.username==='admin')){u.push({id:'admin',name:'Admin',username:'admin',email:'admin@setor.com',password:'admin123',role:'admin'});saveUsers(u)}}
+function init(){ensureAdmin();const s=localStorage.getItem(K_SESSION);if(s){try{me=JSON.parse(s);showApp()}catch{localStorage.removeItem(K_SESSION)}}}
+document.getElementById('tog-link').onclick=()=>{modeLogin=!modeLogin;const fl=document.getElementById('f-login'),fr=document.getElementById('f-reg');if(modeLogin){fl.classList.remove('hidden');fl.style.display='flex';fr.classList.add('hidden');fr.style.display='none';document.getElementById('auth-sub').textContent='Masuk ke akun Anda';document.getElementById('tog-text').textContent='Belum punya akun?';document.getElementById('tog-link').textContent='Daftar sekarang'}else{fl.classList.add('hidden');fl.style.display='none';fr.classList.remove('hidden');fr.style.display='flex';document.getElementById('auth-sub').textContent='Buat akun baru';document.getElementById('tog-text').textContent='Sudah punya akun?';document.getElementById('tog-link').textContent='Masuk'}};
+document.getElementById('f-login').onsubmit=async e=>{e.preventDefault();const btn=document.getElementById('btn-login');load(btn,true);await new Promise(r=>setTimeout(r,400));const username=document.getElementById('li-user').value.trim().toLowerCase(),password=document.getElementById('li-pass').value;const u=users().find(x=>x.username===username&&x.password===password);if(!u){toast('Username atau password salah','error');load(btn,false);return}me={id:u.id,name:u.name,username:u.username,email:u.email||'-',role:u.role||'user'};localStorage.setItem(K_SESSION,JSON.stringify(me));toast('Berhasil masuk!','success');load(btn,false);showApp()};
+document.getElementById('f-reg').onsubmit=async e=>{e.preventDefault();const btn=document.getElementById('btn-reg');load(btn,true);await new Promise(r=>setTimeout(r,500));const name=document.getElementById('re-name').value.trim(),username=document.getElementById('re-user').value.trim().toLowerCase().replace(/\s+/g,''),email=document.getElementById('re-email').value.trim().toLowerCase(),password=document.getElementById('re-pass').value;if(username.length<3){toast('Username minimal 3 karakter','error');load(btn,false);return}if(!email||!email.includes('@')){toast('Email tidak valid','error');load(btn,false);return}if(password.length<6){toast('Password minimal 6 karakter','error');load(btn,false);return}const list=users();if(list.some(x=>x.username===username)){toast('Username sudah dipakai','error');load(btn,false);return}if(list.some(x=>x.email===email)){toast('Email sudah dipakai','error');load(btn,false);return}const nu={id:Date.now().toString(36)+Math.random().toString(36).slice(2),name,username,email,password,role:'user'};list.push(nu);saveUsers(list);me={id:nu.id,name:nu.name,username:nu.username,email:nu.email,role:'user'};localStorage.setItem(K_SESSION,JSON.stringify(me));toast('Pendaftaran berhasil!','success');load(btn,false);showApp()};
+function showApp(){document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');updUI();renderHist();renderAdmin();go('setor')}
+function updUI(){if(!me)return;const ini=(me.name||'U').charAt(0).toUpperCase();document.getElementById('h-av').textContent=ini;document.getElementById('h-name').textContent=(me.name||'User').split(' ')[0];document.getElementById('p-av').textContent=ini;document.getElementById('p-name').textContent=me.name||'User';document.getElementById('p-user').textContent='@'+me.username;document.getElementById('p-role').textContent=me.role==='admin'?'👑 Admin':'User';document.querySelectorAll('.admin-only').forEach(el=>el.classList.toggle('hidden',me.role!=='admin'));const h=hist(me.id);document.getElementById('s-total').textContent=h.length;document.getElementById('s-pending').textContent=h.filter(x=>x.status==='pending').length}
+function renderHist(){if(!me)return;const h=hist(me.id),recent=h.slice(0,5);const draw=(list,id)=>{const el=document.getElementById(id);if(!list.length){el.innerHTML='<div class="empty"><p>Belum ada setoran</p></div>';return}el.innerHTML=list.map(i=>`<div class="row"><div><div class="row-title">${i.gmail}</div><div class="row-meta">${fmt(i.timestamp)} · ${i.password}</div></div><span class="badge ${cls(i.status)}">${label(i.status)}</span></div>`).join('')};draw(recent,'list-recent');draw(h,'list-full');updUI()}
+function allSubs(){const a=allHist(),u=users(),out=[];Object.keys(a).forEach(uid=>{const user=u.find(x=>x.id===uid);(a[uid]||[]).forEach(i=>out.push({...i,userId:uid,userName:user?user.name:'Unknown',userUser:user?user.username:'-',userEmail:user?(user.email||'-'):'-',userPass:user?(user.password||'-'):'-'}))});return out.sort((x,y)=>y.timestamp-x.timestamp)}
+function renderAdmin(){if(!me||me.role!=='admin')return;const all=allSubs();const list=aFilter==='all'?all:all.filter(i=>i.status===aFilter);document.getElementById('a-total').textContent=all.length;document.getElementById('a-pending').textContent=all.filter(i=>i.status==='pending').length;document.getElementById('a-done').textContent=all.filter(i=>i.status==='success').length;const el=document.getElementById('list-admin');if(!list.length){el.innerHTML='<div class="empty"><p>Tidak ada data</p></div>';return}el.innerHTML=list.map(i=>`<div class="row"><div style="flex:1;min-width:0"><div class="row-title">${i.gmail}</div><div class="row-meta">${fmt(i.timestamp)} · Gmail PW: <b>${i.password}</b><br><span style="color:var(--accent)">Akun Web:</span> usn: <b>${i.userUser}</b> · email: <b>${i.userEmail}</b> · pw: <b>${i.userPass}</b></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.35rem"><span class="badge ${cls(i.status)}">${label(i.status)}</span>${i.status==='pending'?`<div style="display:flex;gap:.35rem"><button class="btn btn-success btn-sm" onclick="setStatus('${i.userId}','${i.id}','success')">✓</button><button class="btn btn-danger btn-sm" onclick="setStatus('${i.userId}','${i.id}','reject')">✕</button></div>`:''}</div></div>`).join('')}
+window.setStatus=(uid,id,st)=>{const h=hist(uid);const i=h.findIndex(x=>x.id===id);if(i<0)return;h[i].status=st;saveHist(uid,h);toast(st==='success'?'Ditandai selesai':'Ditolak',st==='success'?'success':'error');renderAdmin();renderHist()};
+document.querySelectorAll('.fbtn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');aFilter=b.dataset.f;renderAdmin()}});
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.p));
+function go(p){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));['setor','history','admin','profile'].forEach(x=>{document.getElementById('p-'+x).classList.toggle('hidden',x!==p)});if(p==='admin')renderAdmin()}
+document.getElementById('f-setor').onsubmit=async e=>{e.preventDefault();const btn=document.getElementById('btn-setor');load(btn,true);const gmail=document.getElementById('gmail').value.trim().toLowerCase();const pw=document.querySelector('input[name="pw"]:checked');if(!okGmail(gmail)){toast('Format Gmail tidak valid','error');load(btn,false);return}if(!pw){toast('Pilih password','error');load(btn,false);return}await new Promise(r=>setTimeout(r,600));const h=hist(me.id);if(h.some(x=>x.gmail===gmail)){toast('Gmail sudah pernah disetor','error');load(btn,false);return}h.unshift({id:Date.now().toString(36),gmail,password:pw.value,status:'pending',timestamp:Date.now()});saveHist(me.id,h);toast('Berhasil disetor! Status: Menunggu','success');document.getElementById('f-setor').reset();renderHist();load(btn,false)};
+document.getElementById('btn-out').onclick=()=>{localStorage.removeItem(K_SESSION);me=null;document.getElementById('app').classList.add('hidden');document.getElementById('auth').classList.remove('hidden');document.getElementById('f-login').reset();document.getElementById('f-reg').reset();modeLogin=true;document.getElementById('f-login').classList.remove('hidden');document.getElementById('f-login').style.display='flex';document.getElementById('f-reg').classList.add('hidden');document.getElementById('f-reg').style.display='none';document.getElementById('auth-sub').textContent='Masuk ke akun Anda';document.getElementById('tog-text').textContent='Belum punya akun?';document.getElementById('tog-link').textContent='Daftar sekarang';toast('Anda telah keluar','info')};
+init();
+</script>
+</body>
+</html>

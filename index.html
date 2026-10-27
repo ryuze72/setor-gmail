@@ -1,2 +1,333 @@
-<!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Setor Gmail - Updating</title></head><body style="font-family:system-ui;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f5f7fb"><div style="text-align:center"><h2>Memuat update fitur...</h2><p style="color:#64748b">Refresh halaman dalam 30 detik</p></div></body></html>
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/><meta name="theme-color" content="#ffffff"/><title>Setor Gmail</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet"><style>:root{--bg:#f5f7fb;--bg2:#eef2f7;--card:#ffffff;--card2:#f8fafc;--line:rgba(15,23,42,.07);--line2:rgba(15,23,42,.11);--t:#0f172a;--m:#64748b;--m2:#94a3b8;--acc:#2563eb;--acc2:#3b82f6;--acc-dim:rgba(37,99,235,.09);--acc-border:rgba(37,99,235,.22);--amber:#d97706;--red:#dc2626;--green:#059669;--r:18px;--sh:0 1px 2px rgba(15,23,42,.04),0 4px 12px rgba(15,23,42,.03);--sh2:0 8px 28px rgba(15,23,42,.08)}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{-webkit-text-size-adjust:100%}body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--t);min-height:100dvh;line-height:1.5;-webkit-font-smoothing:antialiased}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 90% 55% at 10% -8%,rgba(37,99,235,.06),transparent 50%);pointer-events:none;z-index:0}.hidden{display:none!important}.w100{width:100%}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.82rem 1.15rem;border-radius:12px;font-weight:650;font-size:.9rem;border:none;cursor:pointer;transition:.18s ease;font-family:inherit}.btn:active{transform:scale(.97)}.btn-p{background:var(--acc);color:#fff;box-shadow:0 4px 16px rgba(37,99,235,.28)}.btn-p:hover{background:#1d4ed8}.btn-g{background:var(--acc-dim);color:var(--acc);border:1px solid var(--acc-border)}.btn-r{background:rgba(220,38,38,.07);color:var(--red);border:1px solid rgba(220,38,38,.18)}.btn-s{background:var(--card2);color:var(--t);border:1px solid var(--line2)}.btn-xs{padding:.32rem .65rem;font-size:.74rem;border-radius:8px}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-google{background:#fff;border:1px solid var(--line2);color:var(--t);width:100%;border-radius:12px;box-shadow:var(--sh)}.f{display:flex;flex-direction:column;gap:.28rem}.f label{font-size:.76rem;font-weight:600;color:var(--m)}.in,.ta{width:100%;padding:.8rem 1rem;background:var(--bg2);border:1px solid var(--line2);border-radius:12px;color:var(--t);font-size:.92rem;font-family:inherit;outline:none;transition:.15s}.in:focus,.ta:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-dim)}.ta{resize:vertical;min-height:110px}.pw-opt{display:flex;gap:.55rem;flex-wrap:wrap}.pw-opt label{flex:1;min-width:130px;display:flex;align-items:center;gap:.5rem;padding:.7rem .9rem;background:var(--bg2);border:1.5px solid var(--line2);border-radius:12px;cursor:pointer;font-size:.86rem;font-weight:600;transition:.15s}.pw-opt input{accent-color:var(--acc)}.pw-opt label:has(input:checked){border-color:var(--acc);background:var(--acc-dim)}.toast{position:fixed;top:1.1rem;left:50%;transform:translateX(-50%) translateY(-120%);background:var(--t);color:#fff;padding:.7rem 1.2rem;border-radius:999px;font-size:.84rem;font-weight:600;z-index:9999;transition:.3s cubic-bezier(.2,.8,.2,1);box-shadow:var(--sh2);max-width:90vw;text-align:center}.toast.show{transform:translateX(-50%) translateY(0)}.toast.ok{background:var(--green)}.toast.err{background:var(--red)}.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:.35rem 0 calc(.35rem + env(safe-area-inset-bottom));z-index:50}.bnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:.15rem;background:none;border:none;color:var(--m2);font-size:.65rem;font-weight:600;padding:.35rem 0;cursor:pointer;font-family:inherit;transition:.15s}.bnav button.on{color:var(--acc)}.bnav svg{width:22px;height:22px}.fab{position:fixed;bottom:calc(4.2rem + env(safe-area-inset-bottom));right:1.1rem;width:54px;height:54px;border-radius:50%;background:var(--acc);color:#fff;border:none;box-shadow:0 6px 20px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;z-index:40;cursor:pointer;transition:.18s}.fab:active{transform:scale(.94)}.fab svg{width:24px;height:24px}.page{padding:1rem 1rem calc(5.5rem + env(safe-area-inset-bottom));position:relative;z-index:1;max-width:480px;margin:0 auto}.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}.hdr h1{font-size:1.25rem;font-weight:800;letter-spacing:-.02em}.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .55rem;border-radius:999px;font-size:.7rem;font-weight:700}.badge.open{background:rgba(5,150,105,.1);color:var(--green)}.badge.close{background:rgba(220,38,38,.1);color:var(--red)}.saldo-card{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:20px;padding:1.25rem 1.3rem;margin-bottom:1rem;position:relative;overflow:hidden}.saldo-card::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%}.saldo-card .lbl{font-size:.78rem;opacity:.85;font-weight:500}.saldo-card .amt{font-size:1.85rem;font-weight:800;letter-spacing:-.03em;margin:.15rem 0 .6rem}.saldo-card .row{display:flex;gap:.6rem}.saldo-card .btn-w{background:rgba(255,255,255,.2);color:#fff;border:none;padding:.45rem .9rem;border-radius:10px;font-size:.8rem;font-weight:650;cursor:pointer}.kpi{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem}.kpi .card{padding:.9rem 1rem}.kpi .n{font-size:1.35rem;font-weight:800;letter-spacing:-.02em}.kpi .l{font-size:.72rem;color:var(--m);font-weight:600;margin-top:.1rem}.list-card{padding:0;overflow:hidden;margin-bottom:.7rem}.list-card .item{display:flex;align-items:flex-start;gap:.75rem;padding:.85rem 1rem;border-bottom:1px solid var(--line)}.list-card .item:last-child{border-bottom:none}.list-card .item .g{font-size:.88rem;font-weight:650;word-break:break-word;flex:1}.list-card .item .meta{font-size:.72rem;color:var(--m);margin-top:.15rem}.st{display:inline-flex;padding:.18rem .5rem;border-radius:999px;font-size:.68rem;font-weight:700}.st.p{background:rgba(217,119,6,.12);color:var(--amber)}.st.s{background:rgba(5,150,105,.12);color:var(--green)}.st.r{background:rgba(220,38,38,.1);color:var(--red)}.empty{text-align:center;padding:2.5rem 1rem;color:var(--m2);font-size:.9rem}.ann{background:linear-gradient(90deg,#eff6ff,#f0f9ff);border:1px solid rgba(37,99,235,.15);border-radius:12px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.84rem;color:#1e40af;display:flex;gap:.5rem;align-items:flex-start}.ann svg{flex-shrink:0;margin-top:.1rem}.tabs{display:flex;gap:.4rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:.2rem}.tabs button{flex-shrink:0;padding:.5rem .9rem;border-radius:999px;border:1px solid var(--line2);background:var(--card);font-size:.8rem;font-weight:650;color:var(--m);cursor:pointer;font-family:inherit}.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}.ad-wrap{max-width:960px;margin:0 auto;padding:1rem 1rem 3rem}.ad-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;margin-bottom:1.2rem}.ad-hdr h1{font-size:1.3rem;font-weight:800}.ad-nav{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.1rem}.ad-nav button{padding:.5rem .95rem;border-radius:10px;border:1px solid var(--line2);background:var(--card);font-size:.82rem;font-weight:650;color:var(--m);cursor:pointer;font-family:inherit}.ad-nav button.on{background:var(--acc);color:#fff;border-color:var(--acc)}.ad-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem;margin-bottom:1.2rem}.ad-kpi .card{padding:1rem}.ad-kpi .n{font-size:1.5rem;font-weight:800}.ad-kpi .l{font-size:.72rem;color:var(--m);font-weight:600}.ad-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem;margin-bottom:.6rem}.ad-card .gmail{font-size:.9rem;font-weight:700;word-break:break-word}.ad-card .meta{font-size:.75rem;color:var(--m);margin:.25rem 0 .5rem;display:flex;flex-wrap:wrap;gap:.4rem .8rem}.ad-card .acts{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}.ad-card .acts label{display:flex;align-items:center;gap:.3rem;font-size:.78rem;cursor:pointer}.bulk-bar{position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:.7rem 1rem;display:none;gap:.5rem;flex-wrap:wrap;z-index:30;box-shadow:0 -4px 16px rgba(0,0,0,.06)}.bulk-bar.show{display:flex}.cfg-grid{display:grid;gap:.9rem}.cfg-grid .f{margin-bottom:0}.switch{position:relative;width:44px;height:24px;display:inline-block}.switch input{opacity:0;width:0;height:0}.switch span{position:absolute;inset:0;background:#cbd5e1;border-radius:999px;cursor:pointer;transition:.2s}.switch span::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}.switch input:checked+span{background:var(--acc)}.switch input:checked+span::before{transform:translateX(20px)}.dark{--bg:#0f172a;--bg2:#1e293b;--card:#1e293b;--card2:#334155;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.12);--t:#f1f5f9;--m:#94a3b8;--m2:#64748b}.dark .saldo-card{background:linear-gradient(135deg,#1e3a8a,#1d4ed8)}.dark .bnav{background:rgba(15,23,42,.92)}.dark .ann{background:linear-gradient(90deg,#1e3a5f,#1e293b);border-color:rgba(59,130,246,.25);color:#93c5fd}.dark body::before{background:radial-gradient(ellipse 90% 55% at 10% -8%,rgba(37,99,235,.12),transparent 50%)}@media(min-width:768px){.page{max-width:520px}.ad-wrap{padding:1.5rem 1.5rem 3rem}}</style></head><body>
+<div id="toast" class="toast"></div>
+
+<!-- AUTH -->
+<div id="auth" class="page">
+  <div style="text-align:center;padding:2.5rem 0 1.5rem">
+    <div style="width:64px;height:64px;background:linear-gradient(135deg,#2563eb,#3b82f6);border-radius:18px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem;box-shadow:0 8px 24px rgba(37,99,235,.3)">
+      <svg width="32" height="32" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <h1 style="font-size:1.6rem;font-weight:800;letter-spacing:-.03em">Setor Gmail</h1>
+    <p style="color:var(--m);font-size:.9rem;margin-top:.3rem">Demo · Local Storage</p>
+  </div>
+  <div class="card" style="padding:1.3rem">
+    <div class="tabs" style="margin-bottom:1.1rem">
+      <button type="button" class="on" id="tab-login">Masuk</button>
+      <button type="button" id="tab-reg">Daftar</button>
+    </div>
+    <div id="f-login">
+      <div class="f" style="margin-bottom:.8rem"><label>Email / Username</label><input class="in" id="l-user" placeholder="admin atau email" autocomplete="username"></div>
+      <div class="f" style="margin-bottom:1rem"><label>Password</label><input class="in" id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="btn btn-p w100" id="b-login">Masuk</button>
+      <p style="font-size:.75rem;color:var(--m2);margin-top:.8rem;text-align:center">Demo admin: <b>admin</b> / <b>admin123</b></p>
+    </div>
+    <div id="f-reg" class="hidden">
+      <div class="f" style="margin-bottom:.8rem"><label>Username</label><input class="in" id="r-user" placeholder="username unik"></div>
+      <div class="f" style="margin-bottom:.8rem"><label>Email</label><input class="in" id="r-email" type="email" placeholder="email@gmail.com"></div>
+      <div class="f" style="margin-bottom:.8rem"><label>Password</label><input class="in" id="r-pass" type="password" placeholder="min 6 karakter"></div>
+      <div class="f" style="margin-bottom:1rem"><label>Kode Referral (opsional)</label><input class="in" id="r-ref" placeholder="kode referral"></div>
+      <button class="btn btn-p w100" id="b-reg">Daftar</button>
+    </div>
+  </div>
+</div>
+
+<!-- USER APP -->
+<div id="app" class="hidden">
+  <div id="ann-banner" class="ann hidden" style="margin:1rem 1rem 0;max-width:480px;margin-left:auto;margin-right:auto"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span id="ann-text"></span></div>
+  <div id="pg-home" class="page">
+    <div class="hdr"><h1>Beranda</h1><span id="open-badge" class="badge open">● OPEN</span></div>
+    <div class="saldo-card">
+      <div class="lbl">Saldo Aktif</div>
+      <div class="amt" id="home-saldo">Rp 0</div>
+      <div class="row">
+        <button class="btn-w" onclick="go('saldo')">Tarik Dana</button>
+        <button class="btn-w" onclick="go('stor')">Setor Sekarang</button>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="card"><div class="n" id="kpi-ok">0</div><div class="l">Berhasil</div></div>
+      <div class="card"><div class="n" id="kpi-pend">0</div><div class="l">Pending</div></div>
+    </div>
+    <div class="card list-card" id="home-recent"><div class="empty">Belum ada setoran</div></div>
+  </div>
+
+  <div id="pg-stor" class="page hidden">
+    <div class="hdr"><h1>Setor Gmail</h1><span id="open-badge2" class="badge open">● OPEN</span></div>
+    <div id="close-warn" class="card" style="padding:1rem;margin-bottom:1rem;background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.2);display:none">
+      <div style="font-weight:700;color:var(--red);font-size:.9rem">Setor Gmail sedang ditutup</div>
+      <div style="font-size:.8rem;color:var(--m);margin-top:.25rem">Silakan coba lagi nanti</div>
+    </div>
+    <div class="card" style="padding:1.15rem">
+      <div class="f" style="margin-bottom:.9rem">
+        <label>Daftar Gmail (satu per baris)</label>
+        <textarea class="ta" id="gmail-list" placeholder="contoh@gmail.com&#10;akun2@gmail.com" rows="5"></textarea>
+        <div style="font-size:.72rem;color:var(--m2);margin-top:.3rem"><span id="line-count">0 baris</span> · Kuota harian: <span id="quota-info">0/0</span></div>
+      </div>
+      <div class="f" style="margin-bottom:1rem">
+        <label>Password Gmail</label>
+        <div class="pw-opt">
+          <label><input type="radio" name="pw" value="sgsg1122" checked> sgsg1122</label>
+          <label><input type="radio" name="pw" value="goldacok"> goldacok</label>
+        </div>
+      </div>
+      <button class="btn btn-p w100" id="b-setor">Setor Sekarang</button>
+    </div>
+  </div>
+
+  <div id="pg-riwayat" class="page hidden">
+    <div class="hdr"><h1>Riwayat</h1></div>
+    <div id="ry-list" class="card list-card"><div class="empty">Kosong</div></div>
+  </div>
+
+  <div id="pg-saldo" class="page hidden">
+    <div class="hdr"><h1>Saldo & Tarik</h1></div>
+    <div class="saldo-card">
+      <div class="lbl">Saldo Tersedia</div>
+      <div class="amt" id="wd-saldo">Rp 0</div>
+    </div>
+    <div class="card" style="padding:1.15rem;margin-bottom:1rem">
+      <div class="f" style="margin-bottom:.8rem"><label>Nominal (min <span id="minwd-lbl">10000</span>)</label><input class="in" id="wd-amt" type="number" placeholder="10000"></div>
+      <div class="f" style="margin-bottom:.8rem"><label>Nomor DANA</label><input class="in" id="wd-dana" placeholder="08xxxxxxxxxx"></div>
+      <div class="f" style="margin-bottom:1rem"><label>Nama Pemilik</label><input class="in" id="wd-name" placeholder="Nama sesuai DANA"></div>
+      <button class="btn btn-p w100" id="b-wd">Ajukan Penarikan</button>
+    </div>
+    <div id="wd-list" class="card list-card"><div class="empty">Belum ada penarikan</div></div>
+  </div>
+
+  <div id="pg-rules" class="page hidden">
+    <div class="hdr"><h1>Aturan</h1></div>
+    <div class="card" style="padding:1.2rem;font-size:.88rem;line-height:1.65;color:var(--m)">
+      <p style="margin-bottom:.7rem"><b style="color:var(--t)">1.</b> Hanya password <b>sgsg1122</b> atau <b>goldacok</b>.</p>
+      <p style="margin-bottom:.7rem"><b style="color:var(--t)">2.</b> Gmail harus belum pernah disetor (global).</p>
+      <p style="margin-bottom:.7rem"><b style="color:var(--t)">3.</b> Kuota harian berlaku per akun.</p>
+      <p style="margin-bottom:.7rem"><b style="color:var(--t)">4.</b> Admin berhak menolak / ban tanpa pemberitahuan.</p>
+      <p><b style="color:var(--t)">5.</b> Ini demo localStorage — data hanya di browser Anda.</p>
+    </div>
+  </div>
+
+  <div id="pg-referral" class="page hidden">
+    <div class="hdr"><h1>Referral</h1></div>
+    <div class="card" style="padding:1.2rem;text-align:center">
+      <div style="font-size:.85rem;color:var(--m);margin-bottom:.5rem">Kode Referral Anda</div>
+      <div style="font-size:1.4rem;font-weight:800;letter-spacing:.05em" id="ref-code">—</div>
+      <button class="btn btn-g" style="margin-top:1rem" id="b-copy-ref">Salin Kode</button>
+      <p style="font-size:.8rem;color:var(--m2);margin-top:1rem">Bagikan ke teman. Admin dapat mengatur reward manual.</p>
+    </div>
+  </div>
+
+  <div id="pg-laporan" class="page hidden">
+    <div class="hdr"><h1>Laporan</h1></div>
+    <div class="card" style="padding:1.2rem">
+      <div class="f" style="margin-bottom:.8rem"><label>Jenis</label>
+        <select class="in" id="lap-type"><option>Bug / Error</option><option>Saran</option><option>Komplain Setoran</option><option>Lainnya</option></select>
+      </div>
+      <div class="f" style="margin-bottom:1rem"><label>Pesan</label><textarea class="ta" id="lap-msg" rows="4" placeholder="Jelaskan masalah..."></textarea></div>
+      <button class="btn btn-p w100" id="b-lap">Kirim Laporan</button>
+    </div>
+  </div>
+
+  <div id="pg-checker" class="page hidden">
+    <div class="hdr"><h1>Cek Gmail</h1></div>
+    <div class="card" style="padding:1.15rem">
+      <div class="f" style="margin-bottom:1rem"><label>Email</label><input class="in" id="chk-g" placeholder="cek@gmail.com"></div>
+      <button class="btn btn-p w100" id="b-chk">Cek Status</button>
+      <div id="chk-res" style="margin-top:1rem;font-size:.88rem;display:none"></div>
+    </div>
+  </div>
+
+  <div id="pg-bantuan" class="page hidden">
+    <div class="hdr"><h1>Bantuan</h1></div>
+    <div class="card" style="padding:1.2rem;font-size:.88rem;line-height:1.65;color:var(--m)">
+      <p style="margin-bottom:.8rem">Hubungi admin via Telegram (demo).</p>
+      <p style="margin-bottom:.8rem">Pastikan format Gmail benar dan password sesuai pilihan.</p>
+      <p>Data tersimpan lokal di browser. Clear cache = data hilang.</p>
+    </div>
+  </div>
+
+  <div id="pg-profil" class="page hidden">
+    <div class="hdr"><h1>Profil</h1></div>
+    <div class="card" style="padding:1.2rem;margin-bottom:1rem">
+      <div style="font-weight:700;font-size:1.05rem" id="prof-name">—</div>
+      <div style="font-size:.85rem;color:var(--m);margin-top:.2rem" id="prof-email">—</div>
+      <div style="font-size:.8rem;color:var(--m2);margin-top:.5rem">ID: <span id="prof-id">—</span></div>
+    </div>
+    <div class="card" style="padding:1.1rem;margin-bottom:1rem">
+      <div class="f" style="margin-bottom:.8rem"><label>Password Baru</label><input class="in" id="new-pass" type="password" placeholder="min 6 karakter"></div>
+      <button class="btn btn-g w100" id="b-chpass">Ganti Password</button>
+    </div>
+    <button class="btn btn-r w100" id="b-logout">Keluar</button>
+  </div>
+
+  <nav class="bnav">
+    <button data-p="home" class="on"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+    <button data-p="stor"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Setor</button>
+    <button data-p="riwayat"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Riwayat</button>
+    <button data-p="saldo"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Saldo</button>
+    <button data-p="profil"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil</button>
+  </nav>
+  <button class="fab" onclick="go('stor')" title="Setor"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="hidden">
+  <div class="ad-wrap">
+    <div class="ad-hdr">
+      <h1>Admin Console</h1>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <button class="btn btn-xs btn-s" id="b-open-toggle">● OPEN</button>
+        <button class="btn btn-xs btn-r" id="b-ad-logout">Keluar</button>
+      </div>
+    </div>
+    <div class="ad-nav">
+      <button class="on" data-ad="dash">Dashboard</button>
+      <button data-ad="setoran">Setoran</button>
+      <button data-ad="users">Users</button>
+      <button data-ad="wd">Penarikan</button>
+      <button data-ad="settings">Pengaturan</button>
+      <button data-ad="audit">Audit</button>
+    </div>
+
+    <div id="ad-dash">
+      <div class="ad-kpi" id="ad-kpi"></div>
+      <div class="card" style="padding:1rem;margin-bottom:1rem">
+        <div style="font-weight:700;margin-bottom:.6rem;font-size:.9rem">Aksi Cepat</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-xs btn-g" id="ex-setoran">Export Setoran CSV</button>
+          <button class="btn btn-xs btn-g" id="ex-users">Export Users CSV</button>
+          <button class="btn btn-xs btn-g" id="ex-wd">Export WD CSV</button>
+        </div>
+      </div>
+      <div id="ad-dash-list"></div>
+    </div>
+
+    <div id="ad-setoran" class="hidden">
+      <div style="display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap">
+        <button class="btn btn-xs btn-s" data-filter="all">Semua</button>
+        <button class="btn btn-xs btn-s" data-filter="pending">Pending</button>
+        <button class="btn btn-xs btn-s" data-filter="success">Sukses</button>
+        <button class="btn btn-xs btn-s" data-filter="reject">Tolak</button>
+      </div>
+      <div id="ad-setoran-body"></div>
+      <div class="bulk-bar" id="bulk-bar">
+        <span style="font-size:.82rem;font-weight:600;align-self:center" id="bulk-count">0 dipilih</span>
+        <button class="btn btn-xs btn-p" id="bulk-ok">Approve</button>
+        <button class="btn btn-xs btn-r" id="bulk-no">Reject</button>
+      </div>
+    </div>
+
+    <div id="ad-users" class="hidden">
+      <div id="ad-users-body"></div>
+    </div>
+
+    <div id="ad-wd" class="hidden">
+      <div id="ad-wd-body"></div>
+    </div>
+
+    <div id="ad-settings" class="hidden">
+      <div class="card" style="padding:1.2rem">
+        <div class="cfg-grid">
+          <div class="f"><label>Harga per Gmail (Rp)</label><input class="in" id="cfg-harga" type="number"></div>
+          <div class="f"><label>Min Penarikan (Rp)</label><input class="in" id="cfg-minwd" type="number"></div>
+          <div class="f"><label>Kuota Harian / User</label><input class="in" id="cfg-quota" type="number"></div>
+          <div class="f"><label>Pengumuman (kosong = sembunyikan)</label><textarea class="ta" id="cfg-ann" rows="2"></textarea></div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <label style="font-size:.85rem;font-weight:600">Auto-Approve Setoran</label>
+            <label class="switch"><input type="checkbox" id="cfg-auto"><span></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <label style="font-size:.85rem;font-weight:600">Dark Mode</label>
+            <label class="switch"><input type="checkbox" id="p-dark"><span></span></label>
+          </div>
+          <button class="btn btn-p w100" id="b-save-cfg">Simpan Pengaturan</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="ad-audit" class="hidden">
+      <div id="ad-audit-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const KA='sg_auth',KH='sg_hist_',KB='sg_bal_',KW='sg_wd_',KU='sg_users',KCFG='sg_cfg',KG='sg_global',KAUD='sg_audit',KBAN='sg_ban';
+let me=null,HARGA=1500,MIN_WD=10000,DAILY_QUOTA=50,AUTO_APPROVE=false,IS_OPEN=true;
+const $=id=>document.getElementById(id);
+function toast(m,t='ok'){const e=$('toast');e.textContent=m;e.className='toast show '+(t==='success'||t==='ok'?'ok':'err');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2600)}
+function load(b,on){if(!b)return;b.disabled=!!on;b.dataset.old=b.dataset.old||b.textContent;b.textContent=on?'...':b.dataset.old}
+function fmt(t){const d=new Date(t);return d.toLocaleDateString('id-ID',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}
+function rp(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}
+function okG(g){return /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(g)}
+function loadCfg(){try{const c=JSON.parse(localStorage.getItem(KCFG)||'{}');HARGA=c.harga??1500;MIN_WD=c.minWd??10000;DAILY_QUOTA=c.quota??50;AUTO_APPROVE=!!c.auto;IS_OPEN=c.open!==false}catch(e){}}
+function saveCfg(){localStorage.setItem(KCFG,JSON.stringify({harga:HARGA,minWd:MIN_WD,quota:DAILY_QUOTA,auto:AUTO_APPROVE,open:IS_OPEN,ann:getAnn()}))}
+function getAnn(){try{return JSON.parse(localStorage.getItem(KCFG)||'{}').ann||''}catch(e){return ''}}
+function audit(msg){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');a.unshift({msg,by:me?.user||'sys',t:Date.now()});localStorage.setItem(KAUD,JSON.stringify(a.slice(0,200)))}
+function globalG(){return JSON.parse(localStorage.getItem(KG)||'{}')}
+function markGlobal(g,uid){const o=globalG();o[g.toLowerCase()]=uid;localStorage.setItem(KG,JSON.stringify(o))}
+function isGlobalDup(g){return !!globalG()[g.toLowerCase()]}
+function todayCount(uid){const h=hist(uid),start=new Date();start.setHours(0,0,0,0);return h.filter(x=>x.timestamp>=start.getTime()).length}
+function ensureAdmin(){const u=JSON.parse(localStorage.getItem(KU)||'[]');if(!u.find(x=>x.user==='admin')){u.push({id:'admin',user:'admin',email:'admin@local',pass:'admin123',ref:'',ts:Date.now()});localStorage.setItem(KU,JSON.stringify(u))}}
+function init(){ensureAdmin();loadCfg();const s=localStorage.getItem(KA);if(s){try{me=JSON.parse(s);enterApp()}catch(e){}}}
+function enterApp(){if(me.user==='admin')showAdmin();else showUser()}
+function showAdmin(){$('auth').classList.add('hidden');$('app').classList.add('hidden');$('admin').classList.remove('hidden');renderAdminAll();refreshOpenUI()}
+function showUser(){$('auth').classList.add('hidden');$('admin').classList.add('hidden');$('app').classList.remove('hidden');const ann=getAnn();const ban=$('ann-banner');if(ann){ban.classList.remove('hidden');$('ann-text').textContent=ann}else ban.classList.add('hidden');upd();renderAll();refreshOpenUI();const params=new URLSearchParams(location.search);if(params.get('ref')){$('r-ref').value=params.get('ref')}}
+function logout(){localStorage.removeItem(KA);me=null;$('auth').classList.remove('hidden');$('app').classList.add('hidden');$('admin').classList.add('hidden')}
+function allSubs(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{hist(x.id).forEach(h=>r.push({...h,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.timestamp-a.timestamp)}
+function allWdList(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{const w=JSON.parse(localStorage.getItem(KW+x.id)||'[]');w.forEach(i=>r.push({...i,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.ts-a.ts)}
+function renderAdminAll(){renderAdDash();renderAdSetoran();renderAdUsers();renderAdWd();fillSettings();renderAudit()}
+function renderAdDash(){const s=allSubs(),w=allWdList(),u=JSON.parse(localStorage.getItem(KU)||'[]');const pend=s.filter(x=>x.status==='pending').length,ok=s.filter(x=>x.status==='success').length,rej=s.filter(x=>x.status==='reject').length;const bal=u.reduce((a,x)=>a+(JSON.parse(localStorage.getItem(KB+x.id)||'0')||0),0);$('ad-kpi').innerHTML=`<div class="card"><div class="n">${s.length}</div><div class="l">Total Setoran</div></div><div class="card"><div class="n">${pend}</div><div class="l">Pending</div></div><div class="card"><div class="n">${ok}</div><div class="l">Sukses</div></div><div class="card"><div class="n">${u.length}</div><div class="l">Users</div></div><div class="card"><div class="n">${w.filter(x=>x.status==='pending').length}</div><div class="l">WD Pending</div></div><div class="card"><div class="n">${rp(bal)}</div><div class="l">Total Saldo</div></div>`;const recent=s.slice(0,8);$('ad-dash-list').innerHTML=recent.length?recent.map(x=>`<div class="ad-card"><div class="gmail">${x.gmail}</div><div class="meta"><span>@${x.user}</span><span>${fmt(x.timestamp)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div>`).join(''):'<div class="empty">Belum ada data</div>'}
+function renderAdSetoran(filter='all'){const s=allSubs().filter(x=>filter==='all'||x.status===filter);const body=$('ad-setoran-body');body.innerHTML=s.length?s.map(x=>`<div class="ad-card" data-id="${x.id}" data-uid="${x.uid}"><div style="display:flex;gap:.5rem;align-items:flex-start"><label><input type="checkbox" class="bulk-cb" data-id="${x.id}" data-uid="${x.uid}" onchange="updBulk()"></label><div style="flex:1"><div class="gmail">${x.gmail}</div><div class="meta"><span>@${x.user}</span><span>pw: ${x.password}</span><span>${fmt(x.timestamp)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div><div class="acts">${x.status==='pending'?`<button class="btn btn-xs btn-p" onclick="setSt('${x.uid}','${x.id}','success')">Approve</button><button class="btn btn-xs btn-r" onclick="setSt('${x.uid}','${x.id}','reject')">Reject</button>`:''}</div></div></div></div>`).join(''):'<div class="empty">Kosong</div>';updBulk()}
+function renderAdUsers(){const u=JSON.parse(localStorage.getItem(KU)||'[]');const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');$('ad-users-body').innerHTML=u.map(x=>{const bal=JSON.parse(localStorage.getItem(KB+x.id)||'0')||0;const cnt=hist(x.id).length;const banned=!!bans[x.id];return `<div class="ad-card"><div class="gmail">${x.user} ${banned?'<span class="st r">BANNED</span>':''}</div><div class="meta"><span>${x.email}</span><span>${rp(bal)}</span><span>${cnt} setoran</span><span>${fmt(x.ts)}</span></div><div class="acts">${x.user!=='admin'?`<button class="btn btn-xs ${banned?'btn-g':'btn-r'}" onclick="toggleBan('${x.id}')">${banned?'Unban':'Ban'}</button>`:''}</div></div>`}).join('')||'<div class="empty">Kosong</div>'}
+function renderAdWd(){const w=allWdList();$('ad-wd-body').innerHTML=w.length?w.map(x=>`<div class="ad-card"><div class="gmail">${rp(x.amt)} · ${x.dana}</div><div class="meta"><span>@${x.user}</span><span>${x.name}</span><span>${fmt(x.ts)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div><div class="acts">${x.status==='pending'?`<button class="btn btn-xs btn-p" onclick="setWd('${x.uid}','${x.id}','success')">Approve</button><button class="btn btn-xs btn-r" onclick="setWd('${x.uid}','${x.id}','reject')">Reject</button>`:''}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
+function goAd(p){['dash','setoran','users','wd','settings','audit'].forEach(x=>{const el=$('ad-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.ad-nav button').forEach(b=>b.classList.toggle('on',b.dataset.ad===p));if(p==='setoran')renderAdSetoran();if(p==='users')renderAdUsers();if(p==='wd')renderAdWd();if(p==='settings')fillSettings();if(p==='audit')renderAudit();if(p==='dash')renderAdDash()}
+function refreshOpenUI(){const o=IS_OPEN;const txt=o?'● OPEN':'● CLOSED';const cls=o?'open':'close';['open-badge','open-badge2'].forEach(id=>{const e=$(id);if(e){e.textContent=txt;e.className='badge '+cls}});const bt=$('b-open-toggle');if(bt){bt.textContent=txt;bt.className='btn btn-xs '+(o?'btn-g':'btn-r')}const cw=$('close-warn');if(cw)cw.style.display=o?'none':'block';const bs=$('b-setor');if(bs)bs.disabled=!o}
+function isOpen(){return IS_OPEN}
+function hist(uid){return JSON.parse(localStorage.getItem(KH+uid)||'[]')}
+function saveH(uid,h){localStorage.setItem(KH+uid,JSON.stringify(h))}
+function bal(uid){return JSON.parse(localStorage.getItem(KB+uid)||'0')||0}
+function addBal(uid,n){localStorage.setItem(KB+uid,JSON.stringify(bal(uid)+n))}
+function setSt(uid,id,st){const h=hist(uid);const i=h.findIndex(x=>x.id===id);if(i<0)return;const old=h[i].status;h[i].status=st;if(st==='success'&&old!=='success'){addBal(uid,HARGA);markGlobal(h[i].gmail,uid)}if(st!=='success'&&old==='success'){addBal(uid,-HARGA)}saveH(uid,h);audit(`${st} setoran ${h[i].gmail} @${uid}`);renderAdminAll();toast(st==='success'?'Approved':'Rejected',st==='success'?'success':'error')}
+function setWd(uid,id,st){const w=JSON.parse(localStorage.getItem(KW+uid)||'[]');const i=w.findIndex(x=>x.id===id);if(i<0)return;const old=w[i].status;w[i].status=st;if(st==='success'&&old!=='success'){/* already deducted */}if(st==='reject'&&old==='pending'){addBal(uid,w[i].amt)}localStorage.setItem(KW+uid,JSON.stringify(w));audit(`${st} WD ${rp(w[i].amt)} @${uid}`);renderAdminAll();toast(st==='success'?'WD Approved':'WD Rejected',st==='success'?'success':'error')}
+function toggleBan(uid){const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');bans[uid]=!bans[uid];localStorage.setItem(KBAN,JSON.stringify(bans));audit((bans[uid]?'Ban':'Unban')+' user '+uid);renderAdUsers();toast(bans[uid]?'User di-ban':'User di-unban')}
+function upd(){if(!me)return;const b=bal(me.id);const h=hist(me.id);$('home-saldo').textContent=rp(b);$('wd-saldo').textContent=rp(b);$('kpi-ok').textContent=h.filter(x=>x.status==='success').length;$('kpi-pend').textContent=h.filter(x=>x.status==='pending').length;$('quota-info').textContent=todayCount(me.id)+'/'+DAILY_QUOTA;$('minwd-lbl').textContent=MIN_WD;$('prof-name').textContent=me.user;$('prof-email').textContent=me.email;$('prof-id').textContent=me.id;$('ref-code').textContent=me.user.toUpperCase();const recent=h.slice(0,5);$('home-recent').innerHTML=recent.length?recent.map(x=>`<div class="item"><div style="flex:1"><div class="g">${x.gmail}</div><div class="meta">${fmt(x.timestamp)} · <span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div></div>`).join(''):'<div class="empty">Belum ada setoran</div>'}
+function renderAll(){renderRy();renderWd()}
+function renderRy(){const h=hist(me.id);$('ry-list').innerHTML=h.length?h.map(x=>`<div class="item"><div style="flex:1"><div class="g">${x.gmail}</div><div class="meta">pw: ${x.password} · ${fmt(x.timestamp)} · <span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div></div>`).join(''):'<div class="empty">Kosong</div>'}
+function renderWd(){const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');$('wd-list').innerHTML=w.length?w.map(x=>`<div class="item"><div style="flex:1"><div class="g">${rp(x.amt)} → ${x.dana}</div><div class="meta">${x.name} · ${fmt(x.ts)} · <span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div></div>`).join(''):'<div class="empty">Belum ada penarikan</div>'}
+function go(p){['home','stor','riwayat','saldo','rules','referral','laporan','checker','bantuan','profil'].forEach(x=>{const el=$('pg-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p===p));if(p==='riwayat')renderRy();if(p==='saldo'){renderWd();upd()}if(p==='profil'||p==='home'||p==='laporan')upd();if(p==='stor')refreshOpenUI()}
+function updBulk(){const cbs=[...document.querySelectorAll('.bulk-cb:checked')];const bar=$('bulk-bar');$('bulk-count').textContent=cbs.length+' dipilih';bar.classList.toggle('show',cbs.length>0)}
+function bulkAct(st){const cbs=[...document.querySelectorAll('.bulk-cb:checked')];cbs.forEach(c=>setSt(c.dataset.uid,c.dataset.id,st));updBulk()}
+function toCSV(rows){if(!rows.length)return'';const keys=Object.keys(rows[0]);return keys.join(',')+'\n'+rows.map(r=>keys.map(k=>`"${String(r[k]??'').replace(/"/g,'""')}"`).join(',')).join('\n')}
+function dl(name,csv){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=name;a.click()}
+function exportSetoran(){const r=allSubs().map(x=>({gmail:x.gmail,password:x.password,status:x.status,user:x.user,time:new Date(x.timestamp).toISOString()}));dl('setoran.csv',toCSV(r));toast('Export OK','success')}
+function exportUsers(){const u=JSON.parse(localStorage.getItem(KU)||'[]');const r=u.map(x=>({user:x.user,email:x.email,saldo:bal(x.id),setoran:hist(x.id).length,ts:new Date(x.ts).toISOString()}));dl('users.csv',toCSV(r));toast('Export OK','success')}
+function exportWd(){const r=allWdList().map(x=>({amt:x.amt,dana:x.dana,name:x.name,status:x.status,user:x.user,time:new Date(x.ts).toISOString()}));dl('wd.csv',toCSV(r));toast('Export OK','success')}
+function applyDark(on){document.body.classList.toggle('dark',!!on);localStorage.setItem('sg_dark',on?'1':'0');const c=$('p-dark');if(c)c.checked=!!on}
+function fillSettings(){loadCfg();$('cfg-harga').value=HARGA;$('cfg-minwd').value=MIN_WD;$('cfg-quota').value=DAILY_QUOTA;$('cfg-ann').value=getAnn();$('cfg-auto').checked=AUTO_APPROVE}
+function renderAudit(){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');const body=$('ad-audit-body');body.innerHTML=a.length?a.map(x=>`<div class="ad-card"><div class="gmail" style="font-size:.8rem">${x.msg}</div><div class="meta">@${x.by} · ${fmt(x.t)}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
+
+// events
+$('tab-login').onclick=()=>{$('tab-login').classList.add('on');$('tab-reg').classList.remove('on');$('f-login').classList.remove('hidden');$('f-reg').classList.add('hidden')};
+$('tab-reg').onclick=()=>{$('tab-reg').classList.add('on');$('tab-login').classList.remove('on');$('f-reg').classList.remove('hidden');$('f-login').classList.add('hidden')};
+$('b-login').onclick=()=>{const u=$('l-user').value.trim(),p=$('l-pass').value;const users=JSON.parse(localStorage.getItem(KU)||'[]');const found=users.find(x=>x.user===u||x.email===u);if(!found||found.pass!==p){toast('Login gagal','error');return}const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');if(bans[found.id]){toast('Akun di-ban','error');return}me=found;localStorage.setItem(KA,JSON.stringify(me));enterApp();toast('Selamat datang')};
+$('b-reg').onclick=()=>{const user=$('r-user').value.trim(),email=$('r-email').value.trim(),pass=$('r-pass').value,ref=$('r-ref').value.trim();if(user.length<3){toast('Username min 3','error');return}if(!okG(email)&&!email.includes('@')){toast('Email tidak valid','error');return}if(pass.length<6){toast('Password min 6','error');return}const users=JSON.parse(localStorage.getItem(KU)||'[]');if(users.find(x=>x.user===user||x.email===email)){toast('Sudah terdaftar','error');return}const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);users.push({id,user,email,pass,ref,ts:Date.now()});localStorage.setItem(KU,JSON.stringify(users));me={id,user,email,pass,ref,ts:Date.now()};localStorage.setItem(KA,JSON.stringify(me));enterApp();toast('Daftar berhasil')};
+$('b-logout').onclick=logout;$('b-ad-logout').onclick=logout;
+document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
+document.querySelectorAll('.ad-nav button').forEach(b=>b.onclick=()=>goAd(b.dataset.ad));
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>renderAdSetoran(b.dataset.filter));
+$('gmail-list').oninput=()=>{$('line-count').textContent=$('gmail-list').value.split('\n').filter(x=>x.trim()).length+' baris'};
+$('b-setor').onclick=async()=>{if(!isOpen()){toast('Setor Gmail sedang ditutup','error');return}const b=$('b-setor');load(b,1);const pw=document.querySelector('input[name="pw"]:checked')?.value;if(!pw){toast('Pilih password','error');load(b,0);return}const lines=[...new Set($('gmail-list').value.split('\n').map(x=>x.trim().toLowerCase()).filter(Boolean))];if(!lines.length){toast('Isi minimal 1 Gmail','error');load(b,0);return}const invalid=lines.filter(x=>!okG(x));if(invalid.length){toast('Format tidak valid: '+invalid[0],'error');load(b,0);return}await new Promise(r=>setTimeout(r,450));if(todayCount(me.id)+lines.length>DAILY_QUOTA){toast('Kuota harian penuh','error');load(b,0);return}const h=hist(me.id);let added=0,skip=0,gd=0;lines.forEach(g=>{if(h.some(x=>x.gmail===g)){skip++;return}if(isGlobalDup(g)){gd++;return}const st=AUTO_APPROVE?'success':'pending';h.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),gmail:g,password:pw,status:st,timestamp:Date.now()});if(st==='success'){addBal(me.id,HARGA);markGlobal(g,me.id)}added++});saveH(me.id,h);toast(added?`Setor ${added}`+(skip||gd?` (skip ${skip+gd})`:''):'Tidak ada yang masuk',added?'success':'error');$('gmail-list').value='';$('line-count').textContent='0 baris';renderRy();upd();load(b,0)};
+$('b-wd').onclick=()=>{const amt=+$('wd-amt').value,dana=$('wd-dana').value.trim(),name=$('wd-name').value.trim();if(amt<MIN_WD){toast('Min '+rp(MIN_WD),'error');return}if(amt>bal(me.id)){toast('Saldo kurang','error');return}if(!dana||!name){toast('Lengkapi data','error');return}const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');w.unshift({id:Date.now().toString(36),amt,dana,name,status:'pending',ts:Date.now()});localStorage.setItem(KW+me.id,JSON.stringify(w));addBal(me.id,-amt);toast('Pengajuan terkirim');$('wd-amt').value='';$('wd-dana').value='';$('wd-name').value='';renderWd();upd()};
+$('b-copy-ref').onclick=()=>{navigator.clipboard.writeText(me.user.toUpperCase());toast('Disalin')};
+$('b-lap').onclick=()=>{const msg=$('lap-msg').value.trim();if(!msg){toast('Isi pesan','error');return}audit('Laporan: '+$('lap-type').value+' — '+msg);toast('Laporan dikirim');$('lap-msg').value=''};
+$('b-chk').onclick=()=>{const g=$('chk-g').value.trim().toLowerCase();if(!okG(g)){toast('Format salah','error');return}const res=$('chk-res');res.style.display='block';if(isGlobalDup(g))res.innerHTML='<span style="color:var(--red)">Sudah pernah disetor (global)</span>';else res.innerHTML='<span style="color:var(--green)">Belum pernah disetor — aman</span>'};
+$('b-chpass').onclick=()=>{const p=$('new-pass').value;if(p.length<6){toast('Min 6 karakter','error');return}const users=JSON.parse(localStorage.getItem(KU)||'[]');const i=users.findIndex(x=>x.id===me.id);if(i>=0){users[i].pass=p;localStorage.setItem(KU,JSON.stringify(users));me.pass=p;localStorage.setItem(KA,JSON.stringify(me));toast('Password diganti');$('new-pass').value=''}};
+$('b-open-toggle').onclick=()=>{IS_OPEN=!IS_OPEN;saveCfg();refreshOpenUI();audit(IS_OPEN?'Buka setoran':'Tutup setoran');toast(IS_OPEN?'Setoran dibuka':'Setoran ditutup')};
+$('b-save-cfg').onclick=()=>{HARGA=+$('cfg-harga').value||1500;MIN_WD=+$('cfg-minwd').value||10000;DAILY_QUOTA=+$('cfg-quota').value||50;AUTO_APPROVE=$('cfg-auto').checked;const c=JSON.parse(localStorage.getItem(KCFG)||'{}');c.ann=$('cfg-ann').value.trim();c.harga=HARGA;c.minWd=MIN_WD;c.quota=DAILY_QUOTA;c.auto=AUTO_APPROVE;c.open=IS_OPEN;localStorage.setItem(KCFG,JSON.stringify(c));audit('Update pengaturan');toast('Tersimpan','success')};
+$('ex-setoran').onclick=exportSetoran;$('ex-users').onclick=exportUsers;$('ex-wd').onclick=exportWd;
+$('bulk-ok').onclick=()=>bulkAct('success');$('bulk-no').onclick=()=>bulkAct('reject');
+$('p-dark').onchange=e=>applyDark(e.target.checked);
+init();
+refreshOpenUI();
+applyDark(localStorage.getItem("sg_dark")==="1");
+</script>
+</body></html>

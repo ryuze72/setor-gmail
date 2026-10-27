@@ -7,98 +7,110 @@
 <title>Setor Gmail</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e8f1ff;--card:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--blue2:#3b82f6;--blue-soft:#dbeafe;--green:#059669;--amber:#d97706;--red:#dc2626;--r:20px;--pill:999px;--sh:0 10px 40px rgba(37,99,235,.08),0 2px 8px rgba(0,0,0,.04)}
+:root{--bg:#eef3fb;--card:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--blue2:#3b82f6;--soft:#dbeafe;--green:#059669;--amber:#d97706;--red:#dc2626;--r:18px;--pill:999px}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(180deg,#e8f1ff 0%,#f0f7ff 40%,#eef2ff 100%);color:var(--text);min-height:100dvh;line-height:1.5}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(180deg,#e8f1ff,#f4f7fc 50%,#eef2ff);color:var(--text);min-height:100dvh;line-height:1.45}
 .hidden{display:none!important}.w100{width:100%}
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);border:1px solid rgba(255,255,255,.8)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.9rem 1.3rem;border-radius:var(--pill);font-weight:600;font-size:.93rem;border:none;cursor:pointer;transition:.18s}
-.btn:active{transform:scale(.98)}
-.btn-p{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 6px 18px rgba(37,99,235,.3)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:0 4px 20px rgba(37,99,235,.06);border:1px solid rgba(255,255,255,.9)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.85rem 1.2rem;border-radius:var(--pill);font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:.15s}
+.btn:active{transform:scale(.97)}
+.btn-p{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 6px 16px rgba(37,99,235,.28)}
 .btn-g{background:#ecfdf5;color:var(--green);border:1px solid #a7f3d0}
 .btn-r{background:#fef2f2;color:var(--red);border:1px solid #fecaca}
 .btn-s{background:#f8fafc;color:var(--text);border:1px solid var(--line)}
-.btn-xs{padding:.38rem .75rem;font-size:.76rem}
-.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
-.btn-google{background:#fff;border:1px solid var(--line);color:var(--text);font-weight:550;width:100%;margin-bottom:.2rem}
-.f{display:flex;flex-direction:column;gap:.35rem}
-.f label{font-size:.8rem;font-weight:600;color:#334155}
-.in{width:100%;padding:.88rem 1rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:.95rem;outline:none;transition:.2s}
-.in:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
-.in::placeholder{color:#94a3b8}
-.pg{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
-.po{position:relative}.po input{position:absolute;opacity:0;pointer-events:none}
-.po label{display:flex;align-items:center;justify-content:center;padding:.8rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;font-weight:600;font-size:.88rem;cursor:pointer;transition:.2s;color:var(--muted)}
-.po input:checked+label{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
-#toasts{position:fixed;top:1.1rem;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:.4rem;width:min(92vw,360px);pointer-events:none}
-.toast{padding:.85rem 1.1rem;border-radius:12px;font-size:.87rem;font-weight:500;animation:tin .3s ease;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.btn-xs{padding:.35rem .7rem;font-size:.75rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-google{background:#fff;border:1px solid var(--line);color:var(--text);width:100%}
+.f{display:flex;flex-direction:column;gap:.3rem}
+.f label{font-size:.78rem;font-weight:600;color:#334155}
+.in,.ta{width:100%;padding:.82rem .95rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:.92rem;outline:none;font-family:inherit}
+.in:focus,.ta:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.ta{min-height:110px;resize:vertical}
+#toasts{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:.4rem;width:min(92vw,360px);pointer-events:none}
+.toast{padding:.8rem 1rem;border-radius:12px;font-size:.85rem;font-weight:500;animation:tin .3s ease;box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .toast.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#047857}
 .toast.err{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
 .toast.info{background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8}
-@keyframes tin{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-.spin{width:17px;height:17px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .65s linear infinite}
+@keyframes tin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-#auth{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1.4rem}
-.ac{width:100%;max-width:400px;padding:1.75rem 1.5rem}
-.brand{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-bottom:1.5rem}
-.brand-icon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;box-shadow:0 4px 12px rgba(37,99,235,.3)}
-.brand-name{font-size:1.2rem;font-weight:800;letter-spacing:-.3px}
-.brand-name span{color:var(--blue)}
-.tabs{display:flex;background:#f1f5f9;border-radius:var(--pill);padding:4px;margin-bottom:1.25rem}
-.tab{flex:1;text-align:center;padding:.55rem;border-radius:var(--pill);font-weight:600;font-size:.9rem;color:var(--muted);cursor:pointer;border:none;background:transparent;transition:.2s}
-.tab.on{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.div{display:flex;align-items:center;gap:.75rem;margin:1rem 0;color:var(--muted);font-size:.82rem}
+#auth{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1.3rem}
+.ac{width:100%;max-width:400px;padding:1.6rem 1.4rem}
+.brand{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1.35rem}
+.brand-icon{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.brand-name{font-size:1.15rem;font-weight:800}.brand-name span{color:var(--blue)}
+.tabs{display:flex;background:#f1f5f9;border-radius:var(--pill);padding:3px;margin-bottom:1.15rem}
+.tab{flex:1;text-align:center;padding:.5rem;border-radius:var(--pill);font-weight:600;font-size:.88rem;color:var(--muted);cursor:pointer;border:none;background:transparent}
+.tab.on{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.div{display:flex;align-items:center;gap:.7rem;margin:.9rem 0;color:var(--muted);font-size:.8rem}
 .div::before,.div::after{content:'';flex:1;height:1px;background:var(--line)}
-.forgot{text-align:right;margin-top:.35rem}
-.forgot a{font-size:.8rem;color:var(--blue);font-weight:500;text-decoration:none}
-#app{min-height:100dvh;padding-bottom:5.3rem}
-.hd{position:sticky;top:0;z-index:40;padding:.9rem 1.15rem;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-.hd h1{font-size:1.08rem;font-weight:700}
-.chip{display:flex;align-items:center;gap:.4rem;padding:.28rem .65rem .28rem .28rem;background:#f1f5f9;border-radius:var(--pill);font-size:.8rem;font-weight:500}
-.av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff}
-.wrap{max-width:680px;margin:0 auto;padding:1.1rem}
-.sec{font-size:1rem;font-weight:700;margin-bottom:.8rem}
-.box{padding:1.15rem;margin-bottom:1rem}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem}
-.mi{display:flex;align-items:center;gap:.65rem;padding:.95rem 1rem;background:#fff;border:1px solid var(--line);border-radius:14px;cursor:pointer;transition:.15s;text-align:left;color:var(--text);font-weight:550;font-size:.88rem;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.mi:active{transform:scale(.97);background:#f8fafc}
-.mi .ic{font-size:1.25rem;width:1.5rem;text-align:center}
-.mi.full{grid-column:1/-1;justify-content:center}
-.saldo-card{text-align:center;padding:1.35rem;margin-bottom:1rem}
-.saldo-card .lbl{font-size:.8rem;color:var(--muted);margin-bottom:.2rem}
-.saldo-card .val{font-size:1.8rem;font-weight:800;color:var(--blue);letter-spacing:-.4px}
-.item{display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem;padding:.8rem 0;border-bottom:1px solid #f1f5f9}
+.forgot{text-align:right}.forgot a{font-size:.78rem;color:var(--blue);text-decoration:none}
+#app{min-height:100dvh;padding-bottom:5.6rem}
+.top{padding:.85rem 1.1rem;display:flex;align-items:center;justify-content:space-between}
+.top-brand{display:flex;align-items:center;gap:.45rem;font-weight:800;font-size:.95rem}
+.top-brand .ic{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem}
+.wa{font-size:.8rem;color:var(--blue);font-weight:600;text-decoration:none}
+.wrap{max-width:480px;margin:0 auto;padding:0 1rem 1rem}
+.saldo-box{background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:18px;padding:1.2rem 1.15rem;color:#fff;margin-bottom:1rem;box-shadow:0 10px 28px rgba(37,99,235,.25)}
+.saldo-box .lbl{font-size:.72rem;opacity:.85;font-weight:600;letter-spacing:.03em}
+.saldo-box .val{font-size:1.9rem;font-weight:800;margin:.15rem 0 .35rem;letter-spacing:-.5px}
+.saldo-box .sub{font-size:.78rem;opacity:.85;margin-bottom:.85rem}
+.saldo-actions{display:flex;gap:.5rem}
+.saldo-actions button{flex:1;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;padding:.55rem;border-radius:var(--pill);font-weight:600;font-size:.8rem;cursor:pointer}
+.igrid{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;background:var(--card);border-radius:16px;padding:.9rem .55rem;margin-bottom:.75rem;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.igrid button{display:flex;flex-direction:column;align-items:center;gap:.35rem;background:none;border:none;cursor:pointer;font-size:.65rem;font-weight:600;color:var(--text)}
+.igrid .ci{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:#fff}
+.ci.b{background:#3b82f6}.ci.g{background:#10b981}.ci.t{background:#14b8a6}.ci.o{background:#f59e0b}.ci.p{background:#8b5cf6}
+.ci.lb{background:#e0f2fe;color:#0284c7}.ci.lk{background:#e0f2fe;color:#0284c7}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.85rem}
+.stat{background:var(--card);border-radius:14px;padding:.85rem;display:flex;align-items:center;gap:.55rem;box-shadow:0 2px 10px rgba(0,0,0,.03)}
+.stat .dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.stat .n{font-size:1.15rem;font-weight:750}
+.stat .l{font-size:.7rem;color:var(--muted);font-weight:600}
+.linkrow{display:flex;align-items:center;gap:.65rem;background:var(--card);border-radius:14px;padding:.9rem 1rem;margin-bottom:.85rem;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03)}
+.linkrow .ic{width:32px;height:32px;border-radius:50%;background:#dbeafe;color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.linkrow .t{flex:1;font-weight:600;font-size:.88rem}
+.linkrow .s{font-size:.72rem;color:var(--muted)}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:flex-end;padding:.4rem 0 calc(.4rem + env(safe-area-inset-bottom));z-index:100}
+.bnav button{display:flex;flex-direction:column;align-items:center;gap:.1rem;background:none;border:none;color:#94a3b8;font-size:.62rem;font-weight:600;cursor:pointer;padding:.2rem .5rem;min-width:56px}
+.bnav button.on{color:var(--blue)}
+.bnav svg{width:20px;height:20px}
+.fab{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,99,235,.4);margin-bottom:8px;border:3px solid #fff;font-size:1.3rem;cursor:pointer}
+.sec{font-size:.95rem;font-weight:700;margin-bottom:.7rem}
+.box{padding:1.05rem;margin-bottom:.85rem}
+.item{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;padding:.7rem 0;border-bottom:1px solid #f1f5f9}
 .item:last-child{border-bottom:none}
-.t{font-weight:550;font-size:.9rem;word-break:break-all}
-.m{font-size:.74rem;color:var(--muted);margin-top:.1rem;line-height:1.4}
-.badge{font-size:.68rem;font-weight:600;padding:.26rem .6rem;border-radius:var(--pill);white-space:nowrap}
-.bp{background:#fffbeb;color:var(--amber)}
-.bo{background:#ecfdf5;color:var(--green)}
-.bx{background:#fef2f2;color:var(--red)}
-.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:.48rem 0 calc(.48rem + env(safe-area-inset-bottom));z-index:100}
-.nav button{display:flex;flex-direction:column;align-items:center;gap:.1rem;background:none;border:none;color:#94a3b8;font-size:.64rem;font-weight:500;cursor:pointer;padding:.28rem .65rem;border-radius:10px}
-.nav button.on{color:var(--blue)}
-.nav svg{width:20px;height:20px}
-.ph{display:flex;align-items:center;gap:.85rem;margin-bottom:1.15rem}
-.ph .av{width:54px;height:54px;font-size:1.25rem}
-.ph h2{font-size:1.1rem;font-weight:700}
-.ph p{color:var(--muted);font-size:.85rem}
-.st{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.1rem}
-.st3{grid-template-columns:1fr 1fr 1fr}
-.st .card{padding:.85rem;text-align:center}
-.sv{font-size:1.25rem;font-weight:750}
-.sl{font-size:.72rem;color:var(--muted);margin-top:.1rem}
-.empty{text-align:center;padding:1.6rem 1rem;color:var(--muted);font-size:.87rem}
-.filt{display:flex;gap:.35rem;margin-bottom:.8rem;flex-wrap:wrap}
-.fb{padding:.32rem .7rem;border-radius:var(--pill);font-size:.74rem;font-weight:550;background:#f1f5f9;border:1px solid transparent;color:var(--muted);cursor:pointer}
-.fb.on{background:var(--blue-soft);border-color:#93c5fd;color:var(--blue)}
-.note{font-size:.74rem;color:var(--muted);margin-top:.6rem;padding:.6rem .8rem;background:#f8fafc;border-radius:10px;border:1px solid var(--line);line-height:1.45}
-.copy{cursor:pointer;opacity:.5;margin-left:.2rem;font-size:.7rem}
-.back{display:inline-flex;align-items:center;gap:.3rem;color:var(--blue);font-size:.84rem;font-weight:600;cursor:pointer;margin-bottom:.75rem;background:none;border:none}
-.price-row{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid #f1f5f9}
+.t{font-weight:550;font-size:.88rem;word-break:break-all}
+.m{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.badge{font-size:.66rem;font-weight:600;padding:.24rem .55rem;border-radius:var(--pill);white-space:nowrap}
+.bp{background:#fffbeb;color:var(--amber)}.bo{background:#ecfdf5;color:var(--green)}.bx{background:#fef2f2;color:var(--red)}
+.empty{text-align:center;padding:1.5rem;color:var(--muted);font-size:.85rem}
+.filt{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.7rem}
+.fb{padding:.3rem .65rem;border-radius:var(--pill);font-size:.72rem;font-weight:600;background:#f1f5f9;border:none;color:var(--muted);cursor:pointer}
+.fb.on{background:var(--blue);color:#fff}
+.note{font-size:.72rem;color:var(--muted);padding:.55rem .75rem;background:#f8fafc;border-radius:10px;border:1px solid var(--line);margin-top:.55rem}
+.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e;padding:.7rem .9rem;border-radius:12px;font-size:.8rem;font-weight:600;margin-bottom:.75rem}
+.info-p{background:#f5f3ff;border:1px solid #ddd6fe;color:#5b21b6;padding:.85rem;border-radius:14px;font-size:.82rem;margin-bottom:.75rem}
+.info-p b{display:block;margin-bottom:.25rem}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.po input{position:absolute;opacity:0}.po{position:relative}
+.po label{display:block;text-align:center;padding:.75rem;background:#f8fafc;border:1px solid var(--line);border-radius:12px;font-weight:600;font-size:.85rem;cursor:pointer;color:var(--muted)}
+.po input:checked+label{background:var(--soft);border-color:var(--blue);color:var(--blue)}
+.price-row{display:flex;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid #f1f5f9;font-size:.88rem}
 .price-row:last-child{border-bottom:none}
-.rules li{margin:.35rem 0 .35rem 1rem;color:var(--muted);font-size:.87rem}
-@media(min-width:640px){.wrap{padding:1.4rem}.box{padding:1.35rem}.ac{padding:2rem 1.75rem}}
+.ph{text-align:center;padding:1rem 0}
+.ph .av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;font-size:1.4rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-bottom:.4rem}
+.ph h2{font-size:1.1rem}.ph p{color:var(--muted);font-size:.85rem}
+.field{padding:.7rem .9rem;background:#f8fafc;border-radius:12px;margin-bottom:.5rem;border:1px solid var(--line)}
+.field .k{font-size:.68rem;color:var(--muted);font-weight:600;text-transform:uppercase}
+.field .v{font-size:.88rem;font-weight:550;margin-top:.1rem;word-break:break-all}
+.stgrid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.75rem 0}
+.stgrid .card{padding:.8rem;text-align:center}
+.stgrid .n{font-size:1.2rem;font-weight:750}
+.stgrid .l{font-size:.7rem;color:var(--muted)}
+.ewtabs{display:flex;gap:.4rem;margin-bottom:.65rem}
+.ewtabs button{flex:1;padding:.45rem;border-radius:var(--pill);border:1px solid var(--line);background:#f8fafc;font-weight:600;font-size:.8rem;cursor:pointer;color:var(--muted)}
+.ewtabs button.on{background:var(--soft);border-color:var(--blue);color:var(--blue)}
 </style>
 </head>
 <body>
@@ -109,136 +121,150 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:li
 <div class="tabs"><button class="tab on" id="tab-login">Masuk</button><button class="tab" id="tab-reg">Daftar</button></div>
 <button class="btn btn-google" id="b-google" type="button"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Lanjutkan dengan Google</button>
 <div class="div">atau</div>
-<form id="f-login" style="display:flex;flex-direction:column;gap:.85rem">
-<div class="f"><label>Username</label><input class="in" id="li-u" placeholder="username" required autocomplete="username"></div>
-<div class="f"><label>Password</label><input class="in" id="li-p" type="password" placeholder="••••••••" required autocomplete="current-password"></div>
+<form id="f-login" style="display:flex;flex-direction:column;gap:.8rem">
+<div class="f"><label>Username</label><input class="in" id="li-u" placeholder="username" required></div>
+<div class="f"><label>Password</label><input class="in" id="li-p" type="password" placeholder="••••••••" required></div>
 <div class="forgot"><a href="#" id="forgot">Lupa Kata Sandi?</a></div>
 <button class="btn btn-p w100" id="b-login" type="submit"><span>Masuk</span></button>
 </form>
-<form id="f-reg" class="hidden" style="display:none;flex-direction:column;gap:.85rem">
+<form id="f-reg" class="hidden" style="display:none;flex-direction:column;gap:.8rem">
 <div class="f"><label>Nama</label><input class="in" id="re-n" placeholder="Nama lengkap" required></div>
 <div class="f"><label>Kode Referral <span style="font-weight:400;color:var(--muted)">(opsional)</span></label><input class="in" id="re-ref" placeholder="Kode referral"></div>
-<div class="f"><label>Username</label><input class="in" id="re-u" placeholder="username" required autocomplete="username"></div>
+<div class="f"><label>Username</label><input class="in" id="re-u" placeholder="username" required></div>
 <div class="f"><label>Email</label><input class="in" id="re-e" type="email" placeholder="anda@email.com" required></div>
-<div class="f"><label>Password</label><input class="in" id="re-p" type="password" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="new-password"></div>
+<div class="f"><label>Password</label><input class="in" id="re-p" type="password" placeholder="Minimal 6 karakter" required minlength="6"></div>
 <button class="btn btn-p w100" id="b-reg" type="submit"><span>Daftar Sekarang</span></button>
 </form>
 </div>
 </div>
 <div id="app" class="hidden">
-<header class="hd"><h1 id="hd-title">Menu</h1><div class="chip"><div class="av" id="h-av">U</div><span id="h-nm">User</span></div></header>
+<div class="top"><div class="top-brand"><div class="ic">✉</div> SETOR <span style="color:var(--blue)">GMAIL</span></div><a class="wa" href="#">Saluran WA</a></div>
 <div class="wrap">
 <div id="pg-home">
-<div class="saldo-card card"><div class="lbl">Saldo Anda</div><div class="val" id="home-saldo">Rp 0</div></div>
-<div class="menu">
-<button class="mi" data-go="setor"><span class="ic">📥</span> Setor Gmail</button>
-<button class="mi" data-go="harga"><span class="ic">💰</span> Harga</button>
-<button class="mi" data-go="saldo"><span class="ic">💵</span> Saldo</button>
-<button class="mi" data-go="laporan"><span class="ic">📊</span> Laporan</button>
-<button class="mi full" data-go="penarikan"><span class="ic">🏧</span> Penarikan</button>
-<button class="mi" data-go="rekening"><span class="ic">🏦</span> Rekening/E-Wallet</button>
-<button class="mi" data-go="rules"><span class="ic">📜</span> Rules</button>
-<button class="mi" data-go="referral"><span class="ic">👥</span> Referral</button>
-<button class="mi" data-go="bantuan"><span class="ic">🛟</span> Bantuan</button>
+<div class="saldo-box"><div class="lbl">SALDO ANDA</div><div class="val" id="home-saldo">Rp0</div><div class="sub">Harga / Gmail: <span id="home-harga">Rp1.500</span></div>
+<div class="saldo-actions"><button type="button" data-go="saldo">↓ Tarik Saldo</button><button type="button" data-go="riwayat">↻ Riwayat</button></div></div>
+<div class="igrid">
+<button data-go="stor"><div class="ci b">✈</div>Stor</button>
+<button data-go="riwayat"><div class="ci g">↻</div>Riwayat</button>
+<button data-go="checker"><div class="ci t">🔍</div>Checker</button>
+<button data-go="saldo"><div class="ci o">👛</div>Saldo</button>
+<button data-go="rules"><div class="ci p">📜</div>Rules</button>
+</div>
+<div class="igrid">
+<button data-go="bantuan"><div class="ci lb">🤖</div>Support</button>
+<button data-go="bantuan"><div class="ci lk">💬</div>Komunitas</button>
+<button data-go="laporan"><div class="ci lb">🏆</div>Leaderboard</button>
+<button data-go="referral"><div class="ci lk">🎁</div>Referral</button>
+<button data-go="laporan"><div class="ci lb">📊</div>Laporan</button>
+</div>
+<div class="linkrow" data-go="rules"><div class="ic">⚖</div><div><div class="t">Syarat & Ketentuan</div><div class="s">Baca ketentuan penggunaan platform</div></div><span style="color:#94a3b8">›</span></div>
+<div class="stats">
+<div class="stat"><div class="dot" style="background:#dcfce7;color:#16a34a">✓</div><div><div class="n" id="st-ok">0</div><div class="l">DITERIMA</div></div></div>
+<div class="stat"><div class="dot" style="background:#fef3c7;color:#d97706">⏱</div><div><div class="n" id="st-p">0</div><div class="l">PENDING</div></div></div>
+<div class="stat"><div class="dot" style="background:#fee2e2;color:#dc2626">✕</div><div><div class="n" id="st-x">0</div><div class="l">DITOLAK</div></div></div>
+<div class="stat"><div class="dot" style="background:#e0f2fe;color:#0284c7">🔍</div><div><div class="n" id="st-c">0</div><div class="l">DI CEK</div></div></div>
 </div></div>
-<div id="pg-setor" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Setor Gmail Baru</div>
-<form id="f-setor" style="display:flex;flex-direction:column;gap:.9rem">
-<div class="f"><label>Alamat Gmail</label><input class="in" id="gmail" type="email" placeholder="contoh@gmail.com" required></div>
-<div class="f"><label>Pilih Password (wajib)</label><div class="pg">
-<div class="po"><input type="radio" name="pw" id="pw1" value="sgsg1122" required><label for="pw1">sgsg1122</label></div>
+<div id="pg-stor" class="hidden">
+<div class="warn">⚠ Storan dibuka — pastikan Rules sudah dibaca</div>
+<div class="info-p"><b>📜 Cek Rules dulu sebelum stor</b>Wajib dibaca agar Gmail tidak ditolak. <button class="btn btn-xs" style="background:#7c3aed;color:#fff;margin-top:.4rem" data-go="rules">Buka Rules</button></div>
+<div class="box card"><div class="sec">Setor Daftar Gmail</div>
+<p style="font-size:.8rem;color:var(--muted);margin-bottom:.7rem">Tempel daftar, satu Gmail per baris. Duplikat otomatis dihapus.</p>
+<div class="f" style="margin-bottom:.7rem"><label>Pilih Password (wajib)</label><div class="pg">
+<div class="po"><input type="radio" name="pw" id="pw1" value="sgsg1122" checked><label for="pw1">sgsg1122</label></div>
 <div class="po"><input type="radio" name="pw" id="pw2" value="goldacok"><label for="pw2">goldacok</label></div>
 </div></div>
-<button class="btn btn-p w100" id="b-setor" type="submit"><span>Setor Sekarang</span></button>
-</form></div>
-<div class="box card"><div class="sec">Riwayat Terbaru</div><div id="list-r"></div></div></div>
-<div id="pg-harga" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Daftar Harga</div>
-<div class="price-row"><span>Gmail Fresh</span><b style="color:var(--green)">Rp 1.500</b></div>
-<div class="price-row"><span>Gmail Aged 1–3 bln</span><b style="color:var(--green)">Rp 2.500</b></div>
-<div class="price-row"><span>Gmail Aged 6+ bln</span><b style="color:var(--green)">Rp 4.000</b></div>
-<div class="price-row"><span>Bonus Referral</span><b style="color:var(--blue)">Rp 300</b></div>
-<div class="note">Status Selesai = saldo otomatis masuk.</div></div></div>
-<div id="pg-saldo" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="saldo-card card"><div class="lbl">Saldo Tersedia</div><div class="val" id="pg-saldo-val">Rp 0</div></div>
-<div class="box card"><div class="note">Saldo naik saat admin menandai setoran Selesai (Rp 1.500/setor).</div></div></div>
-<div id="pg-laporan" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Laporan</div>
-<div class="st st3" style="margin-bottom:.9rem">
-<div class="card"><div class="sv" id="lp-t">0</div><div class="sl">Total</div></div>
-<div class="card"><div class="sv" id="lp-p">0</div><div class="sl">Menunggu</div></div>
-<div class="card"><div class="sv" id="lp-d">0</div><div class="sl">Selesai</div></div></div>
-<div id="list-laporan"></div></div></div>
-<div id="pg-penarikan" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Ajukan Penarikan</div>
-<form id="f-wd" style="display:flex;flex-direction:column;gap:.9rem">
-<div class="f"><label>Jumlah (Rp)</label><input class="in" id="wd-amt" type="number" min="5000" step="500" placeholder="Minimal 5.000" required></div>
-<div class="f"><label>Catatan</label><input class="in" id="wd-note" placeholder="Opsional"></div>
-<button class="btn btn-p w100" id="b-wd" type="submit"><span>Ajukan</span></button>
-</form>
-<div class="note">Isi rekening dulu. Min Rp 5.000.</div></div>
-<div class="box card"><div class="sec">Riwayat Penarikan</div><div id="list-wd"></div></div></div>
-<div id="pg-rekening" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Rekening / E-Wallet</div>
-<form id="f-rek" style="display:flex;flex-direction:column;gap:.9rem">
-<div class="f"><label>Jenis</label><select class="in" id="rek-type"><option>DANA</option><option>OVO</option><option>GoPay</option><option>ShopeePay</option><option>Bank BCA</option><option>Bank BRI</option><option>Bank Mandiri</option><option>Bank BNI</option></select></div>
-<div class="f"><label>Nomor</label><input class="in" id="rek-no" placeholder="08xxx / no. rek" required></div>
-<div class="f"><label>Nama Pemilik</label><input class="in" id="rek-name" placeholder="Nama sesuai" required></div>
-<button class="btn btn-p w100" type="submit"><span>Simpan</span></button>
-</form></div>
-<div class="box card"><div class="sec">Tersimpan</div><div id="list-rek"><div class="empty">Belum diisi</div></div></div></div>
-<div id="pg-rules" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Rules</div><ul class="rules">
-<li>Password setor: <b>sgsg1122</b> / <b>goldacok</b></li>
-<li>Gmail harus @gmail.com</li>
-<li>Satu Gmail sekali per akun</li>
-<li>Saldo masuk setelah Selesai</li>
-<li>Min. penarikan Rp 5.000</li>
-<li>Isi rekening sebelum tarik</li>
+<textarea class="ta" id="gmail-list" placeholder="contoh1@gmail.com&#10;contoh2@gmail.com"></textarea>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:.65rem;gap:.5rem">
+<span style="font-size:.75rem;color:var(--muted)" id="line-count">Terdeteksi: 0 baris</span>
+<button class="btn btn-p" id="b-setor" type="button"><span>✈ Kirim Setoran</span></button>
+</div>
+<div class="note">Stor Gmail Good : Rp1.500 jika di-ACC · Estimasi 24–30 jam</div>
+</div></div>
+<div id="pg-riwayat" class="hidden"><div class="box card">
+<input class="in" id="ry-q" placeholder="Cari Gmail..." style="margin-bottom:.65rem">
+<div class="filt"><button class="fb on" data-f="all">Semua</button><button class="fb" data-f="pending">Pending</button><button class="fb" data-f="success">Diterima</button><button class="fb" data-f="reject">Ditolak</button></div>
+<div id="list-ry"></div></div></div>
+<div id="pg-saldo" class="hidden">
+<div class="saldo-box"><div class="lbl">Saldo saat ini</div><div class="val" id="pg-saldo-val">Rp0</div>
+<button type="button" id="b-tarik" style="width:100%;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:.65rem;border-radius:var(--pill);font-weight:600;margin-top:.5rem;cursor:pointer">↓ Tarik Saldo</button>
+<div class="sub" style="margin-top:.55rem;margin-bottom:0">Min. penarikan Rp5.000</div></div>
+<div class="box card">
+<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.75rem;font-size:.85rem;font-weight:600"><span style="color:var(--green)">●</span> Status Penarikan: Dibuka</div>
+<div class="sec">Nomor E-Wallet</div>
+<div class="ewtabs"><button type="button" class="on" data-ew="DANA">DANA</button><button type="button" data-ew="OVO">OVO</button><button type="button" data-ew="GoPay">GoPay</button></div>
+<input class="in" id="ew-no" placeholder="08xxxxxxxxxx (10–15 digit)" style="margin-bottom:.55rem">
+<button class="btn btn-p w100" id="b-save-ew" type="button">Simpan</button>
+</div>
+<div class="box card"><div class="sec">Riwayat Penarikan</div><div id="list-wd"><div class="empty">Belum ada penarikan.</div></div></div>
+</div>
+<div id="pg-rules" class="hidden"><div class="box card"><div class="sec">Rules</div>
+<ul style="padding-left:1.1rem;color:var(--muted);font-size:.85rem;line-height:1.7">
+<li>Password setor wajib: <b>sgsg1122</b> atau <b>goldacok</b></li>
+<li>Format harus @gmail.com</li>
+<li>Satu Gmail hanya sekali per akun</li>
+<li>Saldo masuk setelah status Diterima</li>
+<li>Min. penarikan Rp5.000</li>
+<li>Isi e-wallet sebelum tarik saldo</li>
 <li>Dilarang spam / data palsu</li>
 </ul></div></div>
-<div id="pg-referral" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Kode Referral</div>
-<div style="display:flex;gap:.5rem;margin:.7rem 0">
-<input class="in" id="ref-code" readonly style="flex:1">
-<button class="btn btn-s btn-xs" id="b-copy-ref">Salin</button></div>
-<div class="note">Bagikan ke teman. Bonus demo Rp 300 / setor selesai.</div></div></div>
-<div id="pg-bantuan" class="hidden"><button class="back" data-go="home">← Menu</button>
-<div class="box card"><div class="sec">Bantuan</div>
-<div class="price-row"><span>Telegram</span><b style="color:var(--blue)">@admin_setor</b></div>
-<div class="price-row"><span>Jam</span><b>09.00–22.00 WIB</b></div>
-<div class="note">Ganti kontak sesuai kebutuhan.</div></div></div>
-<div id="pg-history" class="hidden"><div class="box card"><div class="sec">Semua Riwayat</div><div id="list-f"></div></div></div>
-<div id="pg-admin" class="hidden"><div class="box card"><div class="sec">Panel Admin</div>
-<div class="st st3" style="margin-bottom:.9rem">
-<div class="card"><div class="sv" id="a-t">0</div><div class="sl">Total</div></div>
-<div class="card"><div class="sv" id="a-p">0</div><div class="sl">Menunggu</div></div>
-<div class="card"><div class="sv" id="a-d">0</div><div class="sl">Selesai</div></div></div>
-<div style="margin-bottom:.75rem"><input class="in" id="a-q" placeholder="Cari..."></div>
-<div class="filt">
-<button class="fb on" data-f="all">Semua</button>
-<button class="fb" data-f="pending">Menunggu</button>
-<button class="fb" data-f="success">Selesai</button>
-<button class="fb" data-f="reject">Ditolak</button></div>
-<div id="list-a"></div>
-<div class="note">Selesai = saldo user +Rp 1.500</div></div></div>
-<div id="pg-profile" class="hidden"><div class="box card">
-<div class="ph"><div class="av" id="p-av">U</div><div><h2 id="p-nm">User</h2><p id="p-us">@username</p><p id="p-rl" style="font-size:.78rem;margin-top:.1rem;color:var(--blue)"></p></div></div>
-<div class="st">
-<div class="card"><div class="sv" id="s-t">0</div><div class="sl">Total</div></div>
-<div class="card"><div class="sv" id="s-p">0</div><div class="sl">Menunggu</div></div></div>
-<button class="btn btn-r w100" id="b-out">Keluar</button></div></div>
+<div id="pg-referral" class="hidden"><div class="box card"><div class="sec">Kode Referral Anda</div>
+<div style="display:flex;gap:.5rem;margin:.6rem 0"><input class="in" id="ref-code" readonly style="flex:1"><button class="btn btn-s btn-xs" id="b-copy-ref">Salin</button></div>
+<div class="note">Bagikan ke teman. Bonus demo Rp300 / setor diterima.</div></div></div>
+<div id="pg-laporan" class="hidden"><div class="box card"><div class="sec">Laporan & Statistik</div>
+<div class="stgrid">
+<div class="card"><div class="n" id="lp-t">0</div><div class="l">Total</div></div>
+<div class="card"><div class="n" id="lp-ok">0</div><div class="l">Diterima</div></div>
+<div class="card"><div class="n" id="lp-p">0</div><div class="l">Pending</div></div>
+<div class="card"><div class="n" id="lp-x">0</div><div class="l">Ditolak</div></div>
+</div></div></div>
+<div id="pg-checker" class="hidden"><div class="box card"><div class="sec">Checker Gmail</div>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:.7rem">Cek status Gmail yang sudah disetor.</p>
+<input class="in" id="ck-q" placeholder="email@gmail.com" style="margin-bottom:.55rem">
+<button class="btn btn-p w100" id="b-check" type="button">Cek Status</button>
+<div id="ck-result" style="margin-top:.75rem"></div></div></div>
+<div id="pg-bantuan" class="hidden"><div class="box card"><div class="sec">Bantuan & Support</div>
+<div class="price-row"><span>Telegram Admin</span><b style="color:var(--blue)">@admin_setor</b></div>
+<div class="price-row"><span>Jam Operasional</span><b>09.00–22.00 WIB</b></div>
+<div class="note">Ganti kontak sesuai kebutuhan Anda.</div></div></div>
+<div id="pg-profil" class="hidden"><div class="box card">
+<div class="ph"><div class="av" id="p-av">U</div><h2 id="p-nm">User</h2><p id="p-em">email@gmail.com</p></div>
+<div class="field"><div class="k">Username</div><div class="v" id="p-us">@user</div></div>
+<div class="field"><div class="k">Email</div><div class="v" id="p-email">-</div></div>
+<div class="field"><div class="k">Nomor E-Wallet</div><div class="v" id="p-ew">Belum diatur</div></div>
+<div class="field"><div class="k">Role</div><div class="v" id="p-role">User</div></div>
+<div class="sec" style="margin-top:1rem">Statistik Total</div>
+<div class="stgrid">
+<div class="card"><div class="n" id="ps-t">0</div><div class="l">Total Storan</div></div>
+<div class="card"><div class="n" style="color:var(--green)" id="ps-ok">0</div><div class="l">Diterima</div></div>
+<div class="card"><div class="n" style="color:var(--red)" id="ps-x">0</div><div class="l">Ditolak</div></div>
+<div class="card"><div class="n" style="color:var(--amber)" id="ps-p">0</div><div class="l">Pending</div></div>
 </div>
-<nav class="nav">
-<button class="on" data-p="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Menu</button>
-<button data-p="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Riwayat</button>
-<button class="adm hidden" data-p="admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin</button>
-<button data-p="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil</button>
+<button class="btn btn-r w100" id="b-out" style="margin-top:.5rem">Keluar dari Akun</button>
+</div></div>
+<div id="pg-admin" class="hidden"><div class="box card"><div class="sec">Panel Admin</div>
+<div class="stgrid">
+<div class="card"><div class="n" id="a-t">0</div><div class="l">Total</div></div>
+<div class="card"><div class="n" id="a-p">0</div><div class="l">Pending</div></div>
+<div class="card"><div class="n" id="a-ok">0</div><div class="l">Diterima</div></div>
+<div class="card"><div class="n" id="a-x">0</div><div class="l">Ditolak</div></div>
+</div>
+<input class="in" id="a-q" placeholder="Cari gmail / username..." style="margin-bottom:.55rem">
+<div class="filt"><button class="fb on" data-af="all">Semua</button><button class="fb" data-af="pending">Pending</button><button class="fb" data-af="success">Diterima</button><button class="fb" data-af="reject">Ditolak</button></div>
+<div id="list-a"></div>
+<div class="note">Diterima = saldo user +Rp1.500</div>
+</div></div>
+</div>
+<nav class="bnav">
+<button data-p="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Beranda</button>
+<button data-p="riwayat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Riwayat</button>
+<button data-p="stor" style="padding:0;min-width:auto"><div class="fab">✈</div></button>
+<button data-p="saldo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Saldo</button>
+<button data-p="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil</button>
 </nav>
 </div>
 <script>
-const KU='sg_u_v7',KS='sg_s_v7',KH='sg_h_v7',KW='sg_w_v7',KR='sg_r_v7',KB='sg_b_v7';
-const HARGA=1500;let me=null,modeL=true,af='all',aq='';
+const KU='sg_u_v8',KS='sg_s_v8',KH='sg_h_v8',KW='sg_w_v8',KR='sg_r_v8',KB='sg_b_v8';
+const HARGA=1500;let me=null,af='all',aq='',ryf='all',ewType='DANA';
 const $=id=>document.getElementById(id);
 const toast=(m,t='info')=>{const e=document.createElement('div');e.className=`toast ${t==='success'?'ok':t==='error'?'err':'info'}`;e.textContent=m;$('toasts').appendChild(e);setTimeout(()=>{e.style.opacity='0';e.style.transition='.3s';setTimeout(()=>e.remove(),300)},2800)};
 const load=(b,on)=>{if(on){b.disabled=1;b.dataset.o=b.innerHTML;b.innerHTML='<div class="spin"></div>'}else{b.disabled=0;b.innerHTML=b.dataset.o||b.innerHTML}};
@@ -258,41 +284,43 @@ const saveWd=(uid,l)=>{const w=wds();w[uid]=l;localStorage.setItem(KW,JSON.strin
 const reks=()=>{try{return JSON.parse(localStorage.getItem(KR)||'{}')}catch{return{}}};
 const getRek=uid=>reks()[uid]||null;
 const saveRek=(uid,d)=>{const r=reks();r[uid]=d;localStorage.setItem(KR,JSON.stringify(r))};
-const fmt=ts=>new Date(ts).toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-const rp=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
-const lab=s=>({pending:'Menunggu',success:'Selesai',reject:'Ditolak'}[s]||s);
+const fmt=ts=>new Date(ts).toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+const rp=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
+const lab=s=>({pending:'Pending',success:'Diterima',reject:'Ditolak'}[s]||s);
 const cl=s=>({pending:'bp',success:'bo',reject:'bx'}[s]||'bp');
-const copy=t=>{navigator.clipboard?.writeText(t).then(()=>toast('Disalin','success')).catch(()=>toast('Gagal','error'))};
+const copy=t=>navigator.clipboard?.writeText(t).then(()=>toast('Disalin','success')).catch(()=>toast('Gagal','error'));
 (function(){const p=new URLSearchParams(location.search).get('ref');if(p)$('re-ref').value=p.toUpperCase()})();
 function ensureAdmin(){const u=users();if(!u.some(x=>x.username==='admin')){u.push({id:'admin',name:'Admin',username:'admin',email:'admin@setor.com',password:'admin123',role:'admin',refCode:'ADMIN001'});saveU(u)}}
 function init(){ensureAdmin();const s=localStorage.getItem(KS);if(s){try{me=JSON.parse(s);showApp()}catch{localStorage.removeItem(KS)}}}
-$('tab-login').onclick=()=>{modeL=true;$('tab-login').classList.add('on');$('tab-reg').classList.remove('on');$('f-login').classList.remove('hidden');$('f-login').style.display='flex';$('f-reg').classList.add('hidden');$('f-reg').style.display='none'};
-$('tab-reg').onclick=()=>{modeL=false;$('tab-reg').classList.add('on');$('tab-login').classList.remove('on');$('f-login').classList.add('hidden');$('f-login').style.display='none';$('f-reg').classList.remove('hidden');$('f-reg').style.display='flex'};
-$('b-google').onclick=()=>toast('Login Google demo — gunakan form di bawah','info');
-$('forgot').onclick=e=>{e.preventDefault();toast('Hubungi admin untuk reset password','info')};
-$('f-login').onsubmit=async e=>{e.preventDefault();const b=$('b-login');load(b,1);await new Promise(r=>setTimeout(r,350));const u=users().find(x=>x.username===$('li-u').value.trim().toLowerCase()&&x.password===$('li-p').value);if(!u){toast('Username atau password salah','error');load(b,0);return}me={id:u.id,name:u.name,username:u.username,email:u.email||'-',role:u.role||'user',refCode:u.refCode};localStorage.setItem(KS,JSON.stringify(me));toast('Berhasil masuk!','success');load(b,0);showApp()};
-$('f-reg').onsubmit=async e=>{e.preventDefault();const b=$('b-reg');load(b,1);await new Promise(r=>setTimeout(r,450));const name=$('re-n').value.trim(),username=$('re-u').value.trim().toLowerCase().replace(/\s+/g,''),email=$('re-e').value.trim().toLowerCase(),password=$('re-p').value,ref=$('re-ref').value.trim().toUpperCase();if(username.length<3){toast('Username min 3 karakter','error');load(b,0);return}if(!email.includes('@')){toast('Email tidak valid','error');load(b,0);return}if(password.length<6){toast('Password min 6 karakter','error');load(b,0);return}const list=users();if(list.some(x=>x.username===username)){toast('Username sudah dipakai','error');load(b,0);return}if(list.some(x=>x.email===email)){toast('Email sudah dipakai','error');load(b,0);return}const refCode=username.toUpperCase().slice(0,4)+Math.random().toString(36).slice(2,6).toUpperCase();const nu={id:Date.now().toString(36)+Math.random().toString(36).slice(2),name,username,email,password,role:'user',refCode,referredBy:ref||null};list.push(nu);saveU(list);setBal(nu.id,0);me={id:nu.id,name:nu.name,username:nu.username,email:nu.email,role:'user',refCode};localStorage.setItem(KS,JSON.stringify(me));toast('Pendaftaran berhasil!','success');load(b,0);showApp()};
+$('tab-login').onclick=()=>{$('tab-login').classList.add('on');$('tab-reg').classList.remove('on');$('f-login').classList.remove('hidden');$('f-login').style.display='flex';$('f-reg').classList.add('hidden');$('f-reg').style.display='none'};
+$('tab-reg').onclick=()=>{$('tab-reg').classList.add('on');$('tab-login').classList.remove('on');$('f-login').classList.add('hidden');$('f-login').style.display='none';$('f-reg').classList.remove('hidden');$('f-reg').style.display='flex'};
+$('b-google').onclick=()=>toast('Login Google demo — pakai form','info');
+$('forgot').onclick=e=>{e.preventDefault();toast('Hubungi admin untuk reset','info')};
+$('f-login').onsubmit=async e=>{e.preventDefault();const b=$('b-login');load(b,1);await new Promise(r=>setTimeout(r,300));const u=users().find(x=>x.username===$('li-u').value.trim().toLowerCase()&&x.password===$('li-p').value);if(!u){toast('Username/password salah','error');load(b,0);return}me={id:u.id,name:u.name,username:u.username,email:u.email||'-',role:u.role||'user',refCode:u.refCode};localStorage.setItem(KS,JSON.stringify(me));toast('Berhasil masuk','success');load(b,0);showApp()};
+$('f-reg').onsubmit=async e=>{e.preventDefault();const b=$('b-reg');load(b,1);await new Promise(r=>setTimeout(r,400));const name=$('re-n').value.trim(),username=$('re-u').value.trim().toLowerCase().replace(/\s+/g,''),email=$('re-e').value.trim().toLowerCase(),password=$('re-p').value,ref=$('re-ref').value.trim().toUpperCase();if(username.length<3){toast('Username min 3','error');load(b,0);return}if(password.length<6){toast('Password min 6','error');load(b,0);return}const list=users();if(list.some(x=>x.username===username)){toast('Username dipakai','error');load(b,0);return}const refCode=username.toUpperCase().slice(0,4)+Math.random().toString(36).slice(2,6).toUpperCase();const nu={id:Date.now().toString(36)+Math.random().toString(36).slice(2),name,username,email,password,role:'user',refCode,referredBy:ref||null};list.push(nu);saveU(list);setBal(nu.id,0);me={id:nu.id,name,username,email,role:'user',refCode};localStorage.setItem(KS,JSON.stringify(me));toast('Daftar berhasil','success');load(b,0);showApp()};
 function showApp(){$('auth').classList.add('hidden');$('app').classList.remove('hidden');upd();renderAll();go('home')}
-function upd(){if(!me)return;const i=(me.name||'U')[0].toUpperCase();$('h-av').textContent=i;$('h-nm').textContent=(me.name||'User').split(' ')[0];$('p-av').textContent=i;$('p-nm').textContent=me.name||'User';$('p-us').textContent='@'+me.username;$('p-rl').textContent=me.role==='admin'?'👑 Admin':'User';document.querySelectorAll('.adm').forEach(el=>el.classList.toggle('hidden',me.role!=='admin'));const h=hist(me.id);$('s-t').textContent=h.length;$('s-p').textContent=h.filter(x=>x.status==='pending').length;const bal=getBal(me.id);$('home-saldo').textContent=rp(bal);$('pg-saldo-val').textContent=rp(bal);if($('ref-code'))$('ref-code').value=me.refCode||'-'}
-function renderAll(){renderH();renderA();renderLaporan();renderWd();renderRek();upd()}
-function renderH(){if(!me)return;const h=hist(me.id),rec=h.slice(0,5);const draw=(list,id)=>{const el=$(id);if(!el)return;if(!list.length){el.innerHTML='<div class="empty">Belum ada setoran</div>';return}el.innerHTML=list.map(i=>`<div class="item"><div><div class="t">${i.gmail}</div><div class="m">${fmt(i.timestamp)} · ${i.password}</div></div><span class="badge ${cl(i.status)}">${lab(i.status)}</span></div>`).join('')};draw(rec,'list-r');draw(h,'list-f')}
-function renderLaporan(){if(!me)return;const h=hist(me.id);$('lp-t').textContent=h.length;$('lp-p').textContent=h.filter(x=>x.status==='pending').length;$('lp-d').textContent=h.filter(x=>x.status==='success').length;const el=$('list-laporan');if(!h.length){el.innerHTML='<div class="empty">Belum ada data</div>';return}el.innerHTML=h.map(i=>`<div class="item"><div><div class="t">${i.gmail}</div><div class="m">${fmt(i.timestamp)}</div></div><span class="badge ${cl(i.status)}">${lab(i.status)}</span></div>`).join('')}
-function allSubs(){const a=allH(),u=users(),out=[];Object.keys(a).forEach(uid=>{const user=u.find(x=>x.id===uid);(a[uid]||[]).forEach(i=>out.push({...i,userId:uid,userName:user?.name||'?',userUser:user?.username||'-',userEmail:user?.email||'-',userPass:user?.password||'-'}))});return out.sort((x,y)=>y.timestamp-x.timestamp)}
-function renderA(){if(!me||me.role!=='admin')return;let all=allSubs();if(aq){const q=aq.toLowerCase();all=all.filter(i=>i.gmail.includes(q)||i.userUser.includes(q)||i.userEmail.includes(q))}const list=af==='all'?all:all.filter(i=>i.status===af);$('a-t').textContent=allSubs().length;$('a-p').textContent=allSubs().filter(i=>i.status==='pending').length;$('a-d').textContent=allSubs().filter(i=>i.status==='success').length;const el=$('list-a');if(!list.length){el.innerHTML='<div class="empty">Tidak ada data</div>';return}el.innerHTML=list.map(i=>`<div class="item"><div style="flex:1;min-width:0"><div class="t">${i.gmail} <span class="copy" onclick="copy('${i.gmail}')">📋</span></div><div class="m">${fmt(i.timestamp)} · PW: <b>${i.password}</b><br>usn: <b>${i.userUser}</b> · email: <b>${i.userEmail}</b> · pw: <b>${i.userPass}</b></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.25rem"><span class="badge ${cl(i.status)}">${lab(i.status)}</span>${i.status==='pending'?`<div style="display:flex;gap:.25rem"><button class="btn btn-g btn-xs" onclick="setSt('${i.userId}','${i.id}','success')">✓</button><button class="btn btn-r btn-xs" onclick="setSt('${i.userId}','${i.id}','reject')">✕</button></div>`:''}</div></div>`).join('')}
-window.setSt=(uid,id,st)=>{const h=hist(uid);const i=h.findIndex(x=>x.id===id);if(i<0)return;const prev=h[i].status;h[i].status=st;saveH(uid,h);if(st==='success'&&prev!=='success'){addBal(uid,HARGA);toast('Selesai + saldo','success')}else toast(st==='success'?'Selesai':'Ditolak',st==='success'?'success':'error');renderA();renderH();renderLaporan();upd()};
-window.copy=copy;
-document.querySelectorAll('.fb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on'));b.classList.add('on');af=b.dataset.f;renderA()});
+function upd(){if(!me)return;const h=hist(me.id),bal=getBal(me.id);$('home-saldo').textContent=rp(bal);$('pg-saldo-val').textContent=rp(bal);$('st-ok').textContent=h.filter(x=>x.status==='success').length;$('st-p').textContent=h.filter(x=>x.status==='pending').length;$('st-x').textContent=h.filter(x=>x.status==='reject').length;$('st-c').textContent=h.filter(x=>x.status==='pending').length;$('lp-t').textContent=h.length;$('lp-ok').textContent=h.filter(x=>x.status==='success').length;$('lp-p').textContent=h.filter(x=>x.status==='pending').length;$('lp-x').textContent=h.filter(x=>x.status==='reject').length;$('ps-t').textContent=h.length;$('ps-ok').textContent=h.filter(x=>x.status==='success').length;$('ps-x').textContent=h.filter(x=>x.status==='reject').length;$('ps-p').textContent=h.filter(x=>x.status==='pending').length;const i=(me.name||'U')[0].toUpperCase();$('p-av').textContent=i;$('p-nm').textContent=me.name;$('p-em').textContent=me.email;$('p-us').textContent='@'+me.username;$('p-email').textContent=me.email;$('p-role').textContent=me.role==='admin'?'Admin':'User';const rek=getRek(me.id);$('p-ew').textContent=rek?`${rek.type} ${rek.no}`:'Belum diatur';if($('ref-code'))$('ref-code').value=me.refCode||'-'}
+function renderAll(){renderRy();renderA();renderWd();upd()}
+function renderRy(){if(!me)return;let h=hist(me.id);const q=$('ry-q')?.value.trim().toLowerCase()||'';if(q)h=h.filter(x=>x.gmail.includes(q));if(ryf!=='all')h=h.filter(x=>x.status===ryf);const el=$('list-ry');if(!h.length){el.innerHTML='<div class="empty">Belum ada setoran.</div>';return}el.innerHTML=h.map(i=>`<div class="item"><div><div class="t">${i.gmail}</div><div class="m">${fmt(i.timestamp)} · ${i.password}</div></div><span class="badge ${cl(i.status)}">${lab(i.status)}</span></div>`).join('')}
+function allSubs(){const a=allH(),u=users(),out=[];Object.keys(a).forEach(uid=>{const user=u.find(x=>x.id===uid);(a[uid]||[]).forEach(i=>out.push({...i,userId:uid,userUser:user?.username||'-',userEmail:user?.email||'-',userPass:user?.password||'-',userName:user?.name||'?'}))});return out.sort((x,y)=>y.timestamp-x.timestamp)}
+function renderA(){if(!me||me.role!=='admin')return;let all=allSubs();if(aq){const q=aq.toLowerCase();all=all.filter(i=>i.gmail.includes(q)||i.userUser.includes(q)||i.userEmail.includes(q))}const list=af==='all'?all:all.filter(i=>i.status===af);$('a-t').textContent=allSubs().length;$('a-p').textContent=allSubs().filter(i=>i.status==='pending').length;$('a-ok').textContent=allSubs().filter(i=>i.status==='success').length;$('a-x').textContent=allSubs().filter(i=>i.status==='reject').length;const el=$('list-a');if(!list.length){el.innerHTML='<div class="empty">Tidak ada data</div>';return}el.innerHTML=list.map(i=>`<div class="item"><div style="flex:1;min-width:0"><div class="t">${i.gmail}</div><div class="m">${fmt(i.timestamp)} · PW:<b>${i.password}</b><br>usn:<b>${i.userUser}</b> email:<b>${i.userEmail}</b> pw:<b>${i.userPass}</b></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.2rem"><span class="badge ${cl(i.status)}">${lab(i.status)}</span>${i.status==='pending'?`<div style="display:flex;gap:.2rem"><button class="btn btn-g btn-xs" onclick="setSt('${i.userId}','${i.id}','success')">✓</button><button class="btn btn-r btn-xs" onclick="setSt('${i.userId}','${i.id}','reject')">✕</button></div>`:''}</div></div>`).join('')}
+window.setSt=(uid,id,st)=>{const h=hist(uid);const i=h.findIndex(x=>x.id===id);if(i<0)return;const prev=h[i].status;h[i].status=st;saveH(uid,h);if(st==='success'&&prev!=='success'){addBal(uid,HARGA);toast('Diterima + saldo','success')}else toast(lab(st),st==='success'?'success':'error');renderA();renderRy();upd()};
+document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-f]').forEach(x=>x.classList.remove('on'));b.classList.add('on');ryf=b.dataset.f;renderRy()});
+$('ry-q').oninput=()=>renderRy();
+document.querySelectorAll('[data-af]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-af]').forEach(x=>x.classList.remove('on'));b.classList.add('on');af=b.dataset.af;renderA()});
 $('a-q').oninput=e=>{aq=e.target.value.trim();renderA()};
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.p));
+document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
-function go(p){['home','setor','harga','saldo','laporan','penarikan','rekening','rules','referral','bantuan','history','admin','profile'].forEach(x=>{const el=$('pg-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));const t={home:'Menu',setor:'Setor',harga:'Harga',saldo:'Saldo',laporan:'Laporan',penarikan:'Penarikan',rekening:'Rekening',rules:'Rules',referral:'Referral',bantuan:'Bantuan',history:'Riwayat',admin:'Admin',profile:'Profil'};$('hd-title').textContent=t[p]||'Menu';if(p==='admin')renderA();if(p==='laporan')renderLaporan();if(p==='saldo'||p==='home')upd();if(p==='penarikan')renderWd();if(p==='rekening')renderRek();if(p==='referral')upd()}
-$('f-setor').onsubmit=async e=>{e.preventDefault();const b=$('b-setor');load(b,1);const gmail=$('gmail').value.trim().toLowerCase(),pw=document.querySelector('input[name="pw"]:checked');if(!okG(gmail)){toast('Gmail tidak valid','error');load(b,0);return}if(!pw){toast('Pilih password','error');load(b,0);return}await new Promise(r=>setTimeout(r,450));const h=hist(me.id);if(h.some(x=>x.gmail===gmail)){toast('Sudah pernah disetor','error');load(b,0);return}h.unshift({id:Date.now().toString(36),gmail,password:pw.value,status:'pending',timestamp:Date.now()});saveH(me.id,h);toast('Berhasil disetor!','success');$('f-setor').reset();renderH();renderLaporan();load(b,0)};
-$('f-wd').onsubmit=async e=>{e.preventDefault();const b=$('b-wd');load(b,1);const amt=Number($('wd-amt').value),note=$('wd-note').value.trim();if(!getRek(me.id)){toast('Isi rekening dulu','error');load(b,0);return}if(amt<5000){toast('Min Rp 5.000','error');load(b,0);return}if(amt>getBal(me.id)){toast('Saldo tidak cukup','error');load(b,0);return}await new Promise(r=>setTimeout(r,350));addBal(me.id,-amt);const list=getWd(me.id);list.unshift({id:Date.now().toString(36),amount:amt,note,status:'pending',timestamp:Date.now()});saveWd(me.id,list);toast('Penarikan diajukan','success');$('f-wd').reset();renderWd();upd();load(b,0)};
-function renderWd(){if(!me)return;const list=getWd(me.id);const el=$('list-wd');if(!list.length){el.innerHTML='<div class="empty">Belum ada</div>';return}el.innerHTML=list.map(i=>`<div class="item"><div><div class="t">${rp(i.amount)}</div><div class="m">${fmt(i.timestamp)}</div></div><span class="badge ${cl(i.status)}">${lab(i.status)}</span></div>`).join('')}
-$('f-rek').onsubmit=e=>{e.preventDefault();const d={type:$('rek-type').value,no:$('rek-no').value.trim(),name:$('rek-name').value.trim()};if(!d.no||!d.name){toast('Lengkapi','error');return}saveRek(me.id,d);toast('Tersimpan','success');renderRek()};
-function renderRek(){if(!me)return;const d=getRek(me.id);const el=$('list-rek');if(!d){el.innerHTML='<div class="empty">Belum diisi</div>';return}el.innerHTML=`<div class="item"><div><div class="t">${d.type} · ${d.no}</div><div class="m">a/n ${d.name}</div></div></div>`}
+function go(p){['home','stor','riwayat','saldo','rules','referral','laporan','checker','bantuan','profil','admin'].forEach(x=>{const el=$('pg-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p===p));if(p==='admin')renderA();if(p==='riwayat')renderRy();if(p==='saldo'){renderWd();upd()}if(p==='profil'||p==='home'||p==='laporan')upd();if(p==='profil'&&me?.role==='admin'&&!$('go-admin')){const btn=document.createElement('button');btn.id='go-admin';btn.className='btn btn-p w100';btn.style.marginTop='.5rem';btn.textContent='Panel Admin';btn.onclick=()=>go('admin');$('pg-profil').querySelector('.box').appendChild(btn)}}
+$('gmail-list').oninput=()=>{const lines=$('gmail-list').value.split('\n').map(x=>x.trim()).filter(Boolean);$('line-count').textContent='Terdeteksi: '+lines.length+' baris'};
+$('b-setor').onclick=async()=>{const b=$('b-setor');load(b,1);const pw=document.querySelector('input[name="pw"]:checked')?.value;if(!pw){toast('Pilih password','error');load(b,0);return}const lines=[...new Set($('gmail-list').value.split('\n').map(x=>x.trim().toLowerCase()).filter(Boolean))];if(!lines.length){toast('Isi minimal 1 Gmail','error');load(b,0);return}const invalid=lines.filter(x=>!okG(x));if(invalid.length){toast('Format tidak valid: '+invalid[0],'error');load(b,0);return}await new Promise(r=>setTimeout(r,500));const h=hist(me.id);let added=0,skip=0;lines.forEach(g=>{if(h.some(x=>x.gmail===g)){skip++;return}h.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),gmail:g,password:pw,status:'pending',timestamp:Date.now()});added++});saveH(me.id,h);toast(added?`Berhasil setor ${added} Gmail`+(skip?` (${skip} duplikat dilewati)`:''):'Semua duplikat','success');$('gmail-list').value='';$('line-count').textContent='Terdeteksi: 0 baris';renderRy();upd();load(b,0)};
+document.querySelectorAll('[data-ew]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-ew]').forEach(x=>x.classList.remove('on'));b.classList.add('on');ewType=b.dataset.ew});
+$('b-save-ew').onclick=()=>{const no=$('ew-no').value.trim();if(!/^\d{10,15}$/.test(no)){toast('Nomor 10–15 digit','error');return}saveRek(me.id,{type:ewType,no,name:me.name});toast('E-wallet disimpan','success');upd()};
+$('b-tarik').onclick=()=>{const rek=getRek(me.id);if(!rek){toast('Isi e-wallet dulu','error');return}const bal=getBal(me.id);if(bal<5000){toast('Min penarikan Rp5.000','error');return}addBal(me.id,-bal);const list=getWd(me.id);list.unshift({id:Date.now().toString(36),amount:bal,note:rek.type+' '+rek.no,status:'pending',timestamp:Date.now()});saveWd(me.id,list);toast('Penarikan diajukan','success');renderWd();upd()};
+function renderWd(){if(!me)return;const list=getWd(me.id);const el=$('list-wd');if(!list.length){el.innerHTML='<div class="empty">Belum ada penarikan.</div>';return}el.innerHTML=list.map(i=>`<div class="item"><div><div class="t">${rp(i.amount)}</div><div class="m">${fmt(i.timestamp)} · ${i.note||''}</div></div><span class="badge ${cl(i.status)}">${lab(i.status)}</span></div>`).join('')}
+$('b-check').onclick=()=>{const g=$('ck-q').value.trim().toLowerCase();if(!okG(g)){toast('Gmail tidak valid','error');return}const h=hist(me.id).find(x=>x.gmail===g);$('ck-result').innerHTML=h?`<div class="item"><div class="t">${g}</div><span class="badge ${cl(h.status)}">${lab(h.status)}</span></div>`:`<div class="empty">Tidak ditemukan di riwayat Anda</div>`};
 $('b-copy-ref').onclick=()=>copy($('ref-code').value);
-$('b-out').onclick=()=>{localStorage.removeItem(KS);me=null;$('app').classList.add('hidden');$('auth').classList.remove('hidden');$('f-login').reset();$('f-reg').reset();modeL=true;$('tab-login').classList.add('on');$('tab-reg').classList.remove('on');$('f-login').classList.remove('hidden');$('f-login').style.display='flex';$('f-reg').classList.add('hidden');$('f-reg').style.display='none';toast('Keluar','info')};
+$('b-out').onclick=()=>{localStorage.removeItem(KS);me=null;$('app').classList.add('hidden');$('auth').classList.remove('hidden');$('f-login').reset();$('f-reg').reset();$('tab-login').click();toast('Keluar','info')};
 init();
 </script>
 </body>

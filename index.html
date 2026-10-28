@@ -8,7 +8,7 @@
       <svg width="32" height="32" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
     </div>
     <h1 style="font-size:1.6rem;font-weight:800;letter-spacing:-.03em">Setor Gmail</h1>
-    <p style="color:var(--m);font-size:.9rem;margin-top:.3rem">Demo · Local Storage</p>
+    <p style="color:var(--m);font-size:.9rem;margin-top:.3rem">Demo · Local Storage + users.json</p>
   </div>
   <div class="card" style="padding:1.3rem">
     <div class="tabs" style="margin-bottom:1.1rem">
@@ -101,7 +101,7 @@
       <p style="margin-bottom:.7rem"><b style="color:var(--t)">2.</b> Gmail harus belum pernah disetor (global).</p>
       <p style="margin-bottom:.7rem"><b style="color:var(--t)">3.</b> Kuota harian berlaku per akun.</p>
       <p style="margin-bottom:.7rem"><b style="color:var(--t)">4.</b> Admin berhak menolak / ban tanpa pemberitahuan.</p>
-      <p><b style="color:var(--t)">5.</b> Ini demo localStorage — data hanya di browser Anda.</p>
+      <p><b style="color:var(--t)">5.</b> Data akun tersimpan di browser (localStorage). users.json di GitHub siap untuk backend nanti.</p>
     </div>
   </div>
 
@@ -138,34 +138,38 @@
   <div id="pg-bantuan" class="page hidden">
     <div class="hdr"><h1>Bantuan</h1></div>
     <div class="card" style="padding:1.2rem;font-size:.88rem;line-height:1.65;color:var(--m)">
-      <p style="margin-bottom:.8rem">Hubungi admin via Telegram (demo).</p>
-      <p style="margin-bottom:.8rem">Pastikan format Gmail benar dan password sesuai pilihan.</p>
+      <p style="margin-bottom:.7rem">Hubungi admin via Telegram (demo).</p>
+      <p style="margin-bottom:.7rem">Pastikan format Gmail benar dan password sesuai pilihan.</p>
       <p>Data tersimpan lokal di browser. Clear cache = data hilang.</p>
     </div>
   </div>
 
   <div id="pg-profil" class="page hidden">
     <div class="hdr"><h1>Profil</h1></div>
-    <div class="card" style="padding:1.2rem;margin-bottom:1rem">
-      <div style="font-weight:700;font-size:1.05rem" id="prof-name">—</div>
-      <div style="font-size:.85rem;color:var(--m);margin-top:.2rem" id="prof-email">—</div>
-      <div style="font-size:.8rem;color:var(--m2);margin-top:.5rem">ID: <span id="prof-id">—</span></div>
+    <div class="card" style="padding:1.2rem">
+      <div style="text-align:center;margin-bottom:1rem">
+        <div style="font-size:1.1rem;font-weight:700" id="p-user">—</div>
+        <div style="font-size:.85rem;color:var(--m)" id="p-email">—</div>
+        <div style="font-size:.75rem;color:var(--m2);margin-top:.3rem">ID: <span id="p-id">—</span></div>
+      </div>
+      <div class="f" style="margin-bottom:.8rem"><label>Password Baru</label><input class="in" id="p-newpass" type="password" placeholder="min 6 karakter"></div>
+      <button class="btn btn-p w100" id="b-changepass" style="margin-bottom:.6rem">Ganti Password</button>
+      <button class="btn btn-r w100" id="b-logout">Keluar</button>
+      <div style="margin-top:1rem;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:.85rem;font-weight:600">Dark Mode</span>
+        <label class="switch"><input type="checkbox" id="p-dark"><span></span></label>
+      </div>
     </div>
-    <div class="card" style="padding:1.1rem;margin-bottom:1rem">
-      <div class="f" style="margin-bottom:.8rem"><label>Password Baru</label><input class="in" id="new-pass" type="password" placeholder="min 6 karakter"></div>
-      <button class="btn btn-g w100" id="b-chpass">Ganti Password</button>
-    </div>
-    <button class="btn btn-r w100" id="b-logout">Keluar</button>
   </div>
 
   <nav class="bnav">
     <button data-p="home" class="on"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
     <button data-p="stor"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Setor</button>
     <button data-p="riwayat"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Riwayat</button>
-    <button data-p="saldo"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Saldo</button>
+    <button data-p="saldo"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Saldo</button>
     <button data-p="profil"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil</button>
   </nav>
-  <button class="fab" onclick="go('stor')" title="Setor"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+  <button class="fab" onclick="go('stor')"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
 </div>
 
 <!-- ADMIN -->
@@ -173,76 +177,56 @@
   <div class="ad-wrap">
     <div class="ad-hdr">
       <h1>Admin Console</h1>
-      <div style="display:flex;gap:.5rem;align-items:center">
-        <button class="btn btn-xs btn-s" id="b-open-toggle">● OPEN</button>
-        <button class="btn btn-xs btn-r" id="b-ad-logout">Keluar</button>
-      </div>
+      <button class="btn btn-s btn-xs" id="b-logout-ad">Logout</button>
     </div>
     <div class="ad-nav">
-      <button class="on" data-ad="dash">Dashboard</button>
+      <button data-ad="dash" class="on">Dashboard</button>
       <button data-ad="setoran">Setoran</button>
       <button data-ad="users">Users</button>
       <button data-ad="wd">Penarikan</button>
       <button data-ad="settings">Pengaturan</button>
       <button data-ad="audit">Audit</button>
     </div>
-
     <div id="ad-dash">
-      <div class="ad-kpi" id="ad-kpi"></div>
-      <div class="card" style="padding:1rem;margin-bottom:1rem">
-        <div style="font-weight:700;margin-bottom:.6rem;font-size:.9rem">Aksi Cepat</div>
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-          <button class="btn btn-xs btn-g" id="ex-setoran">Export Setoran CSV</button>
-          <button class="btn btn-xs btn-g" id="ex-users">Export Users CSV</button>
-          <button class="btn btn-xs btn-g" id="ex-wd">Export WD CSV</button>
-        </div>
+      <div class="ad-kpi">
+        <div class="card"><div class="n" id="ad-kpi-users">0</div><div class="l">Users</div></div>
+        <div class="card"><div class="n" id="ad-kpi-pend">0</div><div class="l">Pending</div></div>
+        <div class="card"><div class="n" id="ad-kpi-ok">0</div><div class="l">Sukses</div></div>
+        <div class="card"><div class="n" id="ad-kpi-wd">0</div><div class="l">WD Pending</div></div>
       </div>
-      <div id="ad-dash-list"></div>
+      <div class="card" style="padding:1rem"><div style="font-weight:700;margin-bottom:.5rem">Status Setoran</div><div id="ad-open-status">—</div><button class="btn btn-g btn-xs" style="margin-top:.5rem" id="b-open-toggle">Toggle Open/Close</button></div>
     </div>
-
     <div id="ad-setoran" class="hidden">
-      <div style="display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap">
-        <button class="btn btn-xs btn-s" data-filter="all">Semua</button>
-        <button class="btn btn-xs btn-s" data-filter="pending">Pending</button>
-        <button class="btn btn-xs btn-s" data-filter="success">Sukses</button>
-        <button class="btn btn-xs btn-s" data-filter="reject">Tolak</button>
+      <div class="tabs" style="margin-bottom:.8rem">
+        <button data-filter="all" class="on">Semua</button>
+        <button data-filter="pending">Pending</button>
+        <button data-filter="success">Sukses</button>
+        <button data-filter="reject">Reject</button>
       </div>
       <div id="ad-setoran-body"></div>
-      <div class="bulk-bar" id="bulk-bar">
-        <span style="font-size:.82rem;font-weight:600;align-self:center" id="bulk-count">0 dipilih</span>
-        <button class="btn btn-xs btn-p" id="bulk-ok">Approve</button>
-        <button class="btn btn-xs btn-r" id="bulk-no">Reject</button>
-      </div>
+      <div class="bulk-bar" id="bulk-bar"><span id="bulk-count">0 dipilih</span><button class="btn btn-xs btn-success" id="bulk-ok">Approve</button><button class="btn btn-xs btn-danger" id="bulk-no">Reject</button></div>
+      <button class="btn btn-s btn-xs" style="margin-top:.8rem" id="ex-setoran">Export CSV</button>
     </div>
-
     <div id="ad-users" class="hidden">
       <div id="ad-users-body"></div>
+      <button class="btn btn-s btn-xs" style="margin-top:.8rem" id="ex-users">Export CSV</button>
     </div>
-
     <div id="ad-wd" class="hidden">
       <div id="ad-wd-body"></div>
+      <button class="btn btn-s btn-xs" style="margin-top:.8rem" id="ex-wd">Export CSV</button>
     </div>
-
     <div id="ad-settings" class="hidden">
       <div class="card" style="padding:1.2rem">
         <div class="cfg-grid">
           <div class="f"><label>Harga per Gmail (Rp)</label><input class="in" id="cfg-harga" type="number"></div>
           <div class="f"><label>Min Penarikan (Rp)</label><input class="in" id="cfg-minwd" type="number"></div>
-          <div class="f"><label>Kuota Harian / User</label><input class="in" id="cfg-quota" type="number"></div>
-          <div class="f"><label>Pengumuman (kosong = sembunyikan)</label><textarea class="ta" id="cfg-ann" rows="2"></textarea></div>
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <label style="font-size:.85rem;font-weight:600">Auto-Approve Setoran</label>
-            <label class="switch"><input type="checkbox" id="cfg-auto"><span></span></label>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <label style="font-size:.85rem;font-weight:600">Dark Mode</label>
-            <label class="switch"><input type="checkbox" id="p-dark"><span></span></label>
-          </div>
-          <button class="btn btn-p w100" id="b-save-cfg">Simpan Pengaturan</button>
+          <div class="f"><label>Kuota Harian</label><input class="in" id="cfg-quota" type="number"></div>
+          <div class="f"><label>Pengumuman</label><textarea class="ta" id="cfg-ann" rows="2"></textarea></div>
+          <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:.85rem;font-weight:600">Auto Approve</span><label class="switch"><input type="checkbox" id="cfg-auto"><span></span></label></div>
         </div>
+        <button class="btn btn-p w100" style="margin-top:1rem" id="b-save-cfg">Simpan Pengaturan</button>
       </div>
     </div>
-
     <div id="ad-audit" class="hidden">
       <div id="ad-audit-body"></div>
     </div>
@@ -250,84 +234,80 @@
 </div>
 
 <script>
-const KA='sg_auth',KH='sg_hist_',KB='sg_bal_',KW='sg_wd_',KU='sg_users',KCFG='sg_cfg',KG='sg_global',KAUD='sg_audit',KBAN='sg_ban';
+const KU='sg_users',KH='sg_hist_',KB='sg_bal_',KW='sg_wd_',KCFG='sg_cfg',KG='sg_global',KAUD='sg_audit',KBAN='sg_ban',KME='sg_me';
 let me=null,HARGA=1500,MIN_WD=10000,DAILY_QUOTA=50,AUTO_APPROVE=false,IS_OPEN=true;
 const $=id=>document.getElementById(id);
-function toast(m,t='ok'){const e=$('toast');e.textContent=m;e.className='toast show '+(t==='success'||t==='ok'?'ok':'err');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2600)}
-function load(b,on){if(!b)return;b.disabled=!!on;b.dataset.old=b.dataset.old||b.textContent;b.textContent=on?'...':b.dataset.old}
-function fmt(t){const d=new Date(t);return d.toLocaleDateString('id-ID',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}
+function toast(m,t=''){const el=$('toast');el.textContent=m;el.className='toast show '+(t==='success'||t==='ok'?'ok':t==='error'||t==='err'?'err':'');setTimeout(()=>el.classList.remove('show'),2800)}
+function load(b,on){if(b){b.disabled=!!on;b.style.opacity=on?.6:1}}
+function fmt(t){return new Date(t).toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}
 function rp(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}
-function okG(g){return /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(g)}
-function loadCfg(){try{const c=JSON.parse(localStorage.getItem(KCFG)||'{}');HARGA=c.harga??1500;MIN_WD=c.minWd??10000;DAILY_QUOTA=c.quota??50;AUTO_APPROVE=!!c.auto;IS_OPEN=c.open!==false}catch(e){}}
-function saveCfg(){localStorage.setItem(KCFG,JSON.stringify({harga:HARGA,minWd:MIN_WD,quota:DAILY_QUOTA,auto:AUTO_APPROVE,open:IS_OPEN,ann:getAnn()}))}
-function getAnn(){try{return JSON.parse(localStorage.getItem(KCFG)||'{}').ann||''}catch(e){return ''}}
-function audit(msg){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');a.unshift({msg,by:me?.user||'sys',t:Date.now()});localStorage.setItem(KAUD,JSON.stringify(a.slice(0,200)))}
+function okG(e){return /^[a-z0-9._%+-]+@gmail\.com$/i.test(e)}
+function loadCfg(){const c=JSON.parse(localStorage.getItem(KCFG)||'{}');HARGA=c.harga??1500;MIN_WD=c.minWd??10000;DAILY_QUOTA=c.quota??50;AUTO_APPROVE=!!c.auto;IS_OPEN=c.open!==false}
+function saveCfg(){const c=JSON.parse(localStorage.getItem(KCFG)||'{}');c.harga=HARGA;c.minWd=MIN_WD;c.quota=DAILY_QUOTA;c.auto=AUTO_APPROVE;c.open=IS_OPEN;localStorage.setItem(KCFG,JSON.stringify(c))}
+function getAnn(){return (JSON.parse(localStorage.getItem(KCFG)||'{}').ann)||''}
+function audit(msg){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');a.unshift({msg,by:me?.user||'system',t:Date.now()});localStorage.setItem(KAUD,JSON.stringify(a.slice(0,200)))}
 function globalG(){return JSON.parse(localStorage.getItem(KG)||'{}')}
-function markGlobal(g,uid){const o=globalG();o[g.toLowerCase()]=uid;localStorage.setItem(KG,JSON.stringify(o))}
-function isGlobalDup(g){return !!globalG()[g.toLowerCase()]}
-function todayCount(uid){const h=hist(uid),start=new Date();start.setHours(0,0,0,0);return h.filter(x=>x.timestamp>=start.getTime()).length}
-function ensureAdmin(){const u=JSON.parse(localStorage.getItem(KU)||'[]');if(!u.find(x=>x.user==='admin')){u.push({id:'admin',user:'admin',email:'admin@local',pass:'admin123',ref:'',ts:Date.now()});localStorage.setItem(KU,JSON.stringify(u))}}
-function init(){ensureAdmin();loadCfg();const s=localStorage.getItem(KA);if(s){try{me=JSON.parse(s);enterApp()}catch(e){}}}
-function enterApp(){if(me.user==='admin')showAdmin();else showUser()}
-function showAdmin(){$('auth').classList.add('hidden');$('app').classList.add('hidden');$('admin').classList.remove('hidden');renderAdminAll();refreshOpenUI()}
-function showUser(){$('auth').classList.add('hidden');$('admin').classList.add('hidden');$('app').classList.remove('hidden');const ann=getAnn();const ban=$('ann-banner');if(ann){ban.classList.remove('hidden');$('ann-text').textContent=ann}else ban.classList.add('hidden');upd();renderAll();refreshOpenUI();const params=new URLSearchParams(location.search);if(params.get('ref')){$('r-ref').value=params.get('ref')}}
-function logout(){localStorage.removeItem(KA);me=null;$('auth').classList.remove('hidden');$('app').classList.add('hidden');$('admin').classList.add('hidden')}
-function allSubs(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{hist(x.id).forEach(h=>r.push({...h,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.timestamp-a.timestamp)}
-function allWdList(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{const w=JSON.parse(localStorage.getItem(KW+x.id)||'[]');w.forEach(i=>r.push({...i,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.ts-a.ts)}
-function renderAdminAll(){renderAdDash();renderAdSetoran();renderAdUsers();renderAdWd();fillSettings();renderAudit()}
-function renderAdDash(){const s=allSubs(),w=allWdList(),u=JSON.parse(localStorage.getItem(KU)||'[]');const pend=s.filter(x=>x.status==='pending').length,ok=s.filter(x=>x.status==='success').length,rej=s.filter(x=>x.status==='reject').length;const bal=u.reduce((a,x)=>a+(JSON.parse(localStorage.getItem(KB+x.id)||'0')||0),0);$('ad-kpi').innerHTML=`<div class="card"><div class="n">${s.length}</div><div class="l">Total Setoran</div></div><div class="card"><div class="n">${pend}</div><div class="l">Pending</div></div><div class="card"><div class="n">${ok}</div><div class="l">Sukses</div></div><div class="card"><div class="n">${u.length}</div><div class="l">Users</div></div><div class="card"><div class="n">${w.filter(x=>x.status==='pending').length}</div><div class="l">WD Pending</div></div><div class="card"><div class="n">${rp(bal)}</div><div class="l">Total Saldo</div></div>`;const recent=s.slice(0,8);$('ad-dash-list').innerHTML=recent.length?recent.map(x=>`<div class="ad-card"><div class="gmail">${x.gmail}</div><div class="meta"><span>@${x.user}</span><span>${fmt(x.timestamp)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div>`).join(''):'<div class="empty">Belum ada data</div>'}
-function renderAdSetoran(filter='all'){const s=allSubs().filter(x=>filter==='all'||x.status===filter);const body=$('ad-setoran-body');body.innerHTML=s.length?s.map(x=>`<div class="ad-card" data-id="${x.id}" data-uid="${x.uid}"><div style="display:flex;gap:.5rem;align-items:flex-start"><label><input type="checkbox" class="bulk-cb" data-id="${x.id}" data-uid="${x.uid}" onchange="updBulk()"></label><div style="flex:1"><div class="gmail">${x.gmail}</div><div class="meta"><span>@${x.user}</span><span>pw: ${x.password}</span><span>${fmt(x.timestamp)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div><div class="acts">${x.status==='pending'?`<button class="btn btn-xs btn-p" onclick="setSt('${x.uid}','${x.id}','success')">Approve</button><button class="btn btn-xs btn-r" onclick="setSt('${x.uid}','${x.id}','reject')">Reject</button>`:''}</div></div></div></div>`).join(''):'<div class="empty">Kosong</div>';updBulk()}
-function renderAdUsers(){const u=JSON.parse(localStorage.getItem(KU)||'[]');const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');$('ad-users-body').innerHTML=u.map(x=>{const bal=JSON.parse(localStorage.getItem(KB+x.id)||'0')||0;const cnt=hist(x.id).length;const banned=!!bans[x.id];return `<div class="ad-card"><div class="gmail">${x.user} ${banned?'<span class="st r">BANNED</span>':''}</div><div class="meta"><span>${x.email}</span><span>${rp(bal)}</span><span>${cnt} setoran</span><span>${fmt(x.ts)}</span></div><div class="acts">${x.user!=='admin'?`<button class="btn btn-xs ${banned?'btn-g':'btn-r'}" onclick="toggleBan('${x.id}')">${banned?'Unban':'Ban'}</button>`:''}</div></div>`}).join('')||'<div class="empty">Kosong</div>'}
-function renderAdWd(){const w=allWdList();$('ad-wd-body').innerHTML=w.length?w.map(x=>`<div class="ad-card"><div class="gmail">${rp(x.amt)} · ${x.dana}</div><div class="meta"><span>@${x.user}</span><span>${x.name}</span><span>${fmt(x.ts)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div><div class="acts">${x.status==='pending'?`<button class="btn btn-xs btn-p" onclick="setWd('${x.uid}','${x.id}','success')">Approve</button><button class="btn btn-xs btn-r" onclick="setWd('${x.uid}','${x.id}','reject')">Reject</button>`:''}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
-function goAd(p){['dash','setoran','users','wd','settings','audit'].forEach(x=>{const el=$('ad-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.ad-nav button').forEach(b=>b.classList.toggle('on',b.dataset.ad===p));if(p==='setoran')renderAdSetoran();if(p==='users')renderAdUsers();if(p==='wd')renderAdWd();if(p==='settings')fillSettings();if(p==='audit')renderAudit();if(p==='dash')renderAdDash()}
-function refreshOpenUI(){const o=IS_OPEN;const txt=o?'● OPEN':'● CLOSED';const cls=o?'open':'close';['open-badge','open-badge2'].forEach(id=>{const e=$(id);if(e){e.textContent=txt;e.className='badge '+cls}});const bt=$('b-open-toggle');if(bt){bt.textContent=txt;bt.className='btn btn-xs '+(o?'btn-g':'btn-r')}const cw=$('close-warn');if(cw)cw.style.display=o?'none':'block';const bs=$('b-setor');if(bs)bs.disabled=!o}
-function isOpen(){return IS_OPEN}
+function markGlobal(g,uid){const o=globalG();o[g]={uid,t:Date.now()};localStorage.setItem(KG,JSON.stringify(o))}
+function isGlobalDup(g){return !!globalG()[g]}
+function freeGlobal(g){const o=globalG();delete o[g];localStorage.setItem(KG,JSON.stringify(o))}
+function todayCount(uid){const h=hist(uid);const start=new Date();start.setHours(0,0,0,0);return h.filter(x=>x.timestamp>=start.getTime()).length}
 function hist(uid){return JSON.parse(localStorage.getItem(KH+uid)||'[]')}
 function saveH(uid,h){localStorage.setItem(KH+uid,JSON.stringify(h))}
-function bal(uid){return JSON.parse(localStorage.getItem(KB+uid)||'0')||0}
-function addBal(uid,n){localStorage.setItem(KB+uid,JSON.stringify(bal(uid)+n))}
-function setSt(uid,id,st){const h=hist(uid);const i=h.findIndex(x=>x.id===id);if(i<0)return;const old=h[i].status;h[i].status=st;if(st==='success'&&old!=='success'){addBal(uid,HARGA);markGlobal(h[i].gmail,uid)}if(st!=='success'&&old==='success'){addBal(uid,-HARGA)}saveH(uid,h);audit(`${st} setoran ${h[i].gmail} @${uid}`);renderAdminAll();toast(st==='success'?'Approved':'Rejected',st==='success'?'success':'error')}
-function setWd(uid,id,st){const w=JSON.parse(localStorage.getItem(KW+uid)||'[]');const i=w.findIndex(x=>x.id===id);if(i<0)return;const old=w[i].status;w[i].status=st;if(st==='success'&&old!=='success'){/* already deducted */}if(st==='reject'&&old==='pending'){addBal(uid,w[i].amt)}localStorage.setItem(KW+uid,JSON.stringify(w));audit(`${st} WD ${rp(w[i].amt)} @${uid}`);renderAdminAll();toast(st==='success'?'WD Approved':'WD Rejected',st==='success'?'success':'error')}
-function toggleBan(uid){const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');bans[uid]=!bans[uid];localStorage.setItem(KBAN,JSON.stringify(bans));audit((bans[uid]?'Ban':'Unban')+' user '+uid);renderAdUsers();toast(bans[uid]?'User di-ban':'User di-unban')}
-function upd(){if(!me)return;const b=bal(me.id);const h=hist(me.id);$('home-saldo').textContent=rp(b);$('wd-saldo').textContent=rp(b);$('kpi-ok').textContent=h.filter(x=>x.status==='success').length;$('kpi-pend').textContent=h.filter(x=>x.status==='pending').length;$('quota-info').textContent=todayCount(me.id)+'/'+DAILY_QUOTA;$('minwd-lbl').textContent=MIN_WD;$('prof-name').textContent=me.user;$('prof-email').textContent=me.email;$('prof-id').textContent=me.id;$('ref-code').textContent=me.user.toUpperCase();const recent=h.slice(0,5);$('home-recent').innerHTML=recent.length?recent.map(x=>`<div class="item"><div style="flex:1"><div class="g">${x.gmail}</div><div class="meta">${fmt(x.timestamp)} · <span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div></div>`).join(''):'<div class="empty">Belum ada setoran</div>'}
-function renderAll(){renderRy();renderWd()}
-function renderRy(){const h=hist(me.id);$('ry-list').innerHTML=h.length?h.map(x=>`<div class="item"><div style="flex:1"><div class="g">${x.gmail}</div><div class="meta">pw: ${x.password} · ${fmt(x.timestamp)} · <span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div></div>`).join(''):'<div class="empty">Kosong</div>'}
-function renderWd(){const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');$('wd-list').innerHTML=w.length?w.map(x=>`<div class="item"><div style="flex:1"><div class="g">${rp(x.amt)} → ${x.dana}</div><div class="meta">${x.name} · ${fmt(x.ts)} · <span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div></div></div>`).join(''):'<div class="empty">Belum ada penarikan</div>'}
-function go(p){['home','stor','riwayat','saldo','rules','referral','laporan','checker','bantuan','profil'].forEach(x=>{const el=$('pg-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p===p));if(p==='riwayat')renderRy();if(p==='saldo'){renderWd();upd()}if(p==='profil'||p==='home'||p==='laporan')upd();if(p==='stor')refreshOpenUI()}
-function updBulk(){const cbs=[...document.querySelectorAll('.bulk-cb:checked')];const bar=$('bulk-bar');$('bulk-count').textContent=cbs.length+' dipilih';bar.classList.toggle('show',cbs.length>0)}
-function bulkAct(st){const cbs=[...document.querySelectorAll('.bulk-cb:checked')];cbs.forEach(c=>setSt(c.dataset.uid,c.dataset.id,st));updBulk()}
-function toCSV(rows){if(!rows.length)return'';const keys=Object.keys(rows[0]);return keys.join(',')+'\n'+rows.map(r=>keys.map(k=>`"${String(r[k]??'').replace(/"/g,'""')}"`).join(',')).join('\n')}
+function bal(uid){return +(localStorage.getItem(KB+uid)||0)}
+function addBal(uid,n){localStorage.setItem(KB+uid,bal(uid)+n)}
+function ensureAdmin(){let u=JSON.parse(localStorage.getItem(KU)||'[]');if(!u.find(x=>x.user==='admin')){u.push({id:'admin',user:'admin',email:'admin@local',pass:'admin123',role:'admin',ts:Date.now()});localStorage.setItem(KU,JSON.stringify(u))}}
+function init(){ensureAdmin();loadCfg();const s=localStorage.getItem(KME);if(s){try{me=JSON.parse(s);enterApp()}catch(e){}}}
+function enterApp(){if(!me)return;$('auth').classList.add('hidden');if(me.role==='admin'||me.user==='admin')showAdmin();else showUser()}
+function showAdmin(){$('app').classList.add('hidden');$('admin').classList.remove('hidden');renderAdminAll()}
+function showUser(){$('admin').classList.add('hidden');$('app').classList.remove('hidden');upd();refreshOpenUI();const ann=getAnn();if(ann){$('ann-banner').classList.remove('hidden');$('ann-text').textContent=ann}else $('ann-banner').classList.add('hidden')}
+function logout(){me=null;localStorage.removeItem(KME);$('app').classList.add('hidden');$('admin').classList.add('hidden');$('auth').classList.remove('hidden')}
+function allSubs(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{hist(x.id).forEach(h=>r.push({...h,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.timestamp-a.timestamp)}
+function allWdList(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{JSON.parse(localStorage.getItem(KW+x.id)||'[]').forEach(w=>r.push({...w,uid:x.id,user:x.user,email:x.email,pass:x.pass}))});return r.sort((a,b)=>b.ts-a.ts)}
+function renderAdminAll(){renderAdDash();renderAdSetoran();renderAdUsers();renderAdWd();renderAudit()}
+function renderAdDash(){const u=JSON.parse(localStorage.getItem(KU)||'[]');const s=allSubs();$('ad-kpi-users').textContent=u.length;$('ad-kpi-pend').textContent=s.filter(x=>x.status==='pending').length;$('ad-kpi-ok').textContent=s.filter(x=>x.status==='success').length;$('ad-kpi-wd').textContent=allWdList().filter(x=>x.status==='pending').length;$('ad-open-status').innerHTML=IS_OPEN?'<span class="badge open">● OPEN</span>':'<span class="badge close">● CLOSED</span>'}
+function renderAdSetoran(f='all'){const s=allSubs().filter(x=>f==='all'||x.status===f);$('ad-setoran-body').innerHTML=s.length?s.map(x=>`<div class="ad-card"><div style="display:flex;align-items:center;gap:.5rem"><input type="checkbox" class="bulk-cb" data-uid="${x.uid}" data-id="${x.id}"><div class="gmail">${x.gmail}</div></div><div class="meta"><span>${x.password}</span><span>@${x.user}</span><span>${fmt(x.timestamp)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div><div class="acts">${x.status==='pending'?`<button class="btn btn-xs btn-p" onclick="setSt('${x.uid}','${x.id}','success')">Approve</button><button class="btn btn-xs btn-r" onclick="setSt('${x.uid}','${x.id}','reject')">Reject</button>`:''}</div></div>`).join(''):'<div class="empty">Kosong</div>';updBulk()}
+function renderAdUsers(){const u=JSON.parse(localStorage.getItem(KU)||'[]');const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');$('ad-users-body').innerHTML=u.map(x=>{const banned=!!bans[x.id];return `<div class="ad-card"><div class="gmail">@${x.user} ${banned?'<span class="st r">BANNED</span>':''}</div><div class="meta"><span>${x.email}</span><span>Saldo ${rp(bal(x.id))}</span><span>${hist(x.id).length} setoran</span></div><div class="acts">${x.user!=='admin'?`<button class="btn btn-xs ${banned?'btn-p':'btn-r'}" onclick="toggleBan('${x.id}')">${banned?'Unban':'Ban'}</button>`:''}</div></div>`}).join('')||'<div class="empty">Kosong</div>'}
+function renderAdWd(){const w=allWdList();$('ad-wd-body').innerHTML=w.length?w.map(x=>`<div class="ad-card"><div class="gmail">${rp(x.amt)}</div><div class="meta"><span>${x.dana}</span><span>${x.name}</span><span>@${x.user}</span><span>${fmt(x.ts)}</span><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span></div><div class="acts">${x.status==='pending'?`<button class="btn btn-xs btn-p" onclick="setWd('${x.uid}','${x.id}','success')">Approve</button><button class="btn btn-xs btn-r" onclick="setWd('${x.uid}','${x.id}','reject')">Reject</button>`:''}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
+function setSt(uid,id,st){const h=hist(uid);const i=h.findIndex(x=>x.id===id);if(i<0)return;const old=h[i].status;h[i].status=st;if(st==='success'&&old!=='success'){addBal(uid,HARGA);markGlobal(h[i].gmail,uid)}if(st!=='success'&&old==='success'){addBal(uid,-Math.min(HARGA,bal(uid)));freeGlobal(h[i].gmail)}saveH(uid,h);audit(st+' setoran '+h[i].gmail);renderAdminAll();toast(st==='success'?'Approved':'Rejected',st==='success'?'ok':'err')}
+function setWd(uid,id,st){const w=JSON.parse(localStorage.getItem(KW+uid)||'[]');const i=w.findIndex(x=>x.id===id);if(i<0)return;const old=w[i].status;w[i].status=st;if(st==='reject'&&old==='pending')addBal(uid,w[i].amt);localStorage.setItem(KW+uid,JSON.stringify(w));audit(st+' WD '+rp(w[i].amt));renderAdminAll();toast(st==='success'?'WD Approved':'WD Rejected',st==='success'?'ok':'err')}
+function toggleBan(uid){const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');bans[uid]=!bans[uid];if(!bans[uid])delete bans[uid];localStorage.setItem(KBAN,JSON.stringify(bans));audit((bans[uid]?'Ban':'Unban')+' '+uid);renderAdUsers();toast(bans[uid]?'Banned':'Unbanned')}
+function updBulk(){const cbs=[...document.querySelectorAll('.bulk-cb:checked')];$('bulk-count').textContent=cbs.length+' dipilih';$('bulk-bar').classList.toggle('show',cbs.length>0)}
+function bulkAct(st){[...document.querySelectorAll('.bulk-cb:checked')].forEach(c=>setSt(c.dataset.uid,c.dataset.id,st));updBulk()}
+function toCSV(rows){if(!rows.length)return'';const k=Object.keys(rows[0]);return k.join(',')+'\n'+rows.map(r=>k.map(x=>`"${String(r[x]??'').replace(/"/g,'""')}"`).join(',')).join('\n')}
 function dl(name,csv){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=name;a.click()}
-function exportSetoran(){const r=allSubs().map(x=>({gmail:x.gmail,password:x.password,status:x.status,user:x.user,time:new Date(x.timestamp).toISOString()}));dl('setoran.csv',toCSV(r));toast('Export OK','success')}
-function exportUsers(){const u=JSON.parse(localStorage.getItem(KU)||'[]');const r=u.map(x=>({user:x.user,email:x.email,saldo:bal(x.id),setoran:hist(x.id).length,ts:new Date(x.ts).toISOString()}));dl('users.csv',toCSV(r));toast('Export OK','success')}
-function exportWd(){const r=allWdList().map(x=>({amt:x.amt,dana:x.dana,name:x.name,status:x.status,user:x.user,time:new Date(x.ts).toISOString()}));dl('wd.csv',toCSV(r));toast('Export OK','success')}
+function exportSetoran(){dl('setoran.csv',toCSV(allSubs().map(x=>({gmail:x.gmail,password:x.password,status:x.status,user:x.user,time:new Date(x.timestamp).toISOString()}))));toast('Export OK','ok')}
+function exportUsers(){dl('users.csv',toCSV(JSON.parse(localStorage.getItem(KU)||'[]').map(x=>({username:x.user,email:x.email,saldo:bal(x.id),setoran:hist(x.id).length})));toast('Export OK','ok')}
+function exportWd(){dl('wd.csv',toCSV(allWdList().map(x=>({amt:x.amt,dana:x.dana,name:x.name,status:x.status,user:x.user,time:new Date(x.ts).toISOString()}))));toast('Export OK','ok')}
 function applyDark(on){document.body.classList.toggle('dark',!!on);localStorage.setItem('sg_dark',on?'1':'0');const c=$('p-dark');if(c)c.checked=!!on}
-function fillSettings(){loadCfg();$('cfg-harga').value=HARGA;$('cfg-minwd').value=MIN_WD;$('cfg-quota').value=DAILY_QUOTA;$('cfg-ann').value=getAnn();$('cfg-auto').checked=AUTO_APPROVE}
-function renderAudit(){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');const body=$('ad-audit-body');body.innerHTML=a.length?a.map(x=>`<div class="ad-card"><div class="gmail" style="font-size:.8rem">${x.msg}</div><div class="meta">@${x.by} · ${fmt(x.t)}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
-
-// events
+function refreshOpenUI(){const open=IS_OPEN;['open-badge','open-badge2'].forEach(id=>{const el=$(id);if(el){el.textContent=open?'● OPEN':'● CLOSED';el.className='badge '+(open?'open':'close')}});const w=$('close-warn');if(w)w.style.display=open?'none':'block'}
+function upd(){if(!me)return;$('home-saldo').textContent=rp(bal(me.id));$('wd-saldo').textContent=rp(bal(me.id));$('minwd-lbl').textContent=MIN_WD;const h=hist(me.id);$('kpi-ok').textContent=h.filter(x=>x.status==='success').length;$('kpi-pend').textContent=h.filter(x=>x.status==='pending').length;$('quota-info').textContent=todayCount(me.id)+'/'+DAILY_QUOTA;$('p-user').textContent=me.user;$('p-email').textContent=me.email;$('p-id').textContent=me.id;$('ref-code').textContent=me.user;const recent=h.slice(0,5);$('home-recent').innerHTML=recent.length?recent.map(x=>`<div class="item"><div class="g">${x.gmail}</div><div class="meta"><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span> · ${fmt(x.timestamp)}</div></div>`).join(''):'<div class="empty">Belum ada setoran</div>'}
+function renderRy(){const h=hist(me.id);$('ry-list').innerHTML=h.length?h.map(x=>`<div class="item"><div class="g">${x.gmail}</div><div class="meta"><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span> · ${x.password} · ${fmt(x.timestamp)}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
+function renderWd(){const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');$('wd-list').innerHTML=w.length?w.map(x=>`<div class="item"><div class="g">${rp(x.amt)}</div><div class="meta"><span class="st ${x.status==='success'?'s':x.status==='reject'?'r':'p'}">${x.status}</span> · ${x.dana} · ${fmt(x.ts)}</div></div>`).join(''):'<div class="empty">Belum ada penarikan</div>'}
+function go(p){['home','stor','riwayat','saldo','rules','referral','laporan','checker','bantuan','profil'].forEach(x=>{const el=$('pg-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p===p));if(p==='riwayat')renderRy();if(p==='saldo'){renderWd();upd()}if(p==='profil'||p==='home'||p==='laporan')upd();if(p==='stor')refreshOpenUI()}
+document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
 $('tab-login').onclick=()=>{$('tab-login').classList.add('on');$('tab-reg').classList.remove('on');$('f-login').classList.remove('hidden');$('f-reg').classList.add('hidden')};
 $('tab-reg').onclick=()=>{$('tab-reg').classList.add('on');$('tab-login').classList.remove('on');$('f-reg').classList.remove('hidden');$('f-login').classList.add('hidden')};
-$('b-login').onclick=()=>{const u=$('l-user').value.trim(),p=$('l-pass').value;const users=JSON.parse(localStorage.getItem(KU)||'[]');const found=users.find(x=>x.user===u||x.email===u);if(!found||found.pass!==p){toast('Login gagal','error');return}const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');if(bans[found.id]){toast('Akun di-ban','error');return}me=found;localStorage.setItem(KA,JSON.stringify(me));enterApp();toast('Selamat datang')};
-$('b-reg').onclick=()=>{const user=$('r-user').value.trim(),email=$('r-email').value.trim(),pass=$('r-pass').value,ref=$('r-ref').value.trim();if(user.length<3){toast('Username min 3','error');return}if(!okG(email)&&!email.includes('@')){toast('Email tidak valid','error');return}if(pass.length<6){toast('Password min 6','error');return}const users=JSON.parse(localStorage.getItem(KU)||'[]');if(users.find(x=>x.user===user||x.email===email)){toast('Sudah terdaftar','error');return}const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);users.push({id,user,email,pass,ref,ts:Date.now()});localStorage.setItem(KU,JSON.stringify(users));me={id,user,email,pass,ref,ts:Date.now()};localStorage.setItem(KA,JSON.stringify(me));enterApp();toast('Daftar berhasil')};
-$('b-logout').onclick=logout;$('b-ad-logout').onclick=logout;
-document.querySelectorAll('.bnav button[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
-document.querySelectorAll('.ad-nav button').forEach(b=>b.onclick=()=>goAd(b.dataset.ad));
-document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>renderAdSetoran(b.dataset.filter));
-$('gmail-list').oninput=()=>{$('line-count').textContent=$('gmail-list').value.split('\n').filter(x=>x.trim()).length+' baris'};
-$('b-setor').onclick=async()=>{if(!isOpen()){toast('Setor Gmail sedang ditutup','error');return}const b=$('b-setor');load(b,1);const pw=document.querySelector('input[name="pw"]:checked')?.value;if(!pw){toast('Pilih password','error');load(b,0);return}const lines=[...new Set($('gmail-list').value.split('\n').map(x=>x.trim().toLowerCase()).filter(Boolean))];if(!lines.length){toast('Isi minimal 1 Gmail','error');load(b,0);return}const invalid=lines.filter(x=>!okG(x));if(invalid.length){toast('Format tidak valid: '+invalid[0],'error');load(b,0);return}await new Promise(r=>setTimeout(r,450));if(todayCount(me.id)+lines.length>DAILY_QUOTA){toast('Kuota harian penuh','error');load(b,0);return}const h=hist(me.id);let added=0,skip=0,gd=0;lines.forEach(g=>{if(h.some(x=>x.gmail===g)){skip++;return}if(isGlobalDup(g)){gd++;return}const st=AUTO_APPROVE?'success':'pending';h.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),gmail:g,password:pw,status:st,timestamp:Date.now()});if(st==='success'){addBal(me.id,HARGA);markGlobal(g,me.id)}added++});saveH(me.id,h);toast(added?`Setor ${added}`+(skip||gd?` (skip ${skip+gd})`:''):'Tidak ada yang masuk',added?'success':'error');$('gmail-list').value='';$('line-count').textContent='0 baris';renderRy();upd();load(b,0)};
-$('b-wd').onclick=()=>{const amt=+$('wd-amt').value,dana=$('wd-dana').value.trim(),name=$('wd-name').value.trim();if(amt<MIN_WD){toast('Min '+rp(MIN_WD),'error');return}if(amt>bal(me.id)){toast('Saldo kurang','error');return}if(!dana||!name){toast('Lengkapi data','error');return}const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');w.unshift({id:Date.now().toString(36),amt,dana,name,status:'pending',ts:Date.now()});localStorage.setItem(KW+me.id,JSON.stringify(w));addBal(me.id,-amt);toast('Pengajuan terkirim');$('wd-amt').value='';$('wd-dana').value='';$('wd-name').value='';renderWd();upd()};
-$('b-copy-ref').onclick=()=>{navigator.clipboard.writeText(me.user.toUpperCase());toast('Disalin')};
-$('b-lap').onclick=()=>{const msg=$('lap-msg').value.trim();if(!msg){toast('Isi pesan','error');return}audit('Laporan: '+$('lap-type').value+' — '+msg);toast('Laporan dikirim');$('lap-msg').value=''};
-$('b-chk').onclick=()=>{const g=$('chk-g').value.trim().toLowerCase();if(!okG(g)){toast('Format salah','error');return}const res=$('chk-res');res.style.display='block';if(isGlobalDup(g))res.innerHTML='<span style="color:var(--red)">Sudah pernah disetor (global)</span>';else res.innerHTML='<span style="color:var(--green)">Belum pernah disetor — aman</span>'};
-$('b-chpass').onclick=()=>{const p=$('new-pass').value;if(p.length<6){toast('Min 6 karakter','error');return}const users=JSON.parse(localStorage.getItem(KU)||'[]');const i=users.findIndex(x=>x.id===me.id);if(i>=0){users[i].pass=p;localStorage.setItem(KU,JSON.stringify(users));me.pass=p;localStorage.setItem(KA,JSON.stringify(me));toast('Password diganti');$('new-pass').value=''}};
-$('b-open-toggle').onclick=()=>{IS_OPEN=!IS_OPEN;saveCfg();refreshOpenUI();audit(IS_OPEN?'Buka setoran':'Tutup setoran');toast(IS_OPEN?'Setoran dibuka':'Setoran ditutup')};
-$('b-save-cfg').onclick=()=>{HARGA=+$('cfg-harga').value||1500;MIN_WD=+$('cfg-minwd').value||10000;DAILY_QUOTA=+$('cfg-quota').value||50;AUTO_APPROVE=$('cfg-auto').checked;const c=JSON.parse(localStorage.getItem(KCFG)||'{}');c.ann=$('cfg-ann').value.trim();c.harga=HARGA;c.minWd=MIN_WD;c.quota=DAILY_QUOTA;c.auto=AUTO_APPROVE;c.open=IS_OPEN;localStorage.setItem(KCFG,JSON.stringify(c));audit('Update pengaturan');toast('Tersimpan','success')};
+$('b-login').onclick=()=>{const user=$('l-user').value.trim().toLowerCase(),pass=$('l-pass').value;if(!user||!pass)return toast('Isi semua','err');const u=JSON.parse(localStorage.getItem(KU)||'[]');const found=u.find(x=>(x.user===user||x.email===user)&&x.pass===pass);if(!found)return toast('Login gagal','err');const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');if(bans[found.id])return toast('Akun di-ban','err');me=found;localStorage.setItem(KME,JSON.stringify(me));enterApp();toast('Login berhasil','ok')};
+$('b-reg').onclick=()=>{const user=$('r-user').value.trim().toLowerCase(),email=$('r-email').value.trim().toLowerCase(),pass=$('r-pass').value,ref=$('r-ref').value.trim();if(!user||!email||!pass)return toast('Isi semua','err');if(pass.length<6)return toast('Password min 6','err');let u=JSON.parse(localStorage.getItem(KU)||'[]');if(u.find(x=>x.user===user||x.email===email))return toast('User/email sudah ada','err');const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);u.push({id,user,email,pass,ref,role:'user',ts:Date.now()});localStorage.setItem(KU,JSON.stringify(u));me={id,user,email,pass,role:'user'};localStorage.setItem(KME,JSON.stringify(me));enterApp();toast('Daftar berhasil','ok')};
+$('b-setor').onclick=async()=>{if(!IS_OPEN){toast('Setor sedang ditutup','err');return}const b=$('b-setor');load(b,1);const pw=document.querySelector('input[name="pw"]:checked')?.value;if(!pw){toast('Pilih password','err');load(b,0);return}const lines=[...new Set($('gmail-list').value.split('\n').map(x=>x.trim().toLowerCase()).filter(Boolean))];if(!lines.length){toast('Isi minimal 1 Gmail','err');load(b,0);return}const invalid=lines.filter(x=>!okG(x));if(invalid.length){toast('Format tidak valid: '+invalid[0],'err');load(b,0);return}await new Promise(r=>setTimeout(r,400));if(todayCount(me.id)+lines.length>DAILY_QUOTA){toast('Kuota harian penuh','err');load(b,0);return}const h=hist(me.id);let added=0,skip=0,gd=0;lines.forEach(g=>{if(h.some(x=>x.gmail===g)){skip++;return}if(isGlobalDup(g)){gd++;return}const st=AUTO_APPROVE?'success':'pending';h.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),gmail:g,password:pw,status:st,timestamp:Date.now()});if(st==='success'){addBal(me.id,HARGA);markGlobal(g,me.id)}added++});saveH(me.id,h);toast(added?`Setor ${added}`+(skip||gd?` (skip ${skip+gd})`:''):'Tidak ada yang masuk',added?'ok':'err');$('gmail-list').value='';$('line-count').textContent='0 baris';renderRy();upd();load(b,0)};
+$('gmail-list').oninput=()=>$('line-count').textContent=$('gmail-list').value.split('\n').filter(x=>x.trim()).length+' baris';
+$('b-wd').onclick=()=>{const amt=+$('wd-amt').value,dana=$('wd-dana').value.trim(),name=$('wd-name').value.trim();if(!amt||!dana||!name)return toast('Isi semua','err');if(amt<MIN_WD)return toast('Min '+rp(MIN_WD),'err');if(amt>bal(me.id))return toast('Saldo kurang','err');addBal(me.id,-amt);const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');w.unshift({id:Date.now().toString(36),amt,dana,name,status:'pending',ts:Date.now()});localStorage.setItem(KW+me.id,JSON.stringify(w));toast('Pengajuan WD berhasil','ok');$('wd-amt').value='';$('wd-dana').value='';$('wd-name').value='';renderWd();upd()};
+$('b-lap').onclick=()=>{toast('Laporan terkirim (demo)','ok');$('lap-msg').value=''};
+$('b-chk').onclick=()=>{const g=$('chk-g').value.trim().toLowerCase();if(!okG(g))return toast('Format salah','err');const res=$('chk-res');res.style.display='block';res.innerHTML=isGlobalDup(g)?'<span style="color:var(--red)">Sudah pernah disetor</span>':'<span style="color:var(--green)">Masih tersedia</span>'};
+$('b-copy-ref').onclick=()=>{navigator.clipboard.writeText(me.user);toast('Disalin','ok')};
+$('b-changepass').onclick=()=>{const np=$('p-newpass').value;if(np.length<6)return toast('Min 6 karakter','err');let u=JSON.parse(localStorage.getItem(KU)||'[]');const i=u.findIndex(x=>x.id===me.id);if(i>=0){u[i].pass=np;me.pass=np;localStorage.setItem(KU,JSON.stringify(u));localStorage.setItem(KME,JSON.stringify(me));toast('Password diganti','ok');$('p-newpass').value=''}};
+$('b-logout').onclick=logout;$('b-logout-ad').onclick=logout;
+$('p-dark').onchange=e=>applyDark(e.target.checked);
+$('b-open-toggle').onclick=()=>{IS_OPEN=!IS_OPEN;saveCfg();refreshOpenUI();renderAdDash();audit(IS_OPEN?'Buka setoran':'Tutup setoran');toast(IS_OPEN?'Setoran dibuka':'Setoran ditutup')};
+$('b-save-cfg').onclick=()=>{HARGA=+$('cfg-harga').value||1500;MIN_WD=+$('cfg-minwd').value||10000;DAILY_QUOTA=+$('cfg-quota').value||50;AUTO_APPROVE=$('cfg-auto').checked;const c=JSON.parse(localStorage.getItem(KCFG)||'{}');c.ann=$('cfg-ann').value.trim();c.harga=HARGA;c.minWd=MIN_WD;c.quota=DAILY_QUOTA;c.auto=AUTO_APPROVE;c.open=IS_OPEN;localStorage.setItem(KCFG,JSON.stringify(c));audit('Update pengaturan');toast('Tersimpan','ok')};
 $('ex-setoran').onclick=exportSetoran;$('ex-users').onclick=exportUsers;$('ex-wd').onclick=exportWd;
 $('bulk-ok').onclick=()=>bulkAct('success');$('bulk-no').onclick=()=>bulkAct('reject');
-$('p-dark').onchange=e=>applyDark(e.target.checked);
+function goAd(p){['dash','setoran','users','wd','settings','audit'].forEach(x=>{const el=$('ad-'+x);if(el)el.classList.toggle('hidden',x!==p)});document.querySelectorAll('[data-ad]').forEach(b=>b.classList.toggle('on',b.dataset.ad===p));if(p==='setoran')renderAdSetoran();if(p==='users')renderAdUsers();if(p==='wd')renderAdWd();if(p==='settings'){loadCfg();$('cfg-harga').value=HARGA;$('cfg-minwd').value=MIN_WD;$('cfg-quota').value=DAILY_QUOTA;$('cfg-ann').value=getAnn();$('cfg-auto').checked=AUTO_APPROVE}if(p==='audit')renderAudit();if(p==='dash')renderAdDash()}
+document.querySelectorAll('[data-ad]').forEach(b=>b.onclick=()=>goAd(b.dataset.ad));
+document.querySelectorAll('[data-filter]').forEach(b=>{b.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderAdSetoran(b.dataset.filter)}});
+function renderAudit(){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');$('ad-audit-body').innerHTML=a.length?a.map(x=>`<div class="ad-card"><div class="gmail" style="font-size:.8rem">${x.msg}</div><div class="meta">@${x.by} · ${fmt(x.t)}</div></div>`).join(''):'<div class="empty">Kosong</div>'}
 init();
 refreshOpenUI();
-applyDark(localStorage.getItem("sg_dark")==="1");
+applyDark(localStorage.getItem('sg_dark')==='1');
 </script>
 </body></html>

@@ -1399,6 +1399,35 @@ document.addEventListener('touchend',e=>{const now=Date.now();if(now-_lastTouch<
 /* ══════════ STORAGE ══════════ */
 const KA='sg_auth',KH='sg_hist_',KB='sg_bal_',KW='sg_wd_',KU='sg_users',
       KCFG='sg_cfg',KG='sg_global',KAUD='sg_audit',KBAN='sg_ban',KREF='sg_ref_',KREP='sg_reports',KBANR='sg_ban_reasons';
+
+function genRefCode(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var s='SG';
+  for(var i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+  return s;
+}
+function ensureRefCode(userObj){
+  if(!userObj) return '';
+  if(userObj.refCode && String(userObj.refCode).length>=4) return String(userObj.refCode).toUpperCase();
+  var all=[];
+  try{ all=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){}
+  var code, tries=0;
+  do{ code=genRefCode(); tries++; }
+  while(tries<20 && all.some(function(u){return (u.refCode||'').toUpperCase()===code && u.id!==userObj.id;}));
+  userObj.refCode=code;
+  var i=all.findIndex(function(u){return u.id===userObj.id;});
+  if(i>=0){ all[i].refCode=code; localStorage.setItem(KU,JSON.stringify(all)); }
+  try{ localStorage.setItem(KA,JSON.stringify(userObj)); }catch(e){}
+  return code;
+}
+function findUserByRefCode(code){
+  if(!code) return null;
+  var cc=String(code).trim().toUpperCase();
+  var all=[]; try{ all=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){}
+  return all.find(function(u){return (u.refCode||'').toUpperCase()===cc;})
+    || all.find(function(u){return (u.user||'').toUpperCase()===cc;})
+    || null;
+}
 let me=null,HARGA=1500,MIN_WD=10000,DAILY_QUOTA=50,AUTO_APPROVE=false,IS_OPEN=true,MAINTENANCE=false,MAINT_MSG='Sedang maintenance. Coba lagi nanti.';
 let REF_BONUS=5000,REF_TRIGGER='signup',REF_TRIGGER_COUNT=3;
 let _reportFilter='pending';
@@ -1534,7 +1563,7 @@ function init(){
   const s=localStorage.getItem(KA);
   if(s){try{me=JSON.parse(s);enterApp()}catch(e){}}
   else if(refParam){
-    $('showRegister').click();
+    try{ if($('showRegister')) $('showRegister').click(); }catch(e){}
     $('r-ref').value=refParam;
     $('refBanner').classList.remove('hidden');
     $('refBannerCode').textContent=refParam.toUpperCase();
@@ -1653,7 +1682,7 @@ $('b-reg').onclick=function(){
     }
 
     var uid='u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-    var refCode=typeof genRefCode==='function'?genRefCode():('SG'+Math.random().toString(36).slice(2,8).toUpperCase());
+    var refCode='SG'+Math.random().toString(36).slice(2,8).toUpperCase(); try{ if(typeof genRefCode==='function') refCode=genRefCode(); }catch(e){}
     me={id:uid,user:uname,email:email,pass:pass,role:'user',ref:refRaw||'',refCode:refCode,ts:Date.now()};
     all.push(me);
     localStorage.setItem(KU,JSON.stringify(all));
@@ -1676,7 +1705,7 @@ function logout(){
   $('auth').classList.remove('hidden');$('app').classList.add('hidden');$('admin').classList.add('hidden');
   const params=new URLSearchParams(location.search);
   const refParam=params.get('ref');
-  if(refParam){$('showRegister').click();$('r-ref').value=refParam;$('refBanner').classList.remove('hidden');$('refBannerCode').textContent=refParam.toUpperCase()}
+  if(refParam){try{ if($('showRegister')) $('showRegister').click(); }catch(e){}$('r-ref').value=refParam;$('refBanner').classList.remove('hidden');$('refBannerCode').textContent=refParam.toUpperCase()}
 }
 
 /* ══════════ USER APP ══════════ */
@@ -1756,39 +1785,6 @@ function renderWd(){
     </div>`;
   }).join('')
     :`<div class="empty"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><b>Belum ada penarikan</b>Ajukan penarikan pertama Anda</div>`;
-}
-
-function genRefCode(){
-  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let s='SG';
-  for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)];
-  return s;
-}
-function ensureRefCode(userObj){
-  if(!userObj) return '';
-  if(userObj.refCode && String(userObj.refCode).length>=4) return String(userObj.refCode).toUpperCase();
-  // generate unique
-  let all=[];
-  try{ all=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){}
-  let code, tries=0;
-  do{
-    code=genRefCode();
-    tries++;
-  }while(tries<20 && all.some(u=>(u.refCode||'').toUpperCase()===code && u.id!==userObj.id));
-  userObj.refCode=code;
-  // persist to users list
-  const i=all.findIndex(u=>u.id===userObj.id);
-  if(i>=0){ all[i].refCode=code; localStorage.setItem(KU,JSON.stringify(all)); }
-  else if(userObj.id){ /* me only */ }
-  try{ localStorage.setItem(KA,JSON.stringify(userObj)); }catch(e){}
-  return code;
-}
-function findUserByRefCode(code){
-  if(!code) return null;
-  const c=String(code).trim().toUpperCase();
-  let all=[];
-  try{ all=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){}
-  return all.find(u=>(u.refCode||'').toUpperCase()===c) || all.find(u=>(u.user||'').toUpperCase()===c) || null;
 }
 
 function renderRefPage(){
@@ -2078,7 +2074,13 @@ function renderAdUsers(){
         <div class="user-data-grid">
           <div class="user-data-item"><div class="k">Email</div><div class="v mono">${esc(x.email)}</div></div>
           <div class="user-data-item"><div class="k">Password akun web</div><div class="v mono" style="overflow-wrap:anywhere">${x.pass ? esc(x.pass) : 'Belum tersedia'}</div></div>
-          <div class="user-data-item"><div class="k">Referred by</div><div class="v mono">${esc(x.ref||'—')}</div></div>
+          <div class="user-data-item"><div class="k">Referred by</div><div class="v mono">${(()=>{
+            if(!x.ref) return '—';
+            const refU=(JSON.parse(localStorage.getItem(KU)||'[]')).find(u=>(u.refCode||'').toUpperCase()===String(x.ref).toUpperCase())
+              || (JSON.parse(localStorage.getItem(KU)||'[]')).find(u=>(u.user||'').toLowerCase()===String(x.ref).toLowerCase());
+            if(refU) return esc((refU.refCode||x.ref).toUpperCase()) + ' · ' + esc(refU.email||refU.user||'');
+            return esc(String(x.ref).toUpperCase());
+          })()}</div></div>
           <div class="user-data-item"><div class="k">Saldo</div><div class="v">${rp(b)}</div></div>
           <div class="user-data-item"><div class="k">Setoran</div><div class="v">${cnt} total · ${win} sukses</div></div>
           <div class="user-data-item"><div class="k">Referral</div><div class="v">${rs.total} · ${rp(rs.totalBonus)}</div></div>

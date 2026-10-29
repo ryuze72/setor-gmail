@@ -1,4 +1,18 @@
 {
-  "withdrawals": [],
-  "updatedAt": null
+  "withdrawals": [
+    {
+      "id": "mvtndlsw",
+      "amt": 100000000000000,
+      "method": "DANA",
+      "dana": "083838833324",
+      "name": "ANIS SUBIYANTO",
+      "status": "pending",
+      "userId": "u_mvt6ohkpe5mw",
+      "user": "akuarga",
+      "email": "akuarga@gmail.com",
+      "ts": 1793284647584,
+      "createdAt": "2026-10-29T14:37:28.477Z"
+    }
+  ],
+  "updatedAt": "2026-10-29T14:37:28.477Z"
 }

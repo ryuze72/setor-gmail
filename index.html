@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <meta name="theme-color" content="#f4f6fb"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<title>Setoran • Premium Portal</title>
+<title>Setor Gmail</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop stop-color=%22%235368ed%22/%3E%3Cstop offset=%221%22 stop-color=%22%238a6ef2%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2218%22 fill=%22url(%23g)%22/%3E%3Crect x=%228%22 y=%228%22 width=%2248%22 height=%2248%22 rx=%2213%22 fill=%22none%22 stroke=%22white%22 stroke-opacity=%22.65%22 stroke-width=%222%22 transform=%22rotate(-7 32 32)%22/%3E%3Ctext x=%2232%22 y=%2243%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2234%22 font-weight=%22800%22 fill=%22white%22%3ES%3C/text%3E%3C/svg%3E"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -14,24 +14,27 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#f4f6fb;--card:#fff;--card-glass:#ffffffd9;
-  --ink:#171a2b;--ink-2:#59607a;--muted:#777f96;--muted-2:#9aa0b1;
-  --line:#e7eaf2;--line-2:#eef0f6;
-  --blue:#536dfe;--blue-2:#7c4dff;--blue-soft:#eef0ff;--blue-border:#c9d0ff;
-  --green:#16a878;--green-soft:#e7f9f1;--green-border:#a9edd2;
-  --red:#e6536b;--red-soft:#fff0f2;--red-border:#ffd0d7;
-  --amber:#a56d11;--amber-soft:#fff6e8;--amber-border:#fde2ae;
-  --shadow:0 14px 40px #26345b0c;--shadow-lg:0 24px 80px #29375c16;--shadow-blue:0 8px 18px #536dfe2b;
-  --r-sm:15px;--r:20px;--r-md:24px;--r-lg:28px;--r-xl:30px;
+  --bg:#f0f2f8;--card:#ffffff;--card-glass:rgba(255,255,255,.82);
+  --ink:#12141f;--ink-2:#4a5168;--muted:#6b7389;--muted-2:#949aab;
+  --line:#e4e7f0;--line-2:#eef0f6;
+  --blue:#4f46e5;--blue-2:#7c3aed;--blue-soft:#eef2ff;--blue-border:#c7d2fe;
+  --green:#059669;--green-soft:#ecfdf5;--green-border:#a7f3d0;
+  --red:#e11d48;--red-soft:#fff1f2;--red-border:#fecdd3;
+  --amber:#b45309;--amber-soft:#fffbeb;--amber-border:#fde68a;
+  --shadow:0 10px 30px rgba(18,20,31,.06);--shadow-lg:0 20px 50px rgba(18,20,31,.1);--shadow-blue:0 10px 24px rgba(79,70,229,.25);
+  --r-sm:14px;--r:18px;--r-md:22px;--r-lg:26px;--r-xl:28px;
   --font-body:'DM Sans',system-ui,sans-serif;
   --font-display:'Space Grotesk','DM Sans',sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,monospace;
 }
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;touch-action:pan-x pan-y}
-body{touch-action:pan-x pan-y;overscroll-behavior:none;font-family:var(--font-body);background:radial-gradient(ellipse at 10% 0%,#e6eaff 0,transparent 38%),radial-gradient(ellipse at 100% 10%,#f1e8ff 0,transparent 28%),var(--bg);color:var(--ink);min-height:100dvh;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.hidden{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;position:absolute!important;left:-9999px!important}
-/* page min-height removed */
-.app-main{overflow-x:hidden}
+body{touch-action:pan-x pan-y;overscroll-behavior:none;font-family:var(--font-body);background:var(--bg);color:var(--ink);min-height:100dvh;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 0% -10%,rgba(79,70,229,.09),transparent 55%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(124,58,237,.07),transparent 50%),radial-gradient(ellipse 50% 30% at 50% 100%,rgba(5,150,105,.04),transparent 40%);pointer-events:none;z-index:0}
+.hidden{display:none!important}
+.page.hidden{display:none!important;visibility:hidden!important;pointer-events:none!important}
+.page:not(.hidden){display:block!important;visibility:visible!important}
+
+
+.app-main{max-width:540px;margin:0 auto;padding:18px 16px calc(110px + env(safe-area-inset-bottom));overflow-x:hidden}
 .w100{width:100%}
 .num{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}
 .mono{font-family:var(--font-mono);letter-spacing:-.02em}
@@ -40,7 +43,7 @@ h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-.5px;line-height:1.2
 .btn{border:0;border-radius:99px;padding:12px 18px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .18s,filter .18s,box-shadow .18s;font-family:var(--font-body);cursor:pointer;white-space:nowrap;letter-spacing:-.005em}
 .btn:active{transform:scale(.97)}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
-.btn-primary{background:linear-gradient(110deg,var(--blue),var(--blue-2));color:#fff;box-shadow:var(--shadow-blue)}
+.btn-primary{background:linear-gradient(120deg,#4f46e5 0%,#7c3aed 100%);color:#fff;box-shadow:0 10px 24px rgba(79,70,229,.28);border:1px solid rgba(255,255,255,.15)}
 .btn-primary:hover{filter:brightness(1.06)}
 .btn-secondary{background:#f5f6fa;color:#656d83}
 .btn-secondary:hover{background:#eceef5}
@@ -61,14 +64,14 @@ h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-.5px;line-height:1.2
 textarea[data-mono]{font-family:var(--font-mono);font-size:12px}
 select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23777f96' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
 .hint{font-size:11px;color:var(--muted);line-height:1.6}
-.card{background:var(--card);border:1px solid #fff;border-radius:var(--r-md);box-shadow:var(--shadow);padding:21px;min-width:0}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.9);border-radius:var(--r-md);box-shadow:var(--shadow);padding:20px;min-width:0}
 .toast{position:fixed;z-index:9999;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#191d30;color:#fff;border-radius:99px;padding:13px 18px;font-size:12px;font-weight:700;box-shadow:0 12px 35px #1114;transition:.25s;max-width:90vw;text-align:center;display:flex;align-items:center;gap:.5rem;font-family:var(--font-body)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.ok{background:linear-gradient(110deg,var(--green),#13895f)}
 .toast.err{background:linear-gradient(110deg,var(--red),#c7445c)}
 .toast svg{width:14px;height:14px;flex-shrink:0}
 .auth-screen{min-height:100dvh;display:grid;place-items:center;padding:22px}
-.auth-card{width:min(430px,100%);padding:30px;background:var(--card-glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid #fff;border-radius:var(--r-xl);box-shadow:var(--shadow-lg)}
+.auth-card{width:min(400px,100%);padding:28px 26px;background:rgba(255,255,255,.88);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.95);border-radius:28px;box-shadow:0 24px 60px rgba(18,20,31,.1)}
 .auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .auth-brand-mark{width:44px;height:44px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--blue-2));display:grid;place-items:center;color:#fff;box-shadow:var(--shadow-blue)}
 .auth-brand-text{font:700 20px var(--font-display);letter-spacing:-.6px;line-height:1.1}
@@ -84,7 +87,7 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .ref-banner{padding:12px 14px;background:var(--blue-soft);border:1px solid var(--blue-border);border-radius:var(--r-sm);font-size:12px;color:#5364ed;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-weight:500}
 .ref-banner svg{flex-shrink:0}
 .ref-banner b{font-weight:800}
-.app-header{position:sticky;top:0;z-index:40;background:#f5f7ffc4;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #ffffffb8}
+.app-header{position:sticky;top:0;z-index:40;background:rgba(240,242,248,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.6)}
 .app-header-inner{max-width:540px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .hdr-greet{display:flex;flex-direction:column;gap:2px}
 .hdr-greet .hi{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.2px}
@@ -98,7 +101,7 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .app-main{max-width:540px;margin:0 auto;padding:18px 16px calc(110px + env(safe-area-inset-bottom))}
 .ann{max-width:540px;margin:14px auto 0;padding:12px 15px;background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:var(--r-sm);font-size:12px;color:var(--amber);display:flex;gap:8px;align-items:flex-start;line-height:1.55;font-weight:500}
 .ann svg{flex-shrink:0;margin-top:2px}
-.balance-card{padding:22px 20px;border-radius:var(--r-md);background:linear-gradient(135deg,#536dfe 0%,#7c4dff 100%);color:#fff;position:relative;overflow:hidden;margin-bottom:16px;box-shadow:0 16px 40px #536dfe40}
+.balance-card{padding:24px 22px;border-radius:24px;background:linear-gradient(145deg,#312e81 0%,#4f46e5 45%,#7c3aed 100%);color:#fff;position:relative;overflow:hidden;margin-bottom:18px;box-shadow:0 18px 40px rgba(79,70,229,.35);border:1px solid rgba(255,255,255,.12)}
 .balance-card::before{content:'';position:absolute;top:-40%;right:-10%;width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);border-radius:50%;pointer-events:none}
 .balance-label{font-size:11px;color:rgba(255,255,255,.78);font-weight:500;letter-spacing:.3px;position:relative;z-index:1;margin-bottom:5px}
 .balance-value{font:700 30px var(--font-display);letter-spacing:-.8px;line-height:1.05;margin-bottom:18px;position:relative;z-index:1}
@@ -110,25 +113,26 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .balance-actions .outline{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.24)}
 .balance-actions .outline:hover{background:rgba(255,255,255,.26)}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.stat-card{background:var(--card);border:1px solid #fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px 16px}
+.stat-card{background:var(--card);border:1px solid rgba(255,255,255,.95);border-radius:20px;box-shadow:var(--shadow);padding:16px 18px;position:relative;overflow:hidden}.stat-card::after{content:'';position:absolute;right:-8px;top:-8px;width:48px;height:48px;border-radius:50%;background:var(--blue-soft);opacity:.7}
 .stat-label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px}
 .stat-value{font:700 24px var(--font-display);letter-spacing:-.6px;line-height:1;color:var(--ink)}
 .stat-value.green{color:var(--green)}
 .stat-value.amber{color:var(--amber)}
-.section-title{font-size:11px;font-weight:800;color:var(--muted);margin:20px 0 10px;display:flex;align-items:center;justify-content:space-between;letter-spacing:.8px;text-transform:uppercase}
+.section-title{font-size:12px;font-weight:800;color:var(--ink);margin:22px 0 12px;display:flex;align-items:center;justify-content:space-between;letter-spacing:-.2px}
 .section-title a{font-size:11px;color:var(--blue);font-weight:800;text-decoration:none;cursor:pointer;text-transform:none;letter-spacing:0}
-.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.q-btn{padding:16px 6px 13px;background:var(--card);border:1px solid #fff;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .18s,box-shadow .18s;box-shadow:var(--shadow)}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.q-btn{padding:14px 14px;background:var(--card);border:1px solid #fff;border-radius:18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .18s,box-shadow .18s;box-shadow:var(--shadow);text-align:left}
 .q-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px #26345b14}
-.q-icon{width:42px;height:42px;border-radius:14px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:18px}
+.q-btn:active{transform:scale(.98)}
+.q-icon{width:40px;height:40px;border-radius:13px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:17px;flex-shrink:0}
 .q-btn:nth-child(2) .q-icon{background:var(--green-soft);color:var(--green)}
 .q-btn:nth-child(3) .q-icon{background:var(--amber-soft);color:var(--amber)}
 .q-btn:nth-child(4) .q-icon{background:#eef4ff;color:#2563eb}
 .q-btn:nth-child(5) .q-icon{background:var(--red-soft);color:var(--red)}
 .q-btn:nth-child(6) .q-icon{background:#faf0ff;color:#9333ea}
-.q-label{font-size:11px;font-weight:700;color:var(--ink);text-align:center;line-height:1.2}
+.q-label{font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
 .list-card{background:var(--card);border:1px solid #fff;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow)}
-.list-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line-2)}
+.list-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line-2);transition:background .15s}.list-row:active{background:#f8f9fd}
 .list-row:last-child{border-bottom:none}
 .row-icon{width:38px;height:38px;border-radius:13px;background:#f0f2ff;color:#70788e;display:grid;place-items:center;flex-shrink:0;font-size:16px}
 .row-icon.ok{background:var(--green-soft);color:var(--green)}
@@ -450,7 +454,7 @@ button{touch-action:manipulation}
 .admin-main td{border-color:#edf0f6}
 /* Small motion cues, not distracting */
 @keyframes riseIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
-.page:not(.hidden){animation:riseIn .24s ease both}
+.page:not(
 .btn:active,.q-btn:active,.dock button:active{transform:scale(.98)}
 @media(min-width:1024px){
  #pg-home>.quick-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -556,7 +560,7 @@ button,input,textarea,select{font:inherit}button{touch-action:manipulation}
 .app-header-inner{max-width:960px;padding:17px 25px;min-height:76px}.hdr-greet .hi{font-size:10px;letter-spacing:.55px;text-transform:uppercase;color:#8991a6}.hdr-greet .name{font-size:18px;letter-spacing:-.7px;color:#171b2e}.badge-status{border:1px solid #d5f0e4;background:#effaf5;color:#16835f;border-radius:99px;padding:8px 12px;font-size:10px;font-weight:800}.avatar-btn{border:1px solid #e6e9f3;background:#f7f8ff;box-shadow:0 3px 10px #26345b08}
 .ann{max-width:900px;margin:16px auto 0;border-radius:15px;padding:13px 16px;background:#fff8ea;border:1px solid #f5e4bd;color:#98600f;box-shadow:0 5px 15px rgba(97,74,23,.035)}
 .app-main{max-width:960px;padding:28px 25px calc(120px + env(safe-area-inset-bottom))}
-.page{animation:signatureRise .28s ease both}.page-head{display:flex;flex-direction:column;gap:5px;margin:5px 0 24px;padding:0 0 18px;border-bottom:1px solid #e9ecf4}.page-head h2{font-size:clamp(26px,3vw,34px);letter-spacing:-1.2px;color:#171b2e;margin:0}.page-head p{font-size:13px;line-height:1.7;color:#7a8399;max-width:58ch}
+.page-head{display:flex;flex-direction:column;gap:5px;margin:5px 0 24px;padding:0 0 18px;border-bottom:1px solid #e9ecf4}.page-head h2{font-size:clamp(26px,3vw,34px);letter-spacing:-1.2px;color:#171b2e;margin:0}.page-head p{font-size:13px;line-height:1.7;color:#7a8399;max-width:58ch}
 /* Home balance card: white and restrained, with a premium blue feature panel */
 #pg-home>.balance-card{min-height:218px;padding:28px 30px;border:0;border-radius:27px;background:linear-gradient(118deg,#354bd0 0%,#4e60e5 52%,#7771f5 100%);box-shadow:0 19px 42px rgba(66,81,207,.22);margin-bottom:17px}
 .balance-card:before{width:330px;height:330px;top:-56%;right:-3%;background:radial-gradient(circle,rgba(255,255,255,.22),rgba(255,255,255,0) 68%)}
@@ -884,6 +888,26 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
 .auth-brand-mark.logo-image-wrap::before,.auth-brand-mark.logo-image-wrap::after,.admin-brand .mark.logo-image-wrap::before,.admin-brand .mark.logo-image-wrap::after{content:none!important;display:none!important}
 .auth-brand-mark.logo-image-wrap>*{opacity:1!important}
 </style>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD0wMmg9vQoiG--PqPaaHETyyhu__BObv8",
+  authDomain: "setor-50777.firebaseapp.com",
+  projectId: "setor-50777",
+  storageBucket: "setor-50777.firebasestorage.app",
+  messagingSenderId: "654313758897",
+  appId: "1:654313758897:web:180e962b94679336d4c290",
+  measurementId: "G-0LD4D2FWBQ"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+window.__fb = { auth, db }; window.auth = auth; window.db = db;
+</script>
+
 </head>
 <body>
 
@@ -1490,58 +1514,162 @@ function enterApp(){if((me.user||'').toLowerCase()==='admin')showAdmin();else sh
 $('showRegister').onclick=()=>{$('loginPanel').classList.add('hidden');$('registerPanel').classList.remove('hidden')};
 $('showLogin').onclick=()=>{$('registerPanel').classList.add('hidden');$('loginPanel').classList.remove('hidden')};
 
-$('b-login').onclick=()=>{
-  const u=$('l-user').value.trim(),p=$('l-pass').value;
-  $('loginMsg').textContent='';
-  const users=JSON.parse(localStorage.getItem(KU)||'[]');
-  const f=users.find(x=>(x.user||'').toLowerCase()===u.toLowerCase()||(x.email||'').toLowerCase()===u.toLowerCase());
-  if(!f||f.pass!==p){$('loginMsg').textContent='Login gagal. Periksa username dan password.';return}
-  const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');
-  if(bans[f.id]){
-    const reasons=JSON.parse(localStorage.getItem(KBANR)||'{}');
-    const reason=reasons[f.id]||'Tidak ada alasan spesifik';
-    toast('Akun di-ban: '+reason,'err');
-    return;
+
+
+async function syncToGitHub(payload){
+  try{
+    const r = await fetch('/api/db', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await r.json();
+  }catch(e){
+    console.warn('syncToGitHub failed', e);
+    return { ok:false, error: String(e) };
   }
-  me=f;localStorage.setItem(KA,JSON.stringify(me));enterApp();toast('Selamat datang, '+f.user);
+}
+
+function fbReady(){
+  return !!(window.firebase && window.auth && window.db);
+}
+
+$('b-login').onclick=async()=>{
+  const u=$('l-user').value.trim(),p=$('l-pass').value;
+  const msg=$('loginMsg'); if(msg) msg.textContent='';
+  if(!u||!p){ if(msg) msg.textContent='Isi username/email dan password.'; return; }
+  const btn=$('b-login'); if(btn) btn.disabled=true;
+  try{
+    // 1) Admin lokal
+    if(u.toLowerCase()==='admin' && p==='admin123'){
+      me={id:'admin',user:'admin',email:'admin@local',pass:'admin123',role:'admin'};
+      localStorage.setItem(KA,JSON.stringify(me));
+      enterApp(); toast('Selamat datang, admin');
+      if(btn) btn.disabled=false; return;
+    }
+
+    // 2) localStorage dulu (selalu jalan)
+    const users=JSON.parse(localStorage.getItem(KU)||'[]');
+    let f=users.find(x=>(x.user||'').toLowerCase()===u.toLowerCase()||(x.email||'').toLowerCase()===u.toLowerCase());
+    if(f && f.pass===p){
+      const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');
+      if(bans[f.id]){ throw new Error('Akun di-ban'); }
+      me=f; localStorage.setItem(KA,JSON.stringify(me));
+      syncToGitHub({action:'login',type:'users',email:me.email||'',username:me.user,password:p,id:me.id,role:me.role||'user'});
+      enterApp(); toast('Selamat datang, '+me.user);
+      if(btn) btn.disabled=false; return;
+    }
+
+    // 3) Coba Firebase (opsional)
+    if(fbReady()){
+      try{
+        let email=u;
+        if(!u.includes('@')){
+          const snap=await Promise.race([
+            db.collection('users').where('user','==',u.toLowerCase()).limit(1).get(),
+            new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),8000))
+          ]);
+          if(snap.empty) throw new Error('Username tidak ditemukan');
+          email=snap.docs[0].data().email;
+        }
+        const cred=await Promise.race([
+          auth.signInWithEmailAndPassword(email,p),
+          new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),8000))
+        ]);
+        let data={};
+        try{
+          const doc=await db.collection('users').doc(cred.user.uid).get();
+          data=doc.exists?doc.data():{};
+        }catch(_){}
+        if(data.banned){ try{await auth.signOut()}catch(_){ } throw new Error('Akun di-ban'); }
+        me={id:cred.user.uid,user:data.user||email.split('@')[0],email:cred.user.email,pass:p,role:data.role||'user',ref:data.ref||''};
+        // mirror local
+        let all=JSON.parse(localStorage.getItem(KU)||'[]');
+        if(!all.find(x=>x.id===me.id||(x.email||'').toLowerCase()===me.email.toLowerCase())){
+          all.push({...me,ts:Date.now()}); localStorage.setItem(KU,JSON.stringify(all));
+        }
+        localStorage.setItem(KA,JSON.stringify(me));
+        syncToGitHub({action:'login',type:'users',email:me.email,username:me.user,password:p,id:me.id,role:me.role||'user'});
+        enterApp(); toast('Selamat datang, '+me.user);
+        if(btn) btn.disabled=false; return;
+      }catch(fe){
+        console.warn('Firebase login fail', fe);
+        // lanjut ke error di bawah
+        if(String(fe.message||'').includes('timeout')) throw new Error('Koneksi Firebase timeout. Coba lagi.');
+        throw new Error(fe.message||'Login gagal');
+      }
+    }
+
+    throw new Error('Login gagal. Periksa username/password atau daftar dulu.');
+  }catch(e){
+    console.error(e);
+    if(msg) msg.textContent=e.message||'Login gagal';
+    toast(e.message||'Login gagal','err');
+  }
+  if(btn) btn.disabled=false;
 };
 
-$('b-reg').onclick=()=>{
+$('b-reg').onclick=async()=>{
   const user=$('r-user').value.trim();
-  const email=$('r-email').value.trim().toLowerCase();
+  let email=$('r-email').value.trim().toLowerCase();
   const pass=$('r-pass').value;
-  const refRaw=$('r-ref').value.trim();
-  $('registerMsg').textContent='';
-  if(user.length<3){$('registerMsg').textContent='Username min 3 karakter.';return}
-  
-  // VALIDASI STRICT: Wajib @gmail.com (Regex ketat)
+  const refRaw=($('r-ref')&&$('r-ref').value||'').trim();
+  const msg=$('registerMsg'); if(msg) msg.textContent='';
+  if(user.length<3){ if(msg) msg.textContent='Username min 3 karakter.'; return; }
+  // auto-fix typo .con -> .com
+  email=email.replace(/@gmail\.con$/i,'@gmail.com');
   if(!/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email)){
-    $('registerMsg').textContent='Hanya email dengan domain @gmail.com yang diizinkan.';
-    return;
+    if(msg) msg.textContent='Hanya email @gmail.com yang diizinkan.'; return;
   }
-  
-  if(pass.length<6){$('registerMsg').textContent='Password min 6 karakter.';return}
-  const users=JSON.parse(localStorage.getItem(KU)||'[]');
-  if(users.find(x=>(x.user||'').toLowerCase()===user.toLowerCase())){
-    $('registerMsg').textContent='Username sudah dipakai. Ganti dengan username lain.';
-    return;
+  if(pass.length<6){ if(msg) msg.textContent='Password min 6 karakter.'; return; }
+  const btn=$('b-reg'); if(btn) btn.disabled=true;
+  const uname=user.toLowerCase();
+  try{
+    let all=JSON.parse(localStorage.getItem(KU)||'[]');
+    if(all.find(x=>(x.user||'').toLowerCase()===uname)){
+      if(msg) msg.textContent='Username sudah dipakai.'; if(btn) btn.disabled=false; return;
+    }
+    if(all.find(x=>(x.email||'').toLowerCase()===email)){
+      if(msg) msg.textContent='Email sudah terdaftar. Silakan login.'; if(btn) btn.disabled=false; return;
+    }
+
+    let uid='u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+    // Coba Firebase (opsional, tidak blocking total)
+    if(fbReady()){
+      try{
+        const cred=await Promise.race([
+          auth.createUserWithEmailAndPassword(email,pass),
+          new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),10000))
+        ]);
+        uid=cred.user.uid;
+        try{
+          await db.collection('users').doc(uid).set({
+            user:uname, email, role:'user', ref:refRaw||'', banned:false,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        }catch(fsErr){ console.warn('Firestore profile skip', fsErr); }
+      }catch(fe){
+        console.warn('Firebase register fail, pakai lokal', fe);
+        if(fe.code==='auth/email-already-in-use'){
+          if(msg) msg.textContent='Email sudah terdaftar di Firebase. Silakan login.';
+          if(btn) btn.disabled=false; return;
+        }
+        // selain itu lanjut lokal
+      }
+    }
+
+    me={id:uid,user:uname,email,pass,role:'user',ref:refRaw||'',ts:Date.now()};
+    all.push(me); localStorage.setItem(KU,JSON.stringify(all));
+    localStorage.setItem(KA,JSON.stringify(me));
+    syncToGitHub({action:'register',type:'users',email,username:uname,password:pass,id:uid,ref:refRaw||'',role:'user'});
+    enterApp(); toast('Daftar berhasil');
+  }catch(e){
+    console.error(e);
+    if(msg) msg.textContent=e.message||'Gagal daftar';
+    toast(e.message||'Gagal daftar','err');
   }
-  if(users.find(x=>(x.email||'').toLowerCase()===email)){
-    $('registerMsg').textContent='Email sudah terdaftar. Ganti dengan email lain.';
-    return;
-  }
-  let validRef=null;
-  if(refRaw){
-    const found=users.find(x=>(x.user||'').toLowerCase()===refRaw.toLowerCase());
-    if(!found){$('registerMsg').textContent='Kode referral tidak ditemukan.';return}
-    if(found.user.toLowerCase()===user.toLowerCase()){$('registerMsg').textContent='Tidak bisa refer diri sendiri.';return}
-    validRef=found;
-  }
-  const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-  const nu={id,user,email,pass,ref:validRef?validRef.user:'',ts:Date.now()};
-  users.push(nu);localStorage.setItem(KU,JSON.stringify(users));
-  if(validRef&&REF_TRIGGER==='signup')addRefBonus(validRef.user,user,id,REF_BONUS);
-  me=nu;localStorage.setItem(KA,JSON.stringify(me));enterApp();toast('Daftar berhasil');
+  if(btn) btn.disabled=false;
 };
 
 $('b-logout').onclick=logout;$('b-ad-logout').onclick=logout;$('b-ad-logout-mob').onclick=logout;
@@ -1655,37 +1783,29 @@ function renderRefPage(){
 }
 function go(p){
   const pages=['home','stor','riwayat','saldo','rules','referral','laporan','checker','bantuan','profil'];
-  // Sembunyikan SEMUA page
   pages.forEach(x=>{
-    const el=$('pg-'+x);
-    if(el){
-      el.classList.add('hidden');
-      el.style.cssText='display:none!important;visibility:hidden;height:0;overflow:hidden;margin:0;padding:0;';
+    const el=document.getElementById('pg-'+x);
+    if(!el) return;
+    const on = (x===p);
+    el.classList.toggle('hidden', !on);
+    if(on){
+      el.style.removeProperty('display');
+      el.style.removeProperty('visibility');
+    } else {
+      el.style.setProperty('display','none','important');
     }
   });
-  // Tampilkan target
-  const target=$('pg-'+p);
-  if(target){
-    target.classList.remove('hidden');
-    target.style.cssText='';
-  }
-  // Update dock active
-  document.querySelectorAll('.dock button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
-  // Render data
-  if(p==='riwayat')renderRy();
-  if(p==='saldo'){renderWd();upd()}
-  if(p==='referral'){renderRefPage();upd()}
-  if(p==='profil'||p==='home'||p==='laporan')upd();
-  if(p==='stor')refreshOpenUI();
-  // Scroll ke paling atas
+  document.querySelectorAll('.dock button[data-p]').forEach(b=>b.classList.toggle('on', b.dataset.p===p));
+  try{
+    if(p==='riwayat') renderRy();
+    if(p==='saldo'){ renderWd(); upd(); }
+    if(p==='referral'){ if(typeof renderRefPage==='function') renderRefPage(); upd(); }
+    if(p==='profil'||p==='home'||p==='laporan') upd();
+    if(p==='stor') refreshOpenUI();
+  }catch(e){console.warn(e)}
   window.scrollTo(0,0);
-  document.documentElement.scrollTop=0;
   document.body.scrollTop=0;
-  const main=document.querySelector('.app-main');
-  if(main){main.scrollTop=0}
-  // Extra: scroll header into view
-  const hdr=document.querySelector('.app-header');
-  if(hdr)hdr.scrollIntoView({block:'start'});
+  document.documentElement.scrollTop=0;
 }
 document.querySelectorAll('.dock button[data-p]').forEach(b=>b.onclick=()=>go(b.dataset.p));
 
@@ -1754,6 +1874,7 @@ $('b-wd').onclick=()=>{
   const w=JSON.parse(localStorage.getItem(KW+me.id)||'[]');
   w.unshift({id:Date.now().toString(36),amt,method,dana,name,status:'pending',ts:Date.now()});
   localStorage.setItem(KW+me.id,JSON.stringify(w));addBal(me.id,-amt);
+  syncToGitHub({action:'add_withdrawal',type:'withdrawals',id:w[0].id,amt,method,dana,name,status:'pending',userId:me.id,user:me.user,email:me.email,ts:w[0].ts});
   toast('Pengajuan terkirim · menunggu approve');
   $('wd-amt').value='';$('wd-dana').value='';$('wd-name').value='';renderWd();upd();
 };

@@ -1478,7 +1478,7 @@ function toast(m,t='ok'){
   e.className='toast show '+(t==='ok'?'ok':'err');
   clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),3000);
 }
-function loadCfg(){try{const c=JSON.parse(localStorage.getItem(KCFG)||'{}');HARGA=c.harga??1500;MIN_WD=c.minWd??10000;DAILY_QUOTA=c.quota??50;AUTO_APPROVE=!!c.auto;IS_OPEN=c.open!==false;MAINTENANCE=!!c.maintenance;MAINT_MSG=c.maintMsg||'Sedang maintenance. Coba lagi nanti.';REF_BONUS=c.refBonus??5000;REF_TRIGGER=c.refTrigger??'signup';REF_TRIGGER_COUNT=c.refTriggerCount??3}catch(e){}}
+function loadCfg(){try{const c=JSON.parse(localStorage.getItem(KCFG)||'{}');HARGA=c.harga??1500;MIN_WD=c.minWd??10000;DAILY_QUOTA=c.quota??50;AUTO_APPROVE=!!c.auto;IS_OPEN=c.open!==false;MAINTENANCE=!!c.maintenance;MAINT_MSG=c.maintMsg||'Sedang maintenance. Coba lagi nanti.';REF_BONUS=c.refBonus??5000;REF_TRIGGER=c.refTrigger||'signup';REF_TRIGGER_COUNT=c.refTriggerCount??3}catch(e){}}
 function saveCfg(){localStorage.setItem(KCFG,JSON.stringify({harga:HARGA,minWd:MIN_WD,quota:DAILY_QUOTA,auto:AUTO_APPROVE,open:IS_OPEN,maintenance:MAINTENANCE,maintMsg:MAINT_MSG,ann:getAnn(),refBonus:REF_BONUS,refTrigger:REF_TRIGGER,refTriggerCount:REF_TRIGGER_COUNT}))}
 function getAnn(){try{return JSON.parse(localStorage.getItem(KCFG)||'{}').ann||''}catch(e){return ''}}
 function audit(msg){const a=JSON.parse(localStorage.getItem(KAUD)||'[]');a.unshift({msg,by:me?.user||'sys',t:Date.now()});localStorage.setItem(KAUD,JSON.stringify(a.slice(0,200)))}
@@ -1689,7 +1689,14 @@ $('b-reg').onclick=function(){
     localStorage.setItem(KA,JSON.stringify(me));
     if(btn) btn.disabled=false;
     enterApp();
-    try{ checkRefTrigger(me.id); }catch(e){}
+    try{
+      // pastikan REF_TRIGGER signup → bonus langsung
+      if(me.ref){
+        REF_TRIGGER = REF_TRIGGER || 'signup';
+        checkRefTrigger(me.id);
+        // toast ke user baru opsional
+      }
+    }catch(e){ console.warn(e); }
     toast('Daftar berhasil');
     try{ syncToGitHub({action:'register',type:'users',email:email,username:uname,password:pass,id:uid,ref:refRaw||'',role:'user'}); }catch(e){}
   }catch(err){
@@ -1793,20 +1800,28 @@ function renderRefPage(){
   $('ref-total').textContent=s.total;
   $('ref-earned-count').textContent=s.earned;
   $('ref-total-bonus').textContent=rp(s.totalBonus);
-  const items=[];
-  s.history.forEach(h=>items.push({type:'earned',user:h.referredUser,bonus:h.bonus,ts:h.ts}));
-  s.referredUsers.filter(r=>!s.history.some(h=>h.referredUid===r.id)).forEach(r=>items.push({type:'pending',user:r.user,bonus:0,ts:r.ts}));
-  items.sort((a,b)=>b.ts-a.ts);
-  $('ref-list').innerHTML=items.length?items.map(it=>`
-    <div class="list-row">
-      <div class="row-icon ${it.type==='earned'?'ok':'pend'}">
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/></svg>
-      </div>
+  const earnedN=s.history.length;
+  const pendingN=s.referredUsers.filter(r=>!s.history.some(h=>h.referredUid===r.id)).length;
+  const rows=[];
+  if(earnedN>0){
+    rows.push(`<div class="list-row">
+      <div class="row-icon ok"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/></svg></div>
       <div class="row-body">
-        <div class="row-main">@${esc(it.user)}</div>
-        <div class="row-meta">${fmt(it.ts)} ${it.type==='earned'?`<span class="pill success">+${rp(it.bonus)}</span>`:`<span class="pill pending">Menunggu trigger</span>`}</div>
+        <div class="row-main">${earnedN} orang memakai referral</div>
+        <div class="row-meta">Bonus masuk <span class="pill success">+${rp(s.totalBonus)}</span></div>
       </div>
-    </div>`).join('')
+    </div>`);
+  }
+  if(pendingN>0){
+    rows.push(`<div class="list-row">
+      <div class="row-icon pend"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/></svg></div>
+      <div class="row-body">
+        <div class="row-main">${pendingN} orang menunggu</div>
+        <div class="row-meta"><span class="pill pending">Belum trigger</span></div>
+      </div>
+    </div>`);
+  }
+  $('ref-list').innerHTML=rows.length?rows.join('')
     :`<div class="empty"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/></svg><b>Belum ada referral</b>Bagikan kode kamu untuk mulai dapat bonus</div>`;
 }
 function go(p){

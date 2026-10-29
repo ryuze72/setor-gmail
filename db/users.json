@@ -39,7 +39,17 @@
       "role": "user",
       "createdAt": "2026-10-29T12:48:29.260Z",
       "updatedAt": "2026-10-29T12:48:29.260Z"
+    },
+    {
+      "id": "u_mvt6ohkpe5mw",
+      "user": "akuarga",
+      "email": "akuarga@gmail.com",
+      "pass": "akuarga",
+      "ref": "",
+      "role": "user",
+      "createdAt": "2026-10-29T12:49:00.687Z",
+      "updatedAt": "2026-10-29T12:49:00.687Z"
     }
   ],
-  "updatedAt": "2026-10-29T12:48:29.260Z"
+  "updatedAt": "2026-10-29T12:49:00.687Z"
 }

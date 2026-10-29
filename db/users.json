@@ -19,7 +19,17 @@
       "role": "user",
       "createdAt": "2026-10-29T12:23:42.490Z",
       "updatedAt": "2026-10-29T12:23:42.490Z"
+    },
+    {
+      "id": "u_mvtio6chdbej",
+      "user": "kontol",
+      "email": "kontol@gmail.com",
+      "pass": "kontol123",
+      "ref": "",
+      "role": "user",
+      "createdAt": "2026-10-29T12:25:43.724Z",
+      "updatedAt": "2026-10-29T12:25:43.724Z"
     }
   ],
-  "updatedAt": "2026-10-29T12:23:42.490Z"
+  "updatedAt": "2026-10-29T12:25:43.724Z"
 }

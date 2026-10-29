@@ -9,7 +9,17 @@
       "role": "user",
       "createdAt": "2026-10-29T12:21:18.632Z",
       "updatedAt": "2026-10-29T12:21:18.632Z"
+    },
+    {
+      "id": "u_mvtgzz3xn3f6",
+      "user": "akufarand",
+      "email": "akufarand@gmail.com",
+      "pass": "akufarand",
+      "ref": "",
+      "role": "user",
+      "createdAt": "2026-10-29T12:23:42.490Z",
+      "updatedAt": "2026-10-29T12:23:42.490Z"
     }
   ],
-  "updatedAt": "2026-10-29T12:21:18.632Z"
+  "updatedAt": "2026-10-29T12:23:42.490Z"
 }

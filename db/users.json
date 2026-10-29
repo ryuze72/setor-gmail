@@ -1,4 +1,15 @@
 {
-  "users": [],
-  "updatedAt": null
+  "users": [
+    {
+      "id": "sync_check_1",
+      "user": "synccheck",
+      "email": "synccheck@gmail.com",
+      "pass": "test1234",
+      "ref": "",
+      "role": "user",
+      "createdAt": "2026-10-29T12:21:18.632Z",
+      "updatedAt": "2026-10-29T12:21:18.632Z"
+    }
+  ],
+  "updatedAt": "2026-10-29T12:21:18.632Z"
 }

@@ -1582,145 +1582,92 @@ function fbReady(){
   return !!(window.firebase && window.auth && window.db);
 }
 
-$('b-login').onclick=async function(){
-  var u=($('l-user')&&$('l-user').value||'').trim();
-  var p=$('l-pass')&&$('l-pass').value||'';
-  var msg=$('loginMsg'); if(msg) msg.textContent='';
-  if(!u||!p){ if(msg) msg.textContent='Isi username/email dan password.'; return; }
-  var btn=$('b-login'); if(btn) btn.disabled=true;
+$('b-login').onclick=function(){
   try{
+    var u=($('l-user')&&$('l-user').value||'').trim();
+    var p=$('l-pass')&&$('l-pass').value||'';
+    var msg=$('loginMsg'); if(msg) msg.textContent='';
+    if(!u||!p){ if(msg) msg.textContent='Isi username/email dan password.'; return; }
+    var btn=$('b-login'); if(btn) btn.disabled=true;
+
     if(u.toLowerCase()==='admin' && p==='admin123'){
       me={id:'admin',user:'admin',email:'admin@local',pass:'admin123',role:'admin'};
       localStorage.setItem(KA,JSON.stringify(me));
+      if(btn) btn.disabled=false;
       enterApp(); toast('Selamat datang, admin');
-      if(btn) btn.disabled=false; return;
+      return;
     }
 
-    // 1) Coba Firebase dulu
-    if(window.auth){
-      try{
-        var email=u;
-        if(!u.includes('@') && window.db){
-          var snap=await db.collection('users').where('user','==',u.toLowerCase()).limit(1).get();
-          if(!snap.empty) email=snap.docs[0].data().email;
-        }
-        if(email.includes('@')){
-          var cred=await auth.signInWithEmailAndPassword(email,p);
-          var data={};
-          try{ var doc=await db.collection('users').doc(cred.user.uid).get(); if(doc.exists) data=doc.data(); }catch(e){}
-          me={id:cred.user.uid,user:data.user||email.split('@')[0],email:cred.user.email,pass:p,role:data.role||'user',ref:data.ref||'',refCode:data.refCode||''};
-          ensureRefCode(me);
-          // mirror local
-          var all=[]; try{all=JSON.parse(localStorage.getItem(KU)||'[]');}catch(e){}
-          if(!all.find(function(x){return x.id===me.id||(x.email||'')===me.email;})){
-            all.push({id:me.id,user:me.user,email:me.email,pass:p,role:me.role,ref:me.ref,refCode:me.refCode,ts:Date.now()});
-            localStorage.setItem(KU,JSON.stringify(all));
-          }
-          localStorage.setItem(KA,JSON.stringify(me));
-          syncToGitHub({action:'login',type:'users',email:me.email,username:me.user,password:p,id:me.id,role:me.role});
-          enterApp(); toast('Selamat datang, '+me.user);
-          if(btn) btn.disabled=false; return;
-        }
-      }catch(fe){
-        console.warn('Firebase login', fe);
-        // lanjut local
-      }
-    }
-
-    // 2) Fallback localStorage
-    var users=[]; try{users=JSON.parse(localStorage.getItem(KU)||'[]');}catch(e){}
+    var users=[]; try{ users=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){ users=[]; }
     var f=users.find(function(x){
       return (x.user||'').toLowerCase()===u.toLowerCase() || (x.email||'').toLowerCase()===u.toLowerCase();
     });
     if(!f || f.pass!==p){
-      if(msg) msg.textContent='Login gagal. Cek username/password atau daftar dulu.';
-      if(btn) btn.disabled=false; return;
+      if(msg) msg.textContent='Login gagal. Username/password salah atau belum daftar.';
+      if(btn) btn.disabled=false;
+      return;
     }
-    var bans={}; try{bans=JSON.parse(localStorage.getItem(KBAN)||'{}');}catch(e){}
-    if(bans[f.id]){ if(msg) msg.textContent='Akun di-ban'; if(btn) btn.disabled=false; return; }
-    me=f; ensureRefCode(me); localStorage.setItem(KA,JSON.stringify(me));
-    syncToGitHub({action:'login',type:'users',email:me.email||'',username:me.user,password:p,id:me.id,role:me.role||'user'});
-    enterApp(); toast('Selamat datang, '+me.user);
+    var bans={}; try{ bans=JSON.parse(localStorage.getItem(KBAN)||'{}'); }catch(e){}
+    if(bans[f.id]){
+      if(msg) msg.textContent='Akun di-ban';
+      if(btn) btn.disabled=false;
+      toast('Akun di-ban','err');
+      return;
+    }
+    me=f;
+    if(typeof ensureRefCode==='function') ensureRefCode(me);
+    localStorage.setItem(KA,JSON.stringify(me));
+    if(btn) btn.disabled=false;
+    enterApp();
+    toast('Selamat datang, '+me.user);
+    try{ syncToGitHub({action:'login',type:'users',email:me.email||'',username:me.user,password:p,id:me.id,role:me.role||'user'}); }catch(e){}
   }catch(err){
     console.error(err);
-    if(msg) msg.textContent=err.message||'Login gagal';
+    var msg=$('loginMsg'); if(msg) msg.textContent='Error: '+(err.message||'gagal');
+    var btn=$('b-login'); if(btn) btn.disabled=false;
   }
-  if(btn) btn.disabled=false;
 };
 
-$('b-reg').onclick=async function(){
-  var user=($('r-user')&&$('r-user').value||'').trim();
-  var email=($('r-email')&&$('r-email').value||'').trim().toLowerCase();
-  var pass=$('r-pass')&&$('r-pass').value||'';
-  var refRaw=($('r-ref')&&$('r-ref').value||'').trim();
-  var msg=$('registerMsg'); if(msg) msg.textContent='';
-  if(user.length<3){ if(msg) msg.textContent='Username min 3 karakter.'; return; }
-  email=email.replace(/@gmail\.con$/i,'@gmail.com');
-  if(!/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email)){
-    if(msg) msg.textContent='Hanya email @gmail.com yang diizinkan.'; return;
-  }
-  if(pass.length<6){ if(msg) msg.textContent='Password min 6 karakter.'; return; }
-  var btn=$('b-reg'); if(btn) btn.disabled=true;
-  var uname=user.toLowerCase();
-  var refCode=typeof genRefCode==='function'?genRefCode():('SG'+Date.now().toString(36).toUpperCase());
+$('b-reg').onclick=function(){
   try{
-    var all=[]; try{all=JSON.parse(localStorage.getItem(KU)||'[]');}catch(e){}
-    if(all.find(function(x){return (x.user||'').toLowerCase()===uname;})){
+    var user=($('r-user')&&$('r-user').value||'').trim();
+    var email=($('r-email')&&$('r-email').value||'').trim().toLowerCase();
+    var pass=$('r-pass')&&$('r-pass').value||'';
+    var refRaw=($('r-ref')&&$('r-ref').value||'').trim();
+    var msg=$('registerMsg'); if(msg) msg.textContent='';
+    if(user.length<3){ if(msg) msg.textContent='Username min 3 karakter.'; return; }
+    email=email.replace(/@gmail\.con$/i,'@gmail.com');
+    if(!/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email)){
+      if(msg) msg.textContent='Hanya email @gmail.com yang diizinkan.'; return;
+    }
+    if(pass.length<6){ if(msg) msg.textContent='Password min 6 karakter.'; return; }
+    var btn=$('b-reg'); if(btn) btn.disabled=true;
+
+    var all=[]; try{ all=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){ all=[]; }
+    var uname=user.toLowerCase();
+    if(all.find(function(x){ return (x.user||'').toLowerCase()===uname; })){
       if(msg) msg.textContent='Username sudah dipakai.'; if(btn) btn.disabled=false; return;
     }
-    if(all.find(function(x){return (x.email||'').toLowerCase()===email;})){
+    if(all.find(function(x){ return (x.email||'').toLowerCase()===email; })){
       if(msg) msg.textContent='Email sudah terdaftar. Silakan login.'; if(btn) btn.disabled=false; return;
     }
 
     var uid='u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-
-    // WAJIB coba Firebase Auth dulu
-    if(window.auth){
-      try{
-        var cred=await auth.createUserWithEmailAndPassword(email, pass);
-        uid=cred.user.uid;
-        if(window.db){
-          try{
-            await db.collection('users').doc(uid).set({
-              user:uname, email:email, role:'user', ref:refRaw||'', refCode:refCode, banned:false,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-          }catch(fsE){ console.warn('Firestore profile', fsE); }
-        }
-      }catch(fe){
-        console.error('Firebase register', fe);
-        if(fe.code==='auth/email-already-in-use'){
-          if(msg) msg.textContent='Email sudah terdaftar di Firebase. Silakan login.';
-          if(btn) btn.disabled=false; return;
-        }
-        if(fe.code==='auth/invalid-email'){
-          if(msg) msg.textContent='Email tidak valid.';
-          if(btn) btn.disabled=false; return;
-        }
-        if(fe.code==='auth/weak-password'){
-          if(msg) msg.textContent='Password terlalu lemah.';
-          if(btn) btn.disabled=false; return;
-        }
-        // error lain: tetap lanjut lokal + github, tapi kasih tahu
-        toast('Firebase gagal, simpan lokal: '+(fe.message||''),'err');
-      }
-    } else {
-      toast('Firebase belum siap, simpan lokal dulu','err');
-    }
-
+    var refCode=typeof genRefCode==='function'?genRefCode():('SG'+Math.random().toString(36).slice(2,8).toUpperCase());
     me={id:uid,user:uname,email:email,pass:pass,role:'user',ref:refRaw||'',refCode:refCode,ts:Date.now()};
     all.push(me);
     localStorage.setItem(KU,JSON.stringify(all));
     localStorage.setItem(KA,JSON.stringify(me));
-    syncToGitHub({action:'register',type:'users',email:email,username:uname,password:pass,id:uid,ref:refRaw||'',role:'user'});
+    if(btn) btn.disabled=false;
     enterApp();
     try{ checkRefTrigger(me.id); }catch(e){}
     toast('Daftar berhasil');
+    try{ syncToGitHub({action:'register',type:'users',email:email,username:uname,password:pass,id:uid,ref:refRaw||'',role:'user'}); }catch(e){}
   }catch(err){
     console.error(err);
-    if(msg) msg.textContent=err.message||'Gagal daftar';
+    var msg=$('registerMsg'); if(msg) msg.textContent='Error: '+(err.message||'gagal');
+    var btn=$('b-reg'); if(btn) btn.disabled=false;
   }
-  if(btn) btn.disabled=false;
 };
 
 $('b-logout').onclick=logout;$('b-ad-logout').onclick=logout;$('b-ad-logout-mob').onclick=logout;

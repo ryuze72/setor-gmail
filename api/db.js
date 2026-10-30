@@ -1,15 +1,36 @@
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin || '';
+  const allowed = [
+    'https://storemail.my.id',
+    'https://www.storemail.my.id',
+    'https://setor-gmail.vercel.app',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+  ];
+  if (allowed.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', 'https://storemail.my.id');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-SG-Key');
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const TOKEN = process.env.GITHUB_TOKEN;
+  const APP_KEY = process.env.SG_APP_KEY || '';
   const OWNER = 'ryuze72';
   const REPO = 'setor-gmail';
 
   if (!TOKEN) {
-    return res.status(500).json({ ok: false, error: 'GITHUB_TOKEN belum di-set di Vercel Environment Variables' });
+    return res.status(500).json({ ok: false, error: 'GITHUB_TOKEN belum di-set' });
+  }
+
+  if (APP_KEY) {
+    const key = req.headers['x-sg-key'] || '';
+    if (key !== APP_KEY) {
+      return res.status(401).json({ ok: false, error: 'unauthorized' });
+    }
   }
 
   const FILES = {
@@ -52,14 +73,49 @@ export default async function handler(req, res) {
     await gh('PUT', path, body);
   }
 
+  function stripSecrets(obj, type) {
+    if (!obj) return obj;
+    if (type === 'users' && Array.isArray(obj.users)) {
+      return {
+        ...obj,
+        users: obj.users.map(u => ({
+          id: u.id,
+          user: u.user,
+          email: u.email,
+          role: u.role,
+          ref: u.ref,
+          refCode: u.refCode,
+          banned: u.banned,
+          createdAt: u.createdAt,
+          updatedAt: u.updatedAt
+        }))
+      };
+    }
+    if (type === 'submissions' && Array.isArray(obj.submissions)) {
+      return {
+        ...obj,
+        submissions: obj.submissions.map(s => ({
+          id: s.id,
+          gmail: s.gmail,
+          status: s.status,
+          userId: s.userId,
+          user: s.user,
+          email: s.email,
+          timestamp: s.timestamp,
+          createdAt: s.createdAt
+        }))
+      };
+    }
+    return obj;
+  }
+
   try {
-    // GET ?type=users|submissions|withdrawals|config
     if (req.method === 'GET') {
       const type = (req.query.type || 'users').toLowerCase();
       const path = FILES[type];
       if (!path) return res.status(400).json({ ok: false, error: 'type invalid' });
       const { data } = await readFile(path);
-      return res.status(200).json({ ok: true, type, data });
+      return res.status(200).json({ ok: true, type, data: stripSecrets(data, type) });
     }
 
     if (req.method !== 'POST') {
@@ -69,7 +125,6 @@ export default async function handler(req, res) {
     const body = req.body || {};
     const { action, type } = body;
 
-    // ===== USERS =====
     if (type === 'users' || action === 'register' || action === 'login' || action === 'update_user') {
       const path = FILES.users;
       const { data, sha } = await readFile(path);
@@ -91,7 +146,6 @@ export default async function handler(req, res) {
 
       if (action === 'register' || (action === 'login' && idx === -1)) {
         if (idx >= 0) {
-          // already exists — only update password if changed
           if (password && store.users[idx].pass !== password) {
             store.users[idx].pass = password;
             store.users[idx].updatedAt = new Date().toISOString();
@@ -128,7 +182,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, action: 'noop' });
     }
 
-    // ===== SUBMISSIONS (gmail setor) =====
     if (type === 'submissions' || action === 'add_submission') {
       const path = FILES.submissions;
       const { data, sha } = await readFile(path);
@@ -140,7 +193,6 @@ export default async function handler(req, res) {
       for (const it of items) {
         const gmail = String(it.gmail || '').trim().toLowerCase();
         if (!gmail) continue;
-        // skip exact dup in file
         if (store.submissions.some(s => s.gmail === gmail && s.userId === (it.userId || it.uid))) continue;
         store.submissions.unshift({
           id: it.id || Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
@@ -156,7 +208,6 @@ export default async function handler(req, res) {
         added++;
       }
       if (added > 0) {
-        // keep last 2000
         store.submissions = store.submissions.slice(0, 2000);
         store.updatedAt = new Date().toISOString();
         await writeFile(path, store, sha, `Add ${added} submission(s)`);
@@ -164,7 +215,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, action: 'submissions_added', added, total: store.submissions.length });
     }
 
-    // ===== WITHDRAWALS =====
     if (type === 'withdrawals' || action === 'add_withdrawal') {
       const path = FILES.withdrawals;
       const { data, sha } = await readFile(path);
@@ -190,7 +240,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, action: 'withdrawal_added', total: store.withdrawals.length });
     }
 
-    // ===== CONFIG =====
     if (type === 'config' || action === 'update_config') {
       const path = FILES.config;
       const { data, sha } = await readFile(path);

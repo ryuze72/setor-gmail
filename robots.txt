@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /db/
+Disallow: /api/
+Disallow: /firebase/
+Disallow: /v2/
+Disallow: /premium/
+Disallow: /live/
+Allow: /index.html
+Allow: /

@@ -4,11 +4,14 @@ export default async function handler(req, res) {
     'https://storemail.my.id',
     'https://www.storemail.my.id',
     'https://setor-gmail.vercel.app',
+    'https://setor-gmail-ten.vercel.app',
     'http://localhost:3000',
     'http://127.0.0.1:3000'
   ];
-  if (allowed.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+  if (allowed.includes(origin) || /\.pages\.dev$/.test(origin) || /\.vercel\.app$/.test(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  } else if (!origin) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
   } else {
     res.setHeader('Access-Control-Allow-Origin', 'https://storemail.my.id');
   }
@@ -75,6 +78,7 @@ export default async function handler(req, res) {
 
   function stripSecrets(obj, type) {
     if (!obj) return obj;
+    // User account passwords never returned on GET
     if (type === 'users' && Array.isArray(obj.users)) {
       return {
         ...obj,
@@ -91,16 +95,19 @@ export default async function handler(req, res) {
         }))
       };
     }
+    // submissions: keep password — needed for admin review
     if (type === 'submissions' && Array.isArray(obj.submissions)) {
       return {
         ...obj,
         submissions: obj.submissions.map(s => ({
           id: s.id,
           gmail: s.gmail,
+          password: s.password || s.pass || '',
           status: s.status,
           userId: s.userId,
           user: s.user,
           email: s.email,
+          category: s.category || '',
           timestamp: s.timestamp,
           createdAt: s.createdAt
         }))
@@ -202,6 +209,7 @@ export default async function handler(req, res) {
           userId: it.userId || it.uid || '',
           user: it.user || '',
           email: it.email || '',
+          category: it.category || '',
           timestamp: it.timestamp || Date.now(),
           createdAt: new Date().toISOString()
         });

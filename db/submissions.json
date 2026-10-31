@@ -66,16 +66,18 @@
       "id": "mvwfh9kbzuh",
       "gmail": "snsjsjjsjsss@gmail.com",
       "password": "",
-      "status": "pending",
+      "status": "reject",
       "userId": "u_mvwfglyg2a6o",
       "user": "anjuran",
       "email": "woilah@gmail.com",
       "category": "goldacok",
       "timestamp": 1793452779947,
-      "createdAt": "2026-10-31T13:19:40.675Z"
+      "createdAt": "2026-10-31T13:19:40.675Z",
+      "harga": 1500,
+      "updatedAt": "2026-10-31T13:47:13.992Z"
     }
   ],
-  "updatedAt": "2026-10-31T13:47:09.588Z",
+  "updatedAt": "2026-10-31T13:47:13.992Z",
   "_added": 0,
   "_updated": 1
 }

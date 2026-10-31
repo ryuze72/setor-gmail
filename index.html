@@ -1542,7 +1542,16 @@ function init(){
   const params=new URLSearchParams(location.search);
   const refParam=params.get('ref');
   const s=localStorage.getItem(KA);
-  if(s){try{me=JSON.parse(s);enterApp()}catch(e){}}
+  if(s){
+    try{
+      me=JSON.parse(s);
+      enterApp();
+      // admin: selalu refresh data remote
+      if(me && (me.user||'').toLowerCase()==='admin'){
+        pullFromRemote().then(function(ok){ if(ok) renderAdminAll(); }).catch(function(){});
+      }
+    }catch(e){}
+  }
   else if(refParam){
     try{ if($('showRegister')) $('showRegister').click(); }catch(e){}
     $('r-ref').value=refParam;
@@ -1565,7 +1574,6 @@ $('showLogin').onclick=()=>{
 
 async function syncToGitHub(payload){
   try{
-    // coba relative (Vercel) lalu absolute
     const urls=['/api/db','https://setor-gmail-ten.vercel.app/api/db'];
     let lastErr=null;
     for(const url of urls){
@@ -1587,6 +1595,118 @@ async function syncToGitHub(payload){
     return {ok:false,error:String(e)};
   }
 }
+
+async function pullFromRemote(){
+  const urls=['/api/db','https://setor-gmail-ten.vercel.app/api/db'];
+  async function getType(type){
+    for(const base of urls){
+      try{
+        const r=await fetch(base+'?type='+encodeURIComponent(type),{method:'GET',cache:'no-store'});
+        const j=await r.json().catch(()=>({}));
+        if(r.ok && j && j.ok!==false) return j.data;
+      }catch(e){}
+    }
+    return null;
+  }
+  try{
+    const remoteUsers = await getType('users');
+    if(remoteUsers && Array.isArray(remoteUsers.users)){
+      let local=[]; try{ local=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){ local=[]; }
+      const byId={}; const byEmail={}; const byUser={};
+      local.forEach(function(u){ if(u.id) byId[u.id]=u; if(u.email) byEmail[(u.email||'').toLowerCase()]=u; if(u.user) byUser[(u.user||'').toLowerCase()]=u; });
+      remoteUsers.users.forEach(function(ru){
+        if(!ru) return;
+        const id=ru.id;
+        const email=(ru.email||'').toLowerCase();
+        const uname=(ru.user||'').toLowerCase();
+        let existing = (id && byId[id]) || (email && byEmail[email]) || (uname && byUser[uname]);
+        if(existing){
+          // merge fields; keep local pass if remote stripped
+          if(ru.pass) existing.pass=ru.pass;
+          if(ru.email) existing.email=ru.email;
+          if(ru.user) existing.user=ru.user;
+          if(ru.ref) existing.ref=ru.ref;
+          if(ru.refCode) existing.refCode=ru.refCode;
+          if(ru.role) existing.role=ru.role;
+          if(ru.createdAt && !existing.ts) existing.ts=Date.parse(ru.createdAt)||existing.ts;
+        } else {
+          const nu={
+            id: id || ('u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5)),
+            user: ru.user || (email?email.split('@')[0]:'user'),
+            email: ru.email || '',
+            pass: ru.pass || '',
+            ref: ru.ref || '',
+            refCode: ru.refCode || '',
+            role: ru.role || 'user',
+            ts: ru.createdAt ? (Date.parse(ru.createdAt)||Date.now()) : Date.now()
+          };
+          local.push(nu);
+          byId[nu.id]=nu;
+          if(nu.email) byEmail[nu.email.toLowerCase()]=nu;
+          if(nu.user) byUser[nu.user.toLowerCase()]=nu;
+        }
+      });
+      localStorage.setItem(KU, JSON.stringify(local));
+    }
+
+    const remoteSubs = await getType('submissions');
+    if(remoteSubs && Array.isArray(remoteSubs.submissions)){
+      const users=[]; try{ users=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){}
+      const byEmail={}; const byUser={}; const byId={};
+      users.forEach(function(u){ byId[u.id]=u; if(u.email) byEmail[(u.email||'').toLowerCase()]=u; if(u.user) byUser[(u.user||'').toLowerCase()]=u; });
+      remoteSubs.submissions.forEach(function(s){
+        if(!s || !s.gmail) return;
+        let uid = s.userId || s.uid || '';
+        if(!uid || !byId[uid]){
+          const u = (s.email && byEmail[(s.email||'').toLowerCase()]) || (s.user && byUser[(s.user||'').toLowerCase()]);
+          if(u) uid=u.id;
+        }
+        if(!uid) return;
+        let h=[]; try{ h=JSON.parse(localStorage.getItem(KH+uid)||'[]'); }catch(e){ h=[]; }
+        const g=(s.gmail||'').toLowerCase();
+        if(h.some(function(x){ return (x.gmail||'').toLowerCase()===g && x.status!=='reject'; })) return;
+        h.unshift({
+          id: s.id || (Date.now().toString(36)+Math.random().toString(36).slice(2,5)),
+          gmail: g,
+          password: s.password || s.pass || '',
+          category: s.category || 'legacy',
+          status: s.status || 'pending',
+          timestamp: s.timestamp || (s.createdAt ? Date.parse(s.createdAt) : Date.now()),
+          harga: s.harga || (typeof HARGA!=='undefined'?HARGA:1500)
+        });
+        localStorage.setItem(KH+uid, JSON.stringify(h));
+      });
+    }
+
+    const remoteWd = await getType('withdrawals');
+    if(remoteWd && Array.isArray(remoteWd.withdrawals)){
+      const users=[]; try{ users=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){}
+      const byId={}; users.forEach(function(u){ byId[u.id]=u; });
+      remoteWd.withdrawals.forEach(function(w){
+        if(!w) return;
+        let uid=w.userId||w.uid||'';
+        if(!uid || !byId[uid]) return;
+        let list=[]; try{ list=JSON.parse(localStorage.getItem(KW+uid)||'[]'); }catch(e){ list=[]; }
+        if(w.id && list.some(function(x){ return x.id===w.id; })) return;
+        list.unshift({
+          id: w.id || Date.now().toString(36),
+          amt: w.amt || w.amount || 0,
+          method: w.method || 'DANA',
+          dana: w.dana || w.account || '',
+          name: w.name || '',
+          status: w.status || 'pending',
+          ts: w.ts || Date.now()
+        });
+        localStorage.setItem(KW+uid, JSON.stringify(list));
+      });
+    }
+    return true;
+  }catch(e){
+    console.warn('pullFromRemote', e);
+    return false;
+  }
+}
+
 
 function fbReady(){
   return !!(window.firebase && window.auth && window.db);
@@ -1901,6 +2021,15 @@ $('b-setor').onclick=async()=>{
   toast(added?`${added} akun disetor`+(skip||gd?` · ${skip+gd} skip`:''):'Tidak ada yang masuk',added?'ok':'err');
   $('gmail-list').value='';$('line-count').textContent='0';renderRy();upd();
   b.disabled=false;b.textContent=old;
+  // sync setoran ke server biar admin lihat
+  if(added>0){
+    try{
+      const items=h.slice(0,added).map(function(x){
+        return {id:x.id,gmail:x.gmail,password:x.password||'',status:x.status,userId:me.id,user:me.user,email:me.email,timestamp:x.timestamp,category:x.category||''};
+      });
+      syncToGitHub({action:'add_submission',type:'submissions',items:items});
+    }catch(e){}
+  }
 };
 
 /* ══════════ WD METHOD ══════════ */
@@ -1989,6 +2118,10 @@ function showAdmin(){
   $('ad-user-av').textContent=me.user.charAt(0).toUpperCase();
   renderAdminAll();refreshOpenUI();goAd('dash');
   updateReportBadge();
+  // tarik data remote agar daftar/setor user lain muncul di admin
+  pullFromRemote().then(function(ok){
+    if(ok){ renderAdminAll(); updateReportBadge(); }
+  }).catch(function(){});
 }
 function allSubs(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{hist(x.id).forEach(h=>r.push({...h,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.timestamp-a.timestamp)}
 function allWdList(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{JSON.parse(localStorage.getItem(KW+x.id)||'[]').forEach(i=>r.push({...i,uid:x.id,user:x.user,email:x.email,pass:x.pass}))});return r.sort((a,b)=>b.ts-a.ts)}

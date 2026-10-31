@@ -119,7 +119,17 @@
       "role": "user",
       "createdAt": "2026-10-31T09:36:17.288Z",
       "updatedAt": "2026-10-31T09:36:17.288Z"
+    },
+    {
+      "id": "test_pull_1",
+      "user": "testpullcheck",
+      "email": "testpullcheck@gmail.com",
+      "pass": "test1234",
+      "ref": "",
+      "role": "user",
+      "createdAt": "2026-10-31T10:13:39.671Z",
+      "updatedAt": "2026-10-31T10:13:39.671Z"
     }
   ],
-  "updatedAt": "2026-10-31T09:36:17.288Z"
+  "updatedAt": "2026-10-31T10:13:39.672Z"
 }

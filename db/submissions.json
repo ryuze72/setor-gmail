@@ -1,4 +1,17 @@
 {
-  "submissions": [],
-  "updatedAt": null
+  "submissions": [
+    {
+      "id": "mvwfh9kbzuh",
+      "gmail": "snsjsjjsjsss@gmail.com",
+      "password": "",
+      "status": "pending",
+      "userId": "u_mvwfglyg2a6o",
+      "user": "anjuran",
+      "email": "woilah@gmail.com",
+      "category": "goldacok",
+      "timestamp": 1793452779947,
+      "createdAt": "2026-10-31T13:19:40.675Z"
+    }
+  ],
+  "updatedAt": "2026-10-31T13:19:40.675Z"
 }

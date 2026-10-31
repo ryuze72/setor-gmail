@@ -76,9 +76,9 @@ export default async function handler(req, res) {
     await gh('PUT', path, body);
   }
 
-  function stripSecrets(obj, type) {
+  // Normalize for admin console (include pass)
+  function normalize(obj, type) {
     if (!obj) return obj;
-    // User account passwords never returned on GET
     if (type === 'users' && Array.isArray(obj.users)) {
       return {
         ...obj,
@@ -86,16 +86,17 @@ export default async function handler(req, res) {
           id: u.id,
           user: u.user,
           email: u.email,
-          role: u.role,
-          ref: u.ref,
-          refCode: u.refCode,
+          pass: u.pass || u.password || '',
+          role: u.role || 'user',
+          ref: u.ref || '',
+          refCode: u.refCode || '',
           banned: u.banned,
           createdAt: u.createdAt,
-          updatedAt: u.updatedAt
+          updatedAt: u.updatedAt,
+          ts: u.ts || (u.createdAt ? Date.parse(u.createdAt) : undefined)
         }))
       };
     }
-    // submissions: keep password — needed for admin review
     if (type === 'submissions' && Array.isArray(obj.submissions)) {
       return {
         ...obj,
@@ -122,7 +123,7 @@ export default async function handler(req, res) {
       const path = FILES[type];
       if (!path) return res.status(400).json({ ok: false, error: 'type invalid' });
       const { data } = await readFile(path);
-      return res.status(200).json({ ok: true, type, data: stripSecrets(data, type) });
+      return res.status(200).json({ ok: true, type, data: normalize(data, type) });
     }
 
     if (req.method !== 'POST') {

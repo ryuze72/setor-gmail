@@ -1560,7 +1560,13 @@ function init(){
   }
   updateWdLabel();
 }
-function enterApp(){if((me.user||'').toLowerCase()==='admin')showAdmin();else showUser()}
+function enterApp(){
+  if((me.user||'').toLowerCase()==='admin') showAdmin();
+  else {
+    showUser();
+    pullFromRemote().then(function(){ try{ if(typeof upd==='function')upd(); if(typeof renderRy==='function')renderRy(); }catch(e){} }).catch(function(){});
+  }
+}
 
 /* ══════════ AUTH ══════════ */
 $('showRegister').onclick=()=>{
@@ -1716,49 +1722,81 @@ function fbReady(){
   return !!(window.firebase && window.auth && window.db);
 }
 
-$('b-login').onclick=function(){
+$('b-login').onclick=async function(){
   try{
     var u=($('l-user')&&$('l-user').value||'').trim();
     var p=$('l-pass')&&$('l-pass').value||'';
     var msg=$('loginMsg'); if(msg) msg.textContent='';
     if(!u||!p){ if(msg) msg.textContent='Isi username/email dan password.'; return; }
-    var btn=$('b-login'); if(btn) btn.disabled=true;
+    var btn=$('b-login'); if(btn){ btn.disabled=true; btn.textContent='Memeriksa...'; }
 
     if(u.toLowerCase()==='admin' && p==='admin123'){
       me={id:'admin',user:'admin',email:'admin@local',pass:'admin123',role:'admin'};
       localStorage.setItem(KA,JSON.stringify(me));
-      if(btn) btn.disabled=false;
+      if(btn){ btn.disabled=false; btn.textContent='Masuk sekarang →'; }
       enterApp(); toast('Selamat datang, admin');
       return;
     }
+
+    // 1) tarik data server dulu supaya device baru punya daftar user + setoran
+    try{ await pullFromRemote(); }catch(e){ console.warn('pull login', e); }
 
     var users=[]; try{ users=JSON.parse(localStorage.getItem(KU)||'[]'); }catch(e){ users=[]; }
     var f=users.find(function(x){
       return (x.user||'').toLowerCase()===u.toLowerCase() || (x.email||'').toLowerCase()===u.toLowerCase();
     });
-    if(!f || f.pass!==p){
+
+    // 2) kalau masih belum ketemu, coba fetch users sekali lagi dari Vercel
+    if(!f || !f.pass){
+      try{
+        var r=await fetch('https://setor-gmail-ten.vercel.app/api/db?type=users',{cache:'no-store'});
+        var j=await r.json();
+        if(j && j.ok && j.data && Array.isArray(j.data.users)){
+          users=j.data.users.map(function(ru){
+            return {
+              id:ru.id,
+              user:ru.user,
+              email:ru.email||'',
+              pass:ru.pass||ru.password||'',
+              ref:ru.ref||'',
+              refCode:ru.refCode||'',
+              role:ru.role||'user',
+              ts:ru.ts|| (ru.createdAt?Date.parse(ru.createdAt):Date.now())
+            };
+          });
+          localStorage.setItem(KU, JSON.stringify(users));
+          f=users.find(function(x){
+            return (x.user||'').toLowerCase()===u.toLowerCase() || (x.email||'').toLowerCase()===u.toLowerCase();
+          });
+        }
+      }catch(e){ console.warn(e); }
+    }
+
+    if(!f || String(f.pass||'')!==String(p)){
       if(msg) msg.textContent='Login gagal. Username/password salah atau belum daftar.';
-      if(btn) btn.disabled=false;
+      if(btn){ btn.disabled=false; btn.textContent='Masuk sekarang →'; }
       return;
     }
     var bans={}; try{ bans=JSON.parse(localStorage.getItem(KBAN)||'{}'); }catch(e){}
     if(bans[f.id]){
       if(msg) msg.textContent='Akun di-ban';
-      if(btn) btn.disabled=false;
+      if(btn){ btn.disabled=false; btn.textContent='Masuk sekarang →'; }
       toast('Akun di-ban','err');
       return;
     }
     me=f;
     if(typeof ensureRefCode==='function') ensureRefCode(me);
     localStorage.setItem(KA,JSON.stringify(me));
-    if(btn) btn.disabled=false;
+    // 3) tarik setoran user ini dari server
+    try{ await pullFromRemote(); }catch(e){}
+    if(btn){ btn.disabled=false; btn.textContent='Masuk sekarang →'; }
     enterApp();
     toast('Selamat datang, '+me.user);
     try{ syncToGitHub({action:'login',type:'users',email:me.email||'',username:me.user,password:p,id:me.id,role:me.role||'user'}); }catch(e){}
   }catch(err){
     console.error(err);
     var msg=$('loginMsg'); if(msg) msg.textContent='Error: '+(err.message||'gagal');
-    var btn=$('b-login'); if(btn) btn.disabled=false;
+    var btn=$('b-login'); if(btn){ btn.disabled=false; btn.textContent='Masuk sekarang →'; }
   }
 };
 

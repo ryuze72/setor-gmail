@@ -1574,7 +1574,7 @@ $('showLogin').onclick=()=>{
 
 async function syncToGitHub(payload){
   try{
-    const urls=['/api/db','https://setor-gmail-ten.vercel.app/api/db'];
+    const urls=['https://setor-gmail-ten.vercel.app/api/db','/api/db'];
     let lastErr=null;
     for(const url of urls){
       try{
@@ -1583,8 +1583,10 @@ async function syncToGitHub(payload){
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify(payload)
         });
-        const j=await r.json().catch(()=>({}));
-        if(r.ok && j.ok!==false) return j;
+        const ct=(r.headers.get('content-type')||'');
+        if(!ct.includes('application/json')) { lastErr='not json'; continue; }
+        const j=await r.json().catch(()=>(null));
+        if(r.ok && j && j.ok===true) return j;
         lastErr=j.error||('HTTP '+r.status);
       }catch(e){ lastErr=e.message||String(e); }
     }
@@ -1597,13 +1599,15 @@ async function syncToGitHub(payload){
 }
 
 async function pullFromRemote(){
-  const urls=['/api/db','https://setor-gmail-ten.vercel.app/api/db'];
+  const urls=['https://setor-gmail-ten.vercel.app/api/db','/api/db'];
   async function getType(type){
     for(const base of urls){
       try{
         const r=await fetch(base+'?type='+encodeURIComponent(type),{method:'GET',cache:'no-store'});
-        const j=await r.json().catch(()=>({}));
-        if(r.ok && j && j.ok!==false) return j.data;
+        const ct=(r.headers.get('content-type')||'');
+        if(!ct.includes('application/json')) continue;
+        const j=await r.json().catch(()=>(null));
+        if(r.ok && j && j.ok===true && j.data!=null) return j.data;
       }catch(e){}
     }
     return null;
@@ -2118,10 +2122,16 @@ function showAdmin(){
   $('ad-user-av').textContent=me.user.charAt(0).toUpperCase();
   renderAdminAll();refreshOpenUI();goAd('dash');
   updateReportBadge();
-  // tarik data remote agar daftar/setor user lain muncul di admin
   pullFromRemote().then(function(ok){
-    if(ok){ renderAdminAll(); updateReportBadge(); }
-  }).catch(function(){});
+    renderAdminAll(); updateReportBadge();
+    try{
+      var n=(JSON.parse(localStorage.getItem(KU)||'[]')||[]).length;
+      if(ok) toast('Sync OK · '+n+' user','ok');
+      else toast('Sync gagal · data lokal: '+n+' user','err');
+    }catch(e){}
+  }).catch(function(e){
+    try{ toast('Sync error','err'); }catch(x){}
+  });
 }
 function allSubs(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{hist(x.id).forEach(h=>r.push({...h,uid:x.id,user:x.user}))});return r.sort((a,b)=>b.timestamp-a.timestamp)}
 function allWdList(){const u=JSON.parse(localStorage.getItem(KU)||'[]');let r=[];u.forEach(x=>{JSON.parse(localStorage.getItem(KW+x.id)||'[]').forEach(i=>r.push({...i,uid:x.id,user:x.user,email:x.email,pass:x.pass}))});return r.sort((a,b)=>b.ts-a.ts)}
@@ -2197,7 +2207,7 @@ function renderAdUsers(){
   if(q) u=u.filter(x=>(x.user||'').toLowerCase().includes(q)||(x.email||'').toLowerCase().includes(q)||(x.id||'').toLowerCase().includes(q));
 
   const bans=JSON.parse(localStorage.getItem(KBAN)||'{}');
-  $('ad-users-body').innerHTML=u.map(x=>{
+  var _aub=$('ad-users-body'); if(!_aub) return; _aub.innerHTML=u.map(x=>{
     const b=bal(x.id),cnt=hist(x.id).length,banned=!!bans[x.id],win=hist(x.id).filter(h=>h.status==='success').length;
     const rs=getReferralStats(x.id);
     return `<div class="ad-table-row user-row" data-uid="${x.id}" data-expanded="false">
@@ -2439,7 +2449,7 @@ function goAd(p){
   const titles={dash:'Dashboard',setoran:'Setoran',users:'Users',wd:'Penarikan',reports:'Laporan',settings:'Pengaturan',audit:'Audit'};
   if(titles[p])$('ad-page-title').textContent=titles[p];
   if(p==='setoran')renderAdSetoran();
-  if(p==='users')renderAdUsers();
+  if(p==='users'){renderAdUsers();pullFromRemote().then(function(){renderAdUsers();renderAdDash();});}
   if(p==='wd')renderAdWd();
   if(p==='reports')renderAdReports();
   if(p==='settings')fillSettings();

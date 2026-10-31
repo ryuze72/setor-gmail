@@ -109,7 +109,17 @@
       "role": "user",
       "createdAt": "2026-10-30T03:00:04.351Z",
       "updatedAt": "2026-10-30T03:00:04.351Z"
+    },
+    {
+      "id": "u_mvw7hywm9466",
+      "user": "sopasopan",
+      "email": "sopacung@gmail.com",
+      "pass": "sopsopsopacung123",
+      "ref": "",
+      "role": "user",
+      "createdAt": "2026-10-31T09:36:17.288Z",
+      "updatedAt": "2026-10-31T09:36:17.288Z"
     }
   ],
-  "updatedAt": "2026-10-30T03:00:04.351Z"
+  "updatedAt": "2026-10-31T09:36:17.288Z"
 }

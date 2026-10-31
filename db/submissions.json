@@ -4,13 +4,15 @@
       "id": "mvwgfeoxfqv",
       "gmail": "kontol@gmail.com",
       "password": "",
-      "status": "pending",
+      "status": "reject",
       "userId": "mvrluxr5t2p4",
       "user": "oiooo",
       "email": "oii@gmail.com",
       "category": "sgsg1122",
       "timestamp": 1793454372897,
-      "createdAt": "2026-10-31T13:46:13.771Z"
+      "createdAt": "2026-10-31T13:46:13.771Z",
+      "harga": 1500,
+      "updatedAt": "2026-10-31T13:47:09.588Z"
     },
     {
       "id": "test_live_1",
@@ -73,7 +75,7 @@
       "createdAt": "2026-10-31T13:19:40.675Z"
     }
   ],
-  "updatedAt": "2026-10-31T13:46:13.771Z",
-  "_added": 1,
-  "_updated": 0
+  "updatedAt": "2026-10-31T13:47:09.588Z",
+  "_added": 0,
+  "_updated": 1
 }

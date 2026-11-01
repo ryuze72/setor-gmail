@@ -1,0 +1,9 @@
+Mode: SPA 1 file
+
+File utama: index.html
+
+Sub-halaman user.html admin.html login.html setor.html riwayat.html
+→ semua redirect ke index.html
+
+Kalau index.html di repo belum versi terbaru (sync multi-device),
+upload ulang index.html dari Cloudflare / dari file lokal yang sudah di-deploy.

@@ -1,11 +1,7 @@
-Halaman Storemail
-=================
+SPA 1 file mode
+================
+Hanya pakai index.html
 
-https://storemail.my.id/           index.html
-https://storemail.my.id/login.html
-https://storemail.my.id/user.html
-https://storemail.my.id/setor.html
-https://storemail.my.id/riwayat.html
-https://storemail.my.id/admin.html
+Sub-halaman (user/admin/login/setor/riwayat) redirect ke index.html
 
-Wajib: app.js satu folder dengan HTML.
+Upload/deploy: index.html ke Cloudflare Pages root.

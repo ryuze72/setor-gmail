@@ -1,0 +1,11 @@
+Halaman Storemail
+=================
+
+https://storemail.my.id/           index.html
+https://storemail.my.id/login.html
+https://storemail.my.id/user.html
+https://storemail.my.id/setor.html
+https://storemail.my.id/riwayat.html
+https://storemail.my.id/admin.html
+
+Wajib: app.js satu folder dengan HTML.

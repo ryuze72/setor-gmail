@@ -3,6 +3,11 @@
     {
       "msg": "Update pengaturan",
       "by": "admin",
+      "t": 1793678634208
+    },
+    {
+      "msg": "Update pengaturan",
+      "by": "admin",
       "t": 1793678464986
     },
     {
@@ -11,5 +16,5 @@
       "t": 1793678458812
     }
   ],
-  "updatedAt": "2026-11-03T04:01:05.381Z"
+  "updatedAt": "2026-11-03T04:03:54.926Z"
 }

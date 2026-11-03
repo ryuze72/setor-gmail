@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
-<meta name="theme-color" content="#f5f6f8"/>
+<meta name="theme-color" content="#dbe8ff"/>
+<meta name="color-scheme" content="light"/>
 <title>Setoran • Premium Portal</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -1151,6 +1152,388 @@ h1,h2,h3, .section-title, .page-title {
   }
 }
 </style>
+<style id="liquid-glass">
+/* ===== LIQUID GLASS iOS — lapisan tampilan final ===== */
+:root{
+  --font-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;
+  --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --g-ink:#0b1226;--g-ink2:#38425e;--g-mut:#5f6a85;--g-blue:#0a84ff;--g-sep:rgba(60,70,110,.09);
+  --ink:#0b1226;--ink-2:#38425e;--muted:#5f6a85;--muted-2:#8791a8;
+  --line:rgba(255,255,255,.55);--line-2:rgba(60,70,110,.08);
+  --blue:#0a84ff;--blue-2:#5e5ce6;--blue-soft:rgba(10,132,255,.13);--blue-border:rgba(10,132,255,.28);
+  --green:#1b9a48;--green-soft:rgba(52,199,89,.16);--green-border:rgba(52,199,89,.32);
+  --red:#e0322a;--red-soft:rgba(255,59,48,.12);--red-border:rgba(255,59,48,.28);
+  --amber:#a85f00;--amber-soft:rgba(255,159,10,.16);--amber-border:rgba(255,159,10,.34);
+  --shadow:0 10px 34px rgba(40,60,140,.16);--shadow-lg:0 20px 50px rgba(40,60,140,.2);--shadow-blue:0 8px 22px rgba(10,132,255,.38);
+  --r-sm:16px;--r:20px;--r-md:26px;--r-lg:30px;--r-xl:34px;
+  color-scheme:light;
+}
+html{background:linear-gradient(180deg,#dbe8ff 0%,#ece2ff 55%,#ffe3ee 100%)!important;min-height:100%}
+body,html body{background:transparent!important;color:var(--g-ink)!important;font-family:var(--font-body)!important}
+button,input,select,textarea{font-family:var(--font-body)!important}
+h1,h2,h3,h4{font-family:var(--font-display)!important;color:var(--g-ink)}
+body::before{content:''!important;position:fixed!important;inset:-15%!important;z-index:-1!important;pointer-events:none;will-change:transform;
+  background:
+   radial-gradient(42% 36% at 12% 8%,rgba(10,132,255,.55),transparent 70%),
+   radial-gradient(38% 34% at 92% 14%,rgba(191,90,242,.45),transparent 70%),
+   radial-gradient(44% 38% at 80% 88%,rgba(255,105,150,.42),transparent 70%),
+   radial-gradient(40% 34% at 8% 82%,rgba(48,209,200,.42),transparent 70%),
+   radial-gradient(30% 26% at 50% 46%,rgba(255,214,102,.30),transparent 70%)!important;
+  animation:lgDrift 26s ease-in-out infinite alternate}
+@keyframes lgDrift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.08) rotate(3deg)}}
+#app::before,#app::after,#app:has(#pg-home:not(.hidden))::before,#app:has(#pg-home:not(.hidden))::after,.auth-screen::before,.stat-card::after,.page-head::after,.qa-i::after,.section-title::before,.balance-card::after,.form-card::before,.rules::before,.cfg-card::before,.profile-card::before,.ref-display::before{display:none!important}
+::selection{background:rgba(10,132,255,.25)}
+:focus-visible{outline:2px solid rgba(10,132,255,.65)!important;outline-offset:2px}
+
+/* —— Permukaan kaca —— */
+.card,.form-card,.list-card,.menu-list,.profile-card,.ref-display,.rules,.wd-balance,.cfg-card,.ad-table,.qa,.meter-card,.stat-card,.ref-stat,.ad-stat,.help-box,.tg-card,.user-row,.auth-card,.maint-box,.admin-side,.bulk-bar{
+  background:linear-gradient(145deg,rgba(255,255,255,.64),rgba(255,255,255,.28))!important;
+  -webkit-backdrop-filter:blur(26px) saturate(190%) brightness(1.04)!important;backdrop-filter:blur(26px) saturate(190%) brightness(1.04)!important;
+  border:1px solid rgba(255,255,255,.55)!important;border-radius:28px!important;color:var(--g-ink)!important;
+  box-shadow:inset 0 1.5px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.3),0 10px 34px rgba(40,60,140,.16),0 2px 6px rgba(40,60,140,.06)!important}
+.stat-card,.ref-stat,.ad-stat,.meter-card,.tg-card,.user-row{border-radius:24px!important}
+.admin-side{border-radius:0 30px 30px 0!important}
+.list-card,.menu-list,.ad-table{padding:4px 0!important;overflow:hidden}
+.list-row,.menu-btn,.ad-table-row{border-color:var(--g-sep)!important;border-bottom:1px solid var(--g-sep)!important;background:transparent!important;transition:background .2s}
+.list-row:last-child,.menu-btn:last-child,.ad-table-row:last-child{border-bottom:0!important}
+.list-row:active,.menu-btn:hover,.ad-table-row:hover{background:rgba(255,255,255,.42)!important}
+.row-icon,.menu-icon{border-radius:14px!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.8)}
+.row-main,.menu-label,.profile-name,.ad-row-main{color:var(--g-ink)!important;font-weight:600}
+.row-meta,.profile-email,.profile-id,.ad-row-meta,.hint{color:var(--g-mut)!important}
+
+/* —— Header melayang —— */
+.app-header{background:transparent!important;border:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding-top:env(safe-area-inset-top,0)}
+.app-header-inner{margin:10px auto 0!important;width:calc(100% - 24px)!important;max-width:516px!important;padding:9px 12px 9px 14px!important;border-radius:999px;
+  background:linear-gradient(145deg,rgba(255,255,255,.62),rgba(255,255,255,.3));-webkit-backdrop-filter:blur(26px) saturate(190%);backdrop-filter:blur(26px) saturate(190%);
+  border:1px solid rgba(255,255,255,.6);box-shadow:inset 0 1.5px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.3),0 8px 28px rgba(40,60,140,.15)}
+.hdr-greet .hi{color:var(--g-mut)!important;font-weight:500}.hdr-greet .name{color:var(--g-ink)!important;font-weight:700}
+.badge-status{background:rgba(52,199,89,.18)!important;color:#15803a!important;border:1px solid rgba(52,199,89,.35)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 1px rgba(255,255,255,.7)}
+.badge-status.closed{background:rgba(255,59,48,.14)!important;color:#d92c22!important;border-color:rgba(255,59,48,.32)!important}
+.avatar-btn,.profile-avatar,.admin-user-avatar{border-radius:50%!important;background:linear-gradient(135deg,#6dc8ff,#0a84ff 60%,#5e5ce6)!important;color:#fff!important;border:1px solid rgba(255,255,255,.65)!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),0 6px 16px rgba(10,132,255,.35)!important}
+
+/* —— Judul —— */
+.page-head{margin:6px 4px 16px!important}
+.page-head h2{font-size:32px!important;font-weight:800!important;letter-spacing:-1px!important}
+.page-head p{color:var(--g-mut)!important}
+.section-title{font-size:12px!important;font-weight:700!important;letter-spacing:.7px!important;text-transform:uppercase;color:var(--g-mut)!important;margin:26px 6px 10px!important}
+.section-title a{color:var(--g-blue)!important;text-transform:none;letter-spacing:0;font-size:13px!important;font-weight:600!important}
+
+/* —— Kartu saldo —— */
+.balance-card{border-radius:34px!important;border:1px solid rgba(255,255,255,.55)!important;color:#fff!important;
+  background:linear-gradient(135deg,rgba(10,132,255,.93) 0%,rgba(94,92,230,.9) 55%,rgba(175,82,222,.88) 100%)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.65),inset 0 -2px 10px rgba(30,20,120,.25),0 24px 54px rgba(70,80,230,.42)!important}
+.balance-card::before{content:''!important;position:absolute!important;inset:0!important;top:0!important;right:0!important;width:auto!important;height:auto!important;border-radius:inherit!important;pointer-events:none;
+  background:linear-gradient(160deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,0) 40%),radial-gradient(circle at 92% 0%,rgba(255,255,255,.32),transparent 45%)!important}
+.balance-label{color:rgba(255,255,255,.82)!important;font-weight:500}
+.balance-value,.balance-card .balance-value{color:#fff!important;font-weight:700;text-shadow:0 2px 12px rgba(20,20,100,.25)}
+.balance-value .cur{color:rgba(255,255,255,.8)!important}
+.bal-chips .chip{background:rgba(255,255,255,.2)!important;border:1px solid rgba(255,255,255,.38)!important;border-radius:20px!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 1px rgba(255,255,255,.5)}
+.bal-chips small{color:rgba(255,255,255,.8)!important}.bal-chips b{color:#fff!important}
+.balance-actions .btn{border-radius:999px!important;padding:12px!important}
+.balance-actions .solid{background:rgba(255,255,255,.93)!important;color:#0a63d8!important;border:1px solid #fff!important;box-shadow:inset 0 1px 1px #fff,0 8px 20px rgba(20,20,100,.25)!important;text-shadow:none!important}
+.balance-actions .outline{background:rgba(255,255,255,.2)!important;color:#fff!important;border:1px solid rgba(255,255,255,.5)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 1px rgba(255,255,255,.5)!important;text-shadow:none!important}
+
+/* —— Aksi cepat, statistik, kuota —— */
+.qa{padding:14px 8px!important}
+.qa-btn{background:transparent!important;border:0!important;box-shadow:none!important;color:var(--g-ink2)!important;font-weight:600}
+.qa-i{width:50px!important;height:50px!important;border-radius:17px!important;color:#fff!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),0 8px 18px rgba(40,60,140,.25)!important}
+.qa-btn:nth-child(1) .qa-i{background:linear-gradient(180deg,#6ad0ff,#0a84ff)!important}
+.qa-btn:nth-child(2) .qa-i{background:linear-gradient(180deg,#7be495,#2fb352)!important}
+.qa-btn:nth-child(3) .qa-i{background:linear-gradient(180deg,#ffd166,#ff9500)!important}
+.qa-btn:nth-child(4) .qa-i{background:linear-gradient(180deg,#dc9bff,#8e5ce6)!important}
+.stat-label{color:var(--g-mut)!important;font-weight:600}.stat-value{color:var(--g-ink)!important;font-weight:700}
+.stat-ico{border-radius:13px!important;background:rgba(10,132,255,.15)!important;color:var(--g-blue)!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.7)}
+.stat-card+.stat-card .stat-ico{background:rgba(52,199,89,.18)!important;color:#1b9a48!important}
+.meter{height:9px!important;border-radius:99px!important;background:rgba(60,70,110,.13)!important;box-shadow:inset 0 1px 2px rgba(40,50,90,.15)}
+.meter i{border-radius:99px!important;background:linear-gradient(90deg,#6ad0ff,#0a84ff)!important;box-shadow:0 0 12px rgba(10,132,255,.5)}
+.meter-card.full .meter i{background:linear-gradient(90deg,#ffb340,#ff453a)!important}
+.meter-head>b,.meter-head span{color:var(--g-ink)!important}.meter-card small{color:var(--g-mut)!important}
+
+/* —— Promo, bantuan, pengumuman —— */
+.promo{border-radius:30px!important;color:#fff!important;border:1px solid rgba(255,255,255,.55)!important;
+  background:linear-gradient(135deg,rgba(255,130,190,.92),rgba(175,100,255,.9) 55%,rgba(10,132,255,.88))!important;
+  box-shadow:inset 0 1.5px 1px rgba(255,255,255,.7),inset 0 -2px 10px rgba(80,30,140,.2),0 16px 38px rgba(160,80,230,.38)!important}
+.promo-txt,.promo-txt b,.promo-txt small{color:#fff!important}
+.promo-cta{background:rgba(255,255,255,.26)!important;color:#fff!important;border:1px solid rgba(255,255,255,.5)!important;border-radius:99px!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.ann,.warn,.check-result,.ref-banner,.ref-rule{-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border-radius:22px!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 6px 20px rgba(40,60,140,.1)}
+.ann{background:rgba(255,200,90,.3)!important;border:1px solid rgba(255,190,70,.5)!important;color:#8a4f00!important}
+.warn,.check-result.err{background:rgba(255,90,80,.18)!important;border:1px solid rgba(255,59,48,.36)!important;color:#c92a21!important}
+.check-result.ok{background:rgba(52,199,89,.2)!important;border:1px solid rgba(52,199,89,.38)!important;color:#15803a!important}
+.ref-banner,.ref-rule{background:rgba(10,132,255,.14)!important;border:1px solid rgba(10,132,255,.3)!important;color:#0a63d8!important}
+.hb-ico{border-radius:15px!important;background:linear-gradient(180deg,#6ad0ff,#0a84ff)!important;color:#fff!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),0 6px 14px rgba(10,132,255,.35)}
+.hb-txt b{color:var(--g-ink)!important}.hb-txt small{color:var(--g-mut)!important}
+
+/* —— Tombol —— */
+.btn{border-radius:999px!important;font-weight:600!important;letter-spacing:-.01em}
+.btn-primary,.btn.primary,.btn-blue,#b-login,#b-reg,#b-setor,#b-wd,.help-box .btn{color:#fff!important;border:1px solid rgba(255,255,255,.5)!important;text-shadow:0 1px 1px rgba(0,40,120,.25);
+  background:linear-gradient(180deg,#5eb4ff,#0a84ff)!important;
+  box-shadow:inset 0 1.5px 1px rgba(255,255,255,.65),inset 0 -2px 6px rgba(0,60,170,.28),0 10px 24px rgba(10,132,255,.4)!important}
+.btn-secondary,.btn-sec,.btn-ghost{color:var(--g-ink)!important;border:1px solid rgba(255,255,255,.65)!important;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.34))!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:inset 0 1.5px 1px rgba(255,255,255,.95),0 6px 18px rgba(40,60,140,.12)!important}
+.btn-ghost{color:#0a63d8!important}
+.btn-danger{color:#d92c22!important;background:rgba(255,59,48,.14)!important;border:1px solid rgba(255,59,48,.26)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 1px rgba(255,255,255,.7)!important}
+.btn-success{color:#fff!important;border:1px solid rgba(255,255,255,.5)!important;background:linear-gradient(180deg,#5fdc7c,#2fb352)!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),0 10px 22px rgba(48,179,82,.38)!important}
+.btn:hover{filter:brightness(1.05)}.btn:active{transform:scale(.96)!important}
+
+/* —— Form —— */
+.field label{color:var(--g-ink2)!important;font-weight:600}
+.input,.textarea,select.input,.admin-search-box input{background:rgba(255,255,255,.46)!important;color:var(--g-ink)!important;border:1px solid rgba(255,255,255,.7)!important;border-radius:18px!important;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 2px 4px rgba(40,60,120,.1),inset 0 -1px 1px rgba(255,255,255,.7)!important}
+.input::placeholder,.textarea::placeholder{color:#8791a8!important}
+.input:focus,.textarea:focus,.admin-search-box input:focus{background:rgba(255,255,255,.75)!important;border-color:rgba(10,132,255,.55)!important;box-shadow:inset 0 1px 2px rgba(40,60,120,.08),0 0 0 4px rgba(10,132,255,.18)!important}
+.pw-options label,.wd-preset,.wd-preset-all,.wd-method-badge{background:rgba(255,255,255,.5)!important;border:1px solid rgba(255,255,255,.75)!important;border-radius:16px!important;color:var(--g-ink)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 1px rgba(255,255,255,.9)}
+.pw-options label:has(input:checked),.wd-preset:hover,.wd-preset-all:hover{background:rgba(10,132,255,.17)!important;border-color:rgba(10,132,255,.5)!important;color:#0a63d8!important}
+.wd-balance .value,.ref-display .code{color:var(--g-ink)!important}
+
+/* —— Status, tab, switch —— */
+.pill{border-radius:99px!important;font-weight:600!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 1px rgba(255,255,255,.7)}
+.admin-mnav button,.filter-tabs button{background:rgba(255,255,255,.45)!important;color:var(--g-ink2)!important;border:1px solid rgba(255,255,255,.7)!important;border-radius:99px!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 1px rgba(255,255,255,.9)!important;font-weight:600}
+.admin-mnav button.on,.filter-tabs button.on{background:linear-gradient(180deg,#5eb4ff,#0a84ff)!important;color:#fff!important;border-color:rgba(255,255,255,.5)!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),0 6px 16px rgba(10,132,255,.35)!important}
+.switch span{background:rgba(120,130,160,.35)!important;box-shadow:inset 0 2px 4px rgba(30,40,80,.18)!important}
+.switch input:checked+span{background:#34c759!important}
+.switch span::before{background:#fff!important;box-shadow:0 2px 6px rgba(20,30,70,.3),inset 0 -1px 1px rgba(0,0,0,.05)!important}
+
+/* —— Dock kapsul —— */
+.dock{background:linear-gradient(145deg,rgba(255,255,255,.55),rgba(255,255,255,.26))!important;-webkit-backdrop-filter:blur(30px) saturate(200%)!important;backdrop-filter:blur(30px) saturate(200%)!important;
+  border:1px solid rgba(255,255,255,.65)!important;border-radius:999px!important;padding:6px!important;
+  box-shadow:inset 0 1.5px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.3),0 16px 44px rgba(40,60,140,.28)!important}
+.dock button{background:transparent!important;border:0!important;box-shadow:none!important;color:#5b6682!important;border-radius:999px!important;font-weight:600;transition:background .25s,color .25s,transform .25s cubic-bezier(.22,1,.36,1)}
+.dock button.on{color:var(--g-blue)!important;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.5))!important;box-shadow:inset 0 1.5px 1px #fff,0 4px 14px rgba(10,132,255,.22)!important}
+.dock button[data-p="stor"],.dock button[data-p="stor"].on{color:#fff!important;background:linear-gradient(180deg,#5eb4ff,#0a84ff)!important;border:1px solid rgba(255,255,255,.55)!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.65),0 10px 22px rgba(10,132,255,.45)!important}
+.dock button[data-p="stor"] svg{color:#fff!important}
+.fab{background:linear-gradient(180deg,#5eb4ff,#0a84ff)!important;color:#fff!important;border:1px solid rgba(255,255,255,.55)!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.65),0 12px 28px rgba(10,132,255,.45)!important}
+
+/* —— Auth, maintenance, toast —— */
+.auth-screen,.maint-overlay{background:transparent!important}
+.maint-overlay{background:rgba(200,215,245,.4)!important;-webkit-backdrop-filter:blur(30px) saturate(160%)!important;backdrop-filter:blur(30px) saturate(160%)!important}
+.auth-card{border-radius:36px!important;padding:30px 26px!important}
+.auth-title{font-size:32px!important;font-weight:800!important;letter-spacing:-1.1px!important;color:var(--g-ink)!important}
+.auth-eyebrow{color:var(--g-blue)!important}.auth-sub,.auth-switch,.auth-foot,.auth-tag{color:var(--g-mut)!important}
+.auth-switch button{color:var(--g-blue)!important}
+.auth-brand-mark{background:linear-gradient(135deg,#6dc8ff,#0a84ff 60%,#5e5ce6)!important;box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),0 8px 20px rgba(10,132,255,.4)!important}
+.auth-perks span{background:rgba(255,255,255,.5)!important;border:1px solid rgba(255,255,255,.75)!important;border-radius:99px!important;color:var(--g-ink2)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 1px rgba(255,255,255,.9)}
+.maint-box h2{color:var(--g-ink)!important}.maint-box p,.maint-box .maint-hint{color:var(--g-mut)!important}
+.toast{background:rgba(28,34,60,.6)!important;-webkit-backdrop-filter:blur(26px) saturate(180%)!important;backdrop-filter:blur(26px) saturate(180%)!important;border:1px solid rgba(255,255,255,.28)!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.35),0 16px 44px rgba(20,30,70,.38)!important;font-weight:600}
+.toast.ok{background:rgba(30,160,80,.78)!important}.toast.err{background:rgba(220,50,60,.8)!important}
+
+/* —— Admin —— */
+.admin-title,.ad-section-title,.admin-brand{color:var(--g-ink)!important;font-weight:800}
+.ad-section-sub,.ad-stat-label,.ad-stat-sub,.admin-user-info .role,.cfg-row .info .desc{color:var(--g-mut)!important}
+.admin-nav button{border-radius:18px!important;color:#46506a!important;background:transparent!important;font-weight:600;transition:background .25s,color .25s}
+.admin-nav button:hover{background:rgba(255,255,255,.4)!important}
+.admin-nav button.on{color:var(--g-blue)!important;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.5))!important;box-shadow:inset 0 1.5px 1px #fff,0 4px 14px rgba(10,132,255,.2)!important}
+.cfg-card-hdr,.cfg-row{border-color:var(--g-sep)!important}.cfg-row .info label{color:var(--g-ink)!important;font-weight:600}
+.user-data-item,.user-email-compact,.report-msg-box{background:rgba(255,255,255,.45)!important;border:1px solid rgba(255,255,255,.7)!important;border-radius:16px!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.9)}
+.user-username,.user-data-item .v{color:var(--g-ink)!important}.user-data-item .k{color:var(--g-mut)!important}
+.rules p,.rules b{color:var(--g-ink2)!important}
+.empty,.empty b{color:var(--g-mut)!important}
+
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(60,70,110,.25);border-radius:99px;border:2px solid transparent;background-clip:padding-box}
+
+@media(max-width:380px){.page-head h2{font-size:28px!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .card,.form-card,.list-card,.menu-list,.profile-card,.ref-display,.rules,.wd-balance,.cfg-card,.ad-table,.qa,.meter-card,.stat-card,.ref-stat,.ad-stat,.help-box,.tg-card,.user-row,.auth-card,.maint-box,.admin-side,.bulk-bar,.dock,.app-header-inner{background:rgba(255,255,255,.9)!important}}
+@media(prefers-reduced-transparency:reduce){
+  .card,.form-card,.list-card,.menu-list,.profile-card,.ref-display,.rules,.wd-balance,.cfg-card,.ad-table,.qa,.meter-card,.stat-card,.ref-stat,.ad-stat,.help-box,.tg-card,.user-row,.auth-card,.maint-box,.admin-side,.bulk-bar,.dock,.app-header-inner{background:rgba(255,255,255,.94)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
+</style>
+<style id="liquid-glass-2">
+/* ===== LIQUID GLASS v2 — gerak & kaca lebih nyata ===== */
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--ios:cubic-bezier(.32,.72,0,1)}
+html,body{touch-action:manipulation!important}
+button,a,.qa-btn,.btn,.list-row,.menu-btn,.dock button,.promo{touch-action:manipulation;-webkit-user-select:none;user-select:none;cursor:pointer}
+.card,.form-card,.list-card,.menu-list,.profile-card,.ref-display,.rules,.wd-balance,.cfg-card,.ad-table,.qa,.meter-card,.stat-card,.ref-stat,.ad-stat,.help-box,.tg-card,.user-row,.auth-card,.maint-box,.admin-side,.bulk-bar{
+  background:radial-gradient(130% 70% at 0% 0%,rgba(255,255,255,.78),rgba(255,255,255,0) 55%),radial-gradient(90% 60% at 100% 100%,rgba(255,255,255,.3),transparent 60%),linear-gradient(145deg,rgba(255,255,255,.5),rgba(255,255,255,.2))!important;
+  -webkit-backdrop-filter:blur(32px) saturate(210%) brightness(1.06)!important;backdrop-filter:blur(32px) saturate(210%) brightness(1.06)!important;
+  border-color:rgba(255,255,255,.9) rgba(255,255,255,.35) rgba(255,255,255,.3) rgba(255,255,255,.75)!important}
+
+/* transisi halaman */
+@keyframes lgPage{from{opacity:0;transform:translateY(20px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes lgRow{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+@keyframes lgSheet{from{opacity:0;transform:translateY(44px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes lgPanel{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes lgFade{from{opacity:0}to{opacity:1}}
+@keyframes lgFloat{50%{transform:translateY(-7px) rotate(-4deg)}}
+@keyframes lgSpin{to{transform:rotate(360deg)}}
+@keyframes lgStretch{35%{scale:1.16 .88}100%{scale:1}}
+@keyframes lgOut{to{opacity:0;transform:translateY(24px) scale(.94)}}
+.page:not(.hidden)>*{animation:lgPage .65s var(--ios) both}
+.page:not(.hidden)>*:nth-child(2){animation-delay:.05s}.page:not(.hidden)>*:nth-child(3){animation-delay:.1s}
+.page:not(.hidden)>*:nth-child(4){animation-delay:.15s}.page:not(.hidden)>*:nth-child(5){animation-delay:.2s}
+.page:not(.hidden)>*:nth-child(n+6){animation-delay:.25s}
+.list-row,.ad-table-row{animation:lgRow .55s var(--ios) both}
+.list-row:nth-child(2){animation-delay:.05s}.list-row:nth-child(3){animation-delay:.1s}.list-row:nth-child(4){animation-delay:.15s}.list-row:nth-child(n+5){animation-delay:.2s}
+#loginPanel:not(.hidden),#registerPanel:not(.hidden){animation:lgPanel .6s var(--ios) both}
+.auth-card{animation:lgSheet .85s var(--spring) both}
+.meter i{transition:width 1.1s var(--ios)!important}
+
+/* umpan balik sentuhan (pegas) */
+.btn,.qa-btn,.menu-btn,.list-row,.dock button,.avatar-btn,.promo,.pw-options label,.wd-preset,.wd-preset-all,.admin-nav button,.filter-tabs button,.admin-mnav button,.fab{transition:transform .5s var(--spring),box-shadow .3s,background .3s,filter .3s,color .3s!important}
+.btn:active,.qa-btn:active,.promo:active,.avatar-btn:active,.dock button:active,.wd-preset:active,.fab:active,.filter-tabs button:active,.admin-mnav button:active{transform:scale(.92)!important;transition-duration:.12s!important}
+.menu-btn:active,.list-row:active{transform:scale(.982)!important;transition-duration:.12s!important}
+@media(hover:hover){.btn:hover,.qa-btn:hover,.promo:hover{transform:translateY(-2px)}}
+.btn.loading{pointer-events:none;gap:10px}
+.lg-spin{width:16px;height:16px;border-radius:50%;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;animation:lgSpin .7s linear infinite;display:inline-block}
+
+/* dock: lensa kaca yang bergeser */
+.dock button{position:relative;z-index:1}
+.dock button.on{background:transparent!important;box-shadow:none!important}
+.dock-lens{position:absolute;left:0;top:0;z-index:0;border-radius:999px;pointer-events:none;opacity:0;
+  background:radial-gradient(120% 90% at 20% 0%,#fff,rgba(255,255,255,.55));box-shadow:inset 0 1.5px 1px #fff,inset 0 -2px 6px rgba(10,132,255,.12),0 6px 18px rgba(10,132,255,.28);
+  transition:transform .6s var(--spring),width .45s var(--ios),opacity .25s}
+.dock-lens.stretch{animation:lgStretch .6s var(--ios)}
+body.scrolled .app-header-inner{box-shadow:inset 0 1.5px 1px rgba(255,255,255,.95),0 16px 42px rgba(40,60,140,.28)}
+.app-header-inner{transition:box-shadow .4s}
+
+/* toast gaya notifikasi iOS */
+.toast{top:calc(env(safe-area-inset-top,0px) + 12px)!important;bottom:auto!important;border-radius:26px!important;padding:14px 20px!important;transform:translate(-50%,-150%) scale(.9)!important;transition:transform .6s var(--spring),opacity .3s!important}
+.toast.show{transform:translate(-50%,0) scale(1)!important}
+
+/* maintenance */
+.maint-overlay{background:radial-gradient(70% 50% at 50% 0%,rgba(10,132,255,.2),transparent 70%),rgba(215,225,250,.2)!important;-webkit-backdrop-filter:blur(38px) saturate(190%)!important;backdrop-filter:blur(38px) saturate(190%)!important;animation:lgFade .45s ease both}
+.maint-overlay.leaving{animation:lgFade .3s ease reverse forwards}
+.maint-overlay.leaving .maint-box{animation:lgOut .3s var(--ios) forwards!important}
+.maint-box{animation:lgSheet .8s var(--spring) both!important;max-width:380px!important;border-radius:40px!important;padding:36px 26px 26px!important}
+.maint-box .maint-icon{width:88px!important;height:88px!important;font-size:40px!important;border:0!important;
+  background:radial-gradient(120% 100% at 25% 0%,#fff,rgba(255,196,196,.6))!important;box-shadow:inset 0 2px 1px #fff,0 16px 34px rgba(255,80,80,.28)!important;animation:lgFloat 4.5s ease-in-out infinite}
+.maint-box .maint-badge{background:rgba(255,59,48,.13)!important;color:#c9261d!important;border:1px solid rgba(255,59,48,.24);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.maint-box h2{font-size:31px!important;font-weight:800!important;letter-spacing:-1.1px!important}
+.maint-actions{gap:12px!important;margin-top:24px!important}
+.maint-actions .btn{min-height:56px!important;font-size:16px!important}
+.maint-link.show{color:#d92c22!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+</style>
+<style id="liquid-glass-3">
+/* ===== LIQUID GLASS v3 — garis halus, tanpa artefak blur, warna senada ===== */
+body::before{inset:0!important;animation:none!important;will-change:auto!important;
+  background:radial-gradient(42% 36% at 12% 8%,rgba(10,132,255,.42),transparent 70%),radial-gradient(38% 34% at 92% 14%,rgba(191,90,242,.36),transparent 70%),radial-gradient(44% 38% at 80% 88%,rgba(255,105,150,.3),transparent 70%),radial-gradient(40% 34% at 8% 82%,rgba(94,92,230,.28),transparent 70%),radial-gradient(30% 26% at 50% 46%,rgba(255,214,102,.16),transparent 70%)!important}
+.card,.form-card,.list-card,.menu-list,.profile-card,.ref-display,.rules,.wd-balance,.cfg-card,.ad-table,.qa,.meter-card,.stat-card,.ref-stat,.ad-stat,.help-box,.tg-card,.user-row,.auth-card,.maint-box,.admin-side,.bulk-bar{
+  background:radial-gradient(120% 60% at 0% 0%,rgba(255,255,255,.5),rgba(255,255,255,0) 60%),linear-gradient(160deg,rgba(255,255,255,.44),rgba(255,255,255,.18))!important;
+  -webkit-backdrop-filter:blur(24px) saturate(160%)!important;backdrop-filter:blur(24px) saturate(160%)!important;
+  border:1px solid rgba(255,255,255,.3)!important;
+  border-color:rgba(255,255,255,.6) rgba(255,255,255,.18) rgba(255,255,255,.14) rgba(255,255,255,.4)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 12px 32px rgba(50,60,150,.12)!important}
+.maint-box{background:linear-gradient(160deg,rgba(255,255,255,.78),rgba(255,255,255,.58))!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.app-header-inner{background:linear-gradient(160deg,rgba(255,255,255,.5),rgba(255,255,255,.28))!important;border:1px solid rgba(255,255,255,.3)!important;border-color:rgba(255,255,255,.6) rgba(255,255,255,.18) rgba(255,255,255,.14) rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 28px rgba(50,60,150,.13)!important}
+body.scrolled .app-header-inner{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 36px rgba(50,60,150,.22)!important}
+.dock{border:1px solid rgba(255,255,255,.3)!important;border-color:rgba(255,255,255,.6) rgba(255,255,255,.18) rgba(255,255,255,.14) rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 16px 40px rgba(50,60,150,.24)!important}
+
+/* anti-artefak: blur bertingkat di Safari menimbulkan pita/persegi */
+.balance-card,.promo,.bal-chips .chip,.balance-actions .outline,.promo-cta,.input,.textarea,select.input,.admin-search-box input,.pw-options label,.wd-preset,.wd-preset-all,.wd-method-badge,.pill,.btn-secondary,.btn-sec,.btn-ghost,.btn-danger,.badge-status,.auth-perks span,.ann,.warn,.check-result,.ref-banner,.ref-rule,.admin-mnav button,.filter-tabs button,.maint-box .maint-badge{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.input,.textarea,select.input,.admin-search-box input{background:rgba(255,255,255,.62)!important}
+.pw-options label,.wd-preset,.wd-preset-all{background:rgba(255,255,255,.6)!important}
+.page:not(.hidden)>*,.list-row,.ad-table-row,.auth-card{animation-fill-mode:backwards!important}
+.maint-box{animation-fill-mode:backwards!important}
+
+/* kartu saldo & promo */
+.balance-card{border:1px solid rgba(255,255,255,.3)!important;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -14px 28px rgba(30,20,120,.14),0 20px 44px rgba(70,80,230,.34)!important}
+.promo{border:1px solid rgba(255,255,255,.3)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 32px rgba(160,80,230,.3)!important}
+.balance-card .balance-value .cur{-webkit-text-fill-color:rgba(255,255,255,.88)!important;color:rgba(255,255,255,.88)!important}
+.bal-chips .chip{background:rgba(255,255,255,.2)!important;border:1px solid rgba(255,255,255,.28)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)!important}
+.bal-chips .chip::after{display:none!important}
+.balance-actions .outline{background:rgba(255,255,255,.2)!important;border:1px solid rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)!important}
+.balance-actions .solid{border:0!important;box-shadow:0 8px 20px rgba(20,20,100,.22)!important}
+
+/* kuota: warna senada biru */
+.ring{background:conic-gradient(#0a84ff calc(var(--p)*1%),rgba(60,70,110,.12) 0)!important}
+.ring::before{background:rgba(255,255,255,.88)!important;box-shadow:inset 0 0 0 1px rgba(60,70,110,.06)!important}
+.ring b,.meter-card .ring b{color:#0a63d8!important}
+.meter-card.full .ring{background:conic-gradient(#ff453a calc(var(--p)*1%),rgba(60,70,110,.12) 0)!important}
+.meter-card.full .ring b{color:#e0322a!important}
+.meter-head span b{color:#0a63d8!important}
+.stat-ico,.qa-i,.hb-ico,.row-icon,.menu-icon{border:0!important}
+.hdr-logo .site-logo-image{border-radius:10px}
+</style>
+<style id="liquid-glass-4">
+/* ===== v4: mode ringan — kaca tetap, beban GPU jauh turun ===== */
+body::before{contain:strict}
+/* kartu: tanpa backdrop-filter (latar sudah gradasi halus, hasil visual hampir sama) */
+.card,.form-card,.list-card,.menu-list,.profile-card,.ref-display,.rules,.wd-balance,.cfg-card,.ad-table,.qa,.meter-card,.stat-card,.ref-stat,.ad-stat,.help-box,.tg-card,.user-row,.auth-card,.admin-side,.bulk-bar{
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  background:radial-gradient(120% 60% at 0% 0%,rgba(255,255,255,.62),rgba(255,255,255,0) 60%),linear-gradient(160deg,rgba(255,255,255,.58),rgba(255,255,255,.34))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 6px 18px rgba(50,60,150,.1)!important}
+/* hanya elemen melayang yang tetap memakai blur, radius kecil */
+.app-header-inner,.dock{-webkit-backdrop-filter:blur(14px) saturate(150%)!important;backdrop-filter:blur(14px) saturate(150%)!important}
+.maint-overlay{-webkit-backdrop-filter:blur(16px)!important;backdrop-filter:blur(16px)!important}
+.toast{-webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important}
+.dock{box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 8px 22px rgba(50,60,150,.2)!important}
+.balance-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 12px 28px rgba(70,80,230,.28)!important}
+.promo{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 24px rgba(160,80,230,.25)!important}
+/* animasi: hanya yang perlu */
+.maint-box .maint-icon{animation:none!important}
+.ad-table-row,.list-row:nth-child(n+7){animation:none!important}
+.btn:hover,.qa-btn:hover,.promo:hover{transform:none!important;filter:none!important}
+.btn,.qa-btn,.menu-btn,.list-row,.dock button,.avatar-btn,.promo,.pw-options label,.wd-preset,.wd-preset-all,.admin-nav button,.filter-tabs button,.admin-mnav button,.fab{transition:transform .4s var(--spring),background .25s,color .25s,box-shadow .25s!important}
+.meter i{transition:width .6s var(--ios)!important}
+/* daftar panjang: render hanya yang terlihat */
+.list-row,.ad-table-row,.user-row,.menu-btn{content-visibility:auto;contain-intrinsic-size:auto 64px}
+/* perangkat lemah / hemat daya / pengguna minta kurangi efek */
+html.lite *,html.lite *::before,html.lite *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+html.lite .app-header-inner,html.lite .dock{background:rgba(245,248,255,.92)!important}
+html.lite .maint-overlay{background:rgba(215,225,250,.85)!important}
+</style>
+<style id="liquid-glass-5">
+/* ===== v5: perbaikan artefak kartu saldo ===== */
+body::before{display:none!important}
+html{background:radial-gradient(42% 22% at 12% 4%,rgba(10,132,255,.4),transparent 70%),radial-gradient(38% 20% at 92% 8%,rgba(191,90,242,.34),transparent 70%),radial-gradient(44% 22% at 85% 94%,rgba(255,105,150,.3),transparent 70%),radial-gradient(40% 20% at 8% 90%,rgba(94,92,230,.26),transparent 70%),linear-gradient(180deg,#dbe8ff 0%,#ece2ff 55%,#ffe3ee 100%)!important;background-attachment:scroll!important}
+/* penyebab: ::before lama punya border 34px tebal -> jadi bingkai persegi di dalam kartu */
+.balance-card::before,.balance-card::after{display:none!important;content:none!important}
+.balance-card{overflow:hidden;border:1px solid rgba(255,255,255,.3)!important;background-origin:border-box!important;background-clip:border-box!important;
+  background:linear-gradient(160deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 42%),linear-gradient(135deg,#0a84ff 0%,#5e5ce6 55%,#af52de 100%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 12px 28px rgba(70,80,230,.28)!important}
+.balance-card .balance-value{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#fff!important;-webkit-text-fill-color:#fff!important}
+.balance-card .balance-value .cur{-webkit-text-fill-color:rgba(255,255,255,.88)!important}
+.promo::before,.promo::after{display:none!important}
+/* header: blur di wadah sticky memicu persegi pucat di Safari */
+.app-header,.app-header-inner{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.app-header-inner{background:linear-gradient(160deg,rgba(255,255,255,.66),rgba(255,255,255,.44))!important}
+</style>
+<style id="liquid-glass-6">
+/* ===== v6: buang semua backdrop-filter (sumber persegi liar di Safari) ===== */
+*,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.dock{background:linear-gradient(160deg,rgba(255,255,255,.86),rgba(255,255,255,.66))!important}
+.app-header-inner{background:linear-gradient(160deg,rgba(255,255,255,.8),rgba(255,255,255,.62))!important;transition:none!important}
+body.scrolled .app-header-inner{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 28px rgba(50,60,150,.13)!important}
+.toast{background:rgba(28,34,60,.9)!important}
+.toast.ok{background:rgba(30,160,80,.95)!important}.toast.err{background:rgba(220,50,60,.95)!important}
+.maint-overlay{background:rgba(205,218,248,.88)!important}
+.balance-card,.maint-box{animation:none!important}
+</style>
+<style id="liquid-glass-7">
+/* ===== v7: transisi morph ===== */
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+.ring{transition:--p .9s var(--ios)!important}
+html.vt .app-main{view-transition-name:main}
+html.vt .app-header-inner{view-transition-name:hdr}
+html.vt .dock{view-transition-name:dock}
+html.vt .page-head{view-transition-name:phead}
+html.vt .balance-card,html.vt .wd-balance{view-transition-name:bal}
+html.vt #home-recent,html.vt #ry-list{view-transition-name:lst}
+::view-transition-group(*){animation-duration:.55s;animation-timing-function:cubic-bezier(.32,.72,0,1)}
+::view-transition-group(dock),::view-transition-group(hdr){animation-duration:.01s}
+::view-transition-old(main){animation:lgVOut .3s var(--ios) both}
+::view-transition-new(main){animation:lgVIn .55s var(--ios) both}
+html[data-dir=back]::view-transition-old(main){animation-name:lgVOutB}
+html[data-dir=back]::view-transition-new(main){animation-name:lgVInB}
+@keyframes lgVOut{to{opacity:0;transform:translateX(-6%) scale(.98)}}
+@keyframes lgVIn{from{opacity:0;transform:translateX(8%) scale(.985)}}
+@keyframes lgVOutB{to{opacity:0;transform:translateX(6%) scale(.98)}}
+@keyframes lgVInB{from{opacity:0;transform:translateX(-8%) scale(.985)}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+<style id="liquid-glass-8">
+/* ===== v8: dock benar-benar fixed + hapus lensa + blur lama ===== */
+/* penyebab dock di dasar halaman: animasi lama #app/.page memakai fill "both" -> transform tersisa -> position:fixed jadi relatif ke #app */
+#app,#admin,#auth,.page,.pg{animation:none!important;transform:none!important}
+.dock{position:fixed!important;bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;z-index:200!important;background:linear-gradient(160deg,rgba(255,255,255,.94),rgba(255,255,255,.82))!important}
+.dock-lens{display:none!important}
+.dock button.on{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.62))!important;box-shadow:inset 0 1px 0 #fff,0 4px 14px rgba(10,132,255,.2)!important}
+/* v6 kalah spesifisitas dari kelas lama: naikkan */
+html:not(#z) *:not(#z),html:not(#z) *:not(#z)::before,html:not(#z) *:not(#z)::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+</style>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
@@ -1170,7 +1553,7 @@ h1,h2,h3, .section-title, .page-title {
     <h2 style="margin-top:14px">Maintenance</h2>
     <p id="maint-text">Sedang maintenance. Coba lagi nanti.</p>
     <div class="maint-hint">Setoran & penarikan dinonaktifkan.<br>Silakan cek lagi nanti.</div>
-    <div class="maint-actions"><button type="button" class="btn btn-primary w100" onclick="location.reload()">Muat ulang</button><button type="button" class="btn btn-secondary w100" onclick="maintBack()">Kembali</button><button type="button" class="maint-link" id="maint-logout" onclick="maintLogout()">Keluar akun</button></div>
+    <div class="maint-actions"><button type="button" class="btn btn-primary w100" onclick="maintReload(this)">Muat ulang</button><button type="button" class="btn btn-secondary w100" onclick="maintBack()">Kembali</button><button type="button" class="maint-link" id="maint-logout" onclick="maintLogout()">Keluar akun</button></div>
   </div>
 </div>
 
@@ -1671,7 +2054,7 @@ document.addEventListener('gesturechange',e=>e.preventDefault());
 document.addEventListener('gestureend',e=>e.preventDefault());
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&(e.key==='+'||e.key==='-'||e.key==='='||e.key==='0'))e.preventDefault()});
 let _lastTouch=0;
-document.addEventListener('touchend',e=>{const now=Date.now();if(now-_lastTouch<=300)e.preventDefault();_lastTouch=now},{passive:false});
+/* handler touchend dihapus: membatalkan klik di iOS; zoom ganda dicegah lewat touch-action:manipulation */
 
 /* ══════════ STORAGE ══════════ */
 const KA='sg_auth',KH='sg_hist_',KB='sg_bal_',KW='sg_wd_',KU='sg_users',
@@ -3424,6 +3807,63 @@ window.SG_PAGE_REDIRECT = true;
   }
 })();
 
+</script>
+<script id="lg-motion">
+/* ===== Liquid Glass: perbaikan tombol maintenance + gerak ===== */
+window.maintReload=function(b){if(b.dataset.busy)return;b.dataset.busy=1;b.classList.add('loading');b.innerHTML='<i class="lg-spin"></i>Memeriksa…';setTimeout(function(){location.reload()},700)};
+window.maintBack=function(){var o=document.getElementById('maint-overlay');window.__maintDismissed=true;if(!o)return;o.classList.add('leaving');setTimeout(function(){o.classList.add('hidden');o.classList.remove('leaving')},320)};
+window.maintLogout=function(){var o=document.getElementById('maint-overlay');if(o)o.classList.add('hidden');if(typeof logout==='function')logout()};
+(function(){
+  var o=document.getElementById('maint-overlay'),lk=document.getElementById('maint-logout');
+  if(o&&lk)new MutationObserver(function(){var m=false;try{m=typeof me!=='undefined'&&!!me}catch(e){}lk.classList.toggle('show',m)}).observe(o,{attributes:true,attributeFilter:['class']});
+  var dock=document.querySelector('.dock'),app=document.getElementById('app');if(!dock)return;
+  var lens=document.createElement('span');lens.className='dock-lens';/* lensa dihapus */var raf=0;
+  function place(){raf=0;var on=dock.querySelector('button.on');if(!on||!on.offsetWidth||on.dataset.p==='stor'){lens.style.opacity=0;return}
+    lens.style.opacity=1;lens.style.width=on.offsetWidth+'px';lens.style.height=on.offsetHeight+'px';lens.style.top=on.offsetTop+'px';lens.style.transform='translateX('+on.offsetLeft+'px)';
+    lens.classList.remove('stretch');void lens.offsetWidth;lens.classList.add('stretch')}
+  function sched(){if(!raf)raf=requestAnimationFrame(place)}
+  new MutationObserver(sched).observe(dock,{subtree:true,attributes:true,attributeFilter:['class']});
+  if(app)new MutationObserver(function(){setTimeout(sched,80)}).observe(app,{attributes:true,attributeFilter:['class']});
+  addEventListener('resize',sched);setTimeout(sched,400);
+  addEventListener('scroll',function(){document.body.classList.toggle('scrolled',(window.scrollY||0)>6)},{passive:true});
+})();
+</script>
+<script>
+(function(){try{var c=navigator.connection||{},low=(navigator.hardwareConcurrency||8)<=4||navigator.deviceMemory<=2||c.saveData;
+ if(low)document.documentElement.classList.add('lite');
+ document.addEventListener('visibilitychange',function(){document.documentElement.classList.toggle('paused',document.hidden)})}catch(e){}})();
+</script>
+<script id="lg-morph">
+/* morph antar halaman (View Transitions) + angka berhitung */
+(function(){
+  var rm=matchMedia('(prefers-reduced-motion:reduce)').matches,_go=window.go,root=document.documentElement;
+  if(typeof _go==='function'&&document.startViewTransition&&!rm){
+    var order=['home','riwayat','stor','saldo','profil'];
+    window.go=function(p){
+      if(root.classList.contains('lite'))return _go.apply(this,arguments);
+      var on=document.querySelector('.dock button.on'),cur=on?on.dataset.p:'home',a=order.indexOf(cur),b=order.indexOf(p),self=this,args=arguments;
+      if(cur===p)return _go.apply(self,args);
+      root.dataset.dir=(b>-1&&a>-1&&b<a)?'back':'fwd';root.classList.add('vt');
+      try{var t=document.startViewTransition(function(){_go.apply(self,args)});
+        var done=function(){root.classList.remove('vt')};t.finished.then(done,done)}
+      catch(e){root.classList.remove('vt');_go.apply(self,args)}
+    };
+  }
+  if(rm)return;
+  var busy=new WeakSet();
+  function parse(t){var m=/^(\D*?)([\d.,]+)(\D*)$/.exec((t||'').trim());return m?{pre:m[1],n:parseInt(m[2].replace(/\D/g,''),10),sep:/[.,]/.test(m[2]),suf:m[3]}:null}
+  function watch(el){
+    if(!el)return;var last=(parse(el.textContent)||{}).n||0;
+    new MutationObserver(function(){
+      if(busy.has(el))return;var v=parse(el.textContent);if(!v||isNaN(v.n)||v.n===last)return;
+      var from=last,to=v.n,t0=performance.now(),d=Math.min(900,300+Math.abs(to-from)/50);last=to;busy.add(el);
+      (function step(now){var k=Math.min(1,(now-t0)/d),e=1-Math.pow(1-k,4),x=Math.round(from+(to-from)*e);
+        el.textContent=v.pre+(v.sep?x.toLocaleString('id-ID'):x)+v.suf;
+        if(k<1)requestAnimationFrame(step);else busy.delete(el)})(t0);
+    }).observe(el,{childList:true,characterData:true,subtree:true});
+  }
+  ['home-saldo','wd-saldo','home-today','quota-used'].forEach(function(i){watch(document.getElementById(i))});
+})();
 </script>
 </body>
 </html>

@@ -139,8 +139,21 @@
       "role": "user",
       "createdAt": "2026-10-31T13:19:10.485Z",
       "updatedAt": "2026-10-31T15:01:50.847Z"
+    },
+    {
+      "id": "u_mw05wvrh8u5f",
+      "user": "bokep",
+      "email": "richie@gmail.com",
+      "pass": "tempek123",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-03T04:02:59.533Z",
+      "updatedAt": "2026-11-03T04:02:59.533Z"
     }
   ],
-  "updatedAt": "2026-10-31T15:01:50.847Z",
-  "_action": "updated"
+  "updatedAt": "2026-11-03T04:02:59.533Z",
+  "_action": "created"
 }

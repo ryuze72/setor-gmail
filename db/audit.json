@@ -1,6 +1,11 @@
 {
   "logs": [
     {
+      "msg": "success setoran bokepenak204@gmail.com @u_mw05wvrh8u5f",
+      "by": "admin",
+      "t": 1793679347506
+    },
+    {
       "msg": "Update pengaturan",
       "by": "admin",
       "t": 1793678807016
@@ -26,5 +31,5 @@
       "t": 1793678458812
     }
   ],
-  "updatedAt": "2026-11-03T04:06:48.142Z"
+  "updatedAt": "2026-11-03T04:15:48.352Z"
 }

@@ -4,13 +4,15 @@
       "id": "mw05xh1d6yw",
       "gmail": "bokepenak204@gmail.com",
       "password": "",
-      "status": "pending",
+      "status": "success",
       "userId": "u_mw05wvrh8u5f",
       "user": "bokep",
       "email": "richie@gmail.com",
       "category": "sgsg1122",
       "timestamp": 1793678604673,
-      "createdAt": "2026-11-03T04:03:25.713Z"
+      "createdAt": "2026-11-03T04:03:25.713Z",
+      "harga": 1500,
+      "updatedAt": "2026-11-03T04:15:49.397Z"
     },
     {
       "id": "mvwgfeoxfqv",
@@ -89,7 +91,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-03T04:03:25.713Z",
-  "_added": 1,
-  "_updated": 0
+  "updatedAt": "2026-11-03T04:15:49.397Z",
+  "_added": 0,
+  "_updated": 1
 }

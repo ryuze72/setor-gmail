@@ -152,8 +152,21 @@
       "banReason": "",
       "createdAt": "2026-11-03T04:02:59.533Z",
       "updatedAt": "2026-11-03T04:02:59.533Z"
+    },
+    {
+      "id": "u_mw6i73phur79",
+      "user": "jddjdjd",
+      "email": "ddufud@gmail.com",
+      "pass": "dfffccc",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-07T14:33:28.194Z",
+      "updatedAt": "2026-11-07T14:33:28.194Z"
     }
   ],
-  "updatedAt": "2026-11-03T04:02:59.533Z",
+  "updatedAt": "2026-11-07T14:33:28.194Z",
   "_action": "created"
 }

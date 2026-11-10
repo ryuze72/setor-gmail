@@ -1,6 +1,18 @@
 {
   "submissions": [
     {
+      "id": "mway5uk4duj",
+      "gmail": "yeeuuocon@gmail.com",
+      "password": "",
+      "status": "pending",
+      "userId": "u_mway4vd4ex28",
+      "user": "azriel",
+      "email": "azrielramadhan434@gmail.com",
+      "category": "goldacok",
+      "timestamp": 1794330686452,
+      "createdAt": "2026-11-10T17:11:26.879Z"
+    },
+    {
       "id": "mway5q6hjzz",
       "gmail": "zgtg0281@gmail.com",
       "password": "",
@@ -727,7 +739,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-10T17:11:21.230Z",
+  "updatedAt": "2026-11-10T17:11:26.879Z",
   "_added": 1,
   "_updated": 0
 }

@@ -1,6 +1,18 @@
 {
   "submissions": [
     {
+      "id": "mwayedg1wb8",
+      "gmail": "ariltowoliu2@gmail.com",
+      "password": "",
+      "status": "pending",
+      "userId": "u_mway4vd4ex28",
+      "user": "azriel",
+      "email": "azrielramadhan434@gmail.com",
+      "category": "sgsg1122",
+      "timestamp": 1794331084177,
+      "createdAt": "2026-11-10T17:18:04.661Z"
+    },
+    {
       "id": "mway5uk4duj",
       "gmail": "yeeuuocon@gmail.com",
       "password": "",
@@ -739,7 +751,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-10T17:11:26.879Z",
+  "updatedAt": "2026-11-10T17:18:04.661Z",
   "_added": 1,
   "_updated": 0
 }

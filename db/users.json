@@ -204,8 +204,21 @@
       "banReason": "",
       "createdAt": "2026-11-10T14:52:42.744Z",
       "updatedAt": "2026-11-10T14:52:42.744Z"
+    },
+    {
+      "id": "u_mwaunq9d3k97",
+      "user": "aldy",
+      "email": "aldyff69@gmail.com",
+      "pass": "aass1122",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-10T15:33:23.943Z",
+      "updatedAt": "2026-11-10T15:33:23.943Z"
     }
   ],
-  "updatedAt": "2026-11-10T14:52:42.744Z",
+  "updatedAt": "2026-11-10T15:33:23.943Z",
   "_action": "created"
 }

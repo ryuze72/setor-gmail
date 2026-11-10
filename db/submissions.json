@@ -1,6 +1,18 @@
 {
   "submissions": [
     {
+      "id": "mwaqrix9ys1",
+      "gmail": "dvvv86053@gmail.com",
+      "password": "",
+      "status": "pending",
+      "userId": "u_mwaqm6r77ln1",
+      "user": "jaystore",
+      "email": "akunffke551@gmail.com",
+      "category": "goldacok",
+      "timestamp": 1794318260877,
+      "createdAt": "2026-11-10T13:44:21.954Z"
+    },
+    {
       "id": "mwaqaah16v2",
       "gmail": "bwjsio1@gmail.com",
       "password": "",
@@ -691,7 +703,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-10T13:30:58.196Z",
+  "updatedAt": "2026-11-10T13:44:21.954Z",
   "_added": 1,
   "_updated": 0
 }

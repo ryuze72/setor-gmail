@@ -165,8 +165,21 @@
       "banReason": "",
       "createdAt": "2026-11-07T14:33:28.194Z",
       "updatedAt": "2026-11-07T14:33:28.194Z"
+    },
+    {
+      "id": "u_mwaphr47t0wh",
+      "user": "san store",
+      "email": "akunoldjaystur@gmail.com",
+      "pass": "SanStore",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-10T13:08:48.119Z",
+      "updatedAt": "2026-11-10T13:08:48.119Z"
     }
   ],
-  "updatedAt": "2026-11-07T14:33:28.194Z",
+  "updatedAt": "2026-11-10T13:08:48.119Z",
   "_action": "created"
 }

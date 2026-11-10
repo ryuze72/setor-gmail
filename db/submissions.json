@@ -1,6 +1,18 @@
 {
   "submissions": [
     {
+      "id": "mwaus8murd0",
+      "gmail": "stokaldi379@gmail.com",
+      "password": "",
+      "status": "pending",
+      "userId": "u_mwaunq9d3k97",
+      "user": "aldy",
+      "email": "aldyff69@gmail.com",
+      "category": "sgsg1122",
+      "timestamp": 1794325012662,
+      "createdAt": "2026-11-10T15:36:53.146Z"
+    },
+    {
       "id": "mwaqrix9ys1",
       "gmail": "dvvv86053@gmail.com",
       "password": "",
@@ -703,7 +715,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-10T13:44:21.954Z",
+  "updatedAt": "2026-11-10T15:36:53.146Z",
   "_added": 1,
   "_updated": 0
 }

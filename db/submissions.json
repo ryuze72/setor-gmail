@@ -1,6 +1,18 @@
 {
   "submissions": [
     {
+      "id": "mwaq7lea6v3",
+      "gmail": "hahbisb2@gmail.com",
+      "password": "",
+      "status": "pending",
+      "userId": "u_mwaphr47t0wh",
+      "user": "san store",
+      "email": "akunoldjaystur@gmail.com",
+      "category": "sgsg1122",
+      "timestamp": 1794317330962,
+      "createdAt": "2026-11-10T13:28:52.516Z"
+    },
+    {
       "id": "mwaq7bxsvol",
       "gmail": "bja12@gmail.com",
       "password": "",
@@ -439,7 +451,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-10T13:28:40.089Z",
+  "updatedAt": "2026-11-10T13:28:52.516Z",
   "_added": 1,
   "_updated": 0
 }

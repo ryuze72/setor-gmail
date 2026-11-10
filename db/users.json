@@ -178,8 +178,21 @@
       "banReason": "",
       "createdAt": "2026-11-10T13:08:48.119Z",
       "updatedAt": "2026-11-10T13:08:48.119Z"
+    },
+    {
+      "id": "u_mwaqm6r77ln1",
+      "user": "jaystore",
+      "email": "akunffke551@gmail.com",
+      "pass": "JayStore123",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-10T13:40:13.604Z",
+      "updatedAt": "2026-11-10T13:40:13.604Z"
     }
   ],
-  "updatedAt": "2026-11-10T13:08:48.119Z",
+  "updatedAt": "2026-11-10T13:40:13.604Z",
   "_action": "created"
 }

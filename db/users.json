@@ -243,8 +243,21 @@
       "banReason": "",
       "createdAt": "2026-11-11T06:35:30.463Z",
       "updatedAt": "2026-11-11T06:35:30.463Z"
+    },
+    {
+      "id": "u_mwbropesssjm",
+      "user": "yta",
+      "email": "stokyann12345@gmail.com",
+      "pass": "yodagta99",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-11T06:57:56.800Z",
+      "updatedAt": "2026-11-11T06:57:56.800Z"
     }
   ],
-  "updatedAt": "2026-11-11T06:35:30.463Z",
+  "updatedAt": "2026-11-11T06:57:56.800Z",
   "_action": "created"
 }

@@ -230,8 +230,21 @@
       "banReason": "",
       "createdAt": "2026-11-10T17:10:42.351Z",
       "updatedAt": "2026-11-10T17:21:19.847Z"
+    },
+    {
+      "id": "u_mwbqriglt7cx",
+      "user": "rapi9897",
+      "email": "ipantzyayaya@gmail.com",
+      "pass": "9YCeUbtK5d2zNFq",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-11T06:35:30.463Z",
+      "updatedAt": "2026-11-11T06:35:30.463Z"
     }
   ],
-  "updatedAt": "2026-11-10T17:21:19.847Z",
-  "_action": "updated"
+  "updatedAt": "2026-11-11T06:35:30.463Z",
+  "_action": "created"
 }

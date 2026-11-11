@@ -269,8 +269,21 @@
       "banReason": "",
       "createdAt": "2026-11-11T07:01:28.866Z",
       "updatedAt": "2026-11-11T07:01:28.866Z"
+    },
+    {
+      "id": "u_mwbrz296gdb8",
+      "user": "angi",
+      "email": "yogaepepmax@gmail.com",
+      "pass": "panji551",
+      "ref": "SGEJWKMR",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-11T07:06:00.301Z",
+      "updatedAt": "2026-11-11T07:06:00.301Z"
     }
   ],
-  "updatedAt": "2026-11-11T07:01:28.866Z",
+  "updatedAt": "2026-11-11T07:06:00.301Z",
   "_action": "created"
 }

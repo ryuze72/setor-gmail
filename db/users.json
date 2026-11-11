@@ -295,8 +295,21 @@
       "banReason": "",
       "createdAt": "2026-11-11T07:07:29.641Z",
       "updatedAt": "2026-11-11T07:07:29.641Z"
+    },
+    {
+      "id": "u_mwbwjef36spz",
+      "user": "zhask",
+      "email": "faridajeee16@gmail.com",
+      "pass": "kingzhask26",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-11T09:13:45.926Z",
+      "updatedAt": "2026-11-11T09:13:45.926Z"
     }
   ],
-  "updatedAt": "2026-11-11T07:07:29.641Z",
+  "updatedAt": "2026-11-11T09:13:45.926Z",
   "_action": "created"
 }

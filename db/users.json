@@ -282,8 +282,21 @@
       "banReason": "",
       "createdAt": "2026-11-11T07:06:00.301Z",
       "updatedAt": "2026-11-11T07:06:00.301Z"
+    },
+    {
+      "id": "u_mwbs103ltyyv",
+      "user": "farid",
+      "email": "kamoangsakurar@gmail.com",
+      "pass": "0anggahoke",
+      "ref": "SGEJWKMR",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-11T07:07:29.641Z",
+      "updatedAt": "2026-11-11T07:07:29.641Z"
     }
   ],
-  "updatedAt": "2026-11-11T07:06:00.301Z",
+  "updatedAt": "2026-11-11T07:07:29.641Z",
   "_action": "created"
 }

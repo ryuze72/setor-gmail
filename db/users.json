@@ -256,8 +256,21 @@
       "banReason": "",
       "createdAt": "2026-11-11T06:57:56.800Z",
       "updatedAt": "2026-11-11T06:57:56.800Z"
+    },
+    {
+      "id": "u_mwbrt8b19r41",
+      "user": "iyakahk",
+      "email": "iyakahkacung@gmail.com",
+      "pass": "kacung9992",
+      "ref": "SGEJWKMR",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-11T07:01:28.866Z",
+      "updatedAt": "2026-11-11T07:01:28.866Z"
     }
   ],
-  "updatedAt": "2026-11-11T06:57:56.800Z",
+  "updatedAt": "2026-11-11T07:01:28.866Z",
   "_action": "created"
 }

@@ -1,6 +1,11 @@
 {
   "logs": [
     {
+      "msg": "Aktifkan maintenance",
+      "by": "admin",
+      "t": 1794404219350
+    },
+    {
       "msg": "success setoran bokepenak204@gmail.com @u_mw05wvrh8u5f",
       "by": "admin",
       "t": 1793679347506
@@ -31,5 +36,5 @@
       "t": 1793678458812
     }
   ],
-  "updatedAt": "2026-11-03T04:15:48.352Z"
+  "updatedAt": "2026-11-11T13:37:00.336Z"
 }

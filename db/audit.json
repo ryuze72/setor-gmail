@@ -1,6 +1,11 @@
 {
   "logs": [
     {
+      "msg": "Aktifkan maintenance",
+      "by": "admin",
+      "t": 1794476808946
+    },
+    {
       "msg": "Buka setoran",
       "by": "admin",
       "t": 1794476745597
@@ -66,5 +71,5 @@
       "t": 1793678458812
     }
   ],
-  "updatedAt": "2026-11-12T09:45:46.128Z"
+  "updatedAt": "2026-11-12T09:46:50.821Z"
 }

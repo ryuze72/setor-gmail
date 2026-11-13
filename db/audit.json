@@ -1,6 +1,11 @@
 {
   "logs": [
     {
+      "msg": "reject WD Rp 100.000.000.000.000 @u_mvt6ohkpe5mw",
+      "by": "admin",
+      "t": 1794548890373
+    },
+    {
       "msg": "Aktifkan maintenance",
       "by": "admin",
       "t": 1794476808946
@@ -71,5 +76,5 @@
       "t": 1793678458812
     }
   ],
-  "updatedAt": "2026-11-12T09:46:50.821Z"
+  "updatedAt": "2026-11-13T05:48:10.689Z"
 }

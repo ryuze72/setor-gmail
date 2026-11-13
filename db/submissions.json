@@ -10,7 +10,9 @@
       "email": "azrielramadhan434@gmail.com",
       "category": "sgsg1122",
       "timestamp": 1794331138432,
-      "createdAt": "2026-11-10T17:18:58.930Z"
+      "createdAt": "2026-11-10T17:18:58.930Z",
+      "harga": 1500,
+      "updatedAt": "2026-11-13T05:45:01.851Z"
     },
     {
       "id": "mwayedg1wb8",
@@ -22,7 +24,9 @@
       "email": "azrielramadhan434@gmail.com",
       "category": "sgsg1122",
       "timestamp": 1794331084177,
-      "createdAt": "2026-11-10T17:18:04.661Z"
+      "createdAt": "2026-11-10T17:18:04.661Z",
+      "harga": 1500,
+      "updatedAt": "2026-11-13T05:45:01.851Z"
     },
     {
       "id": "mway5uk4duj",
@@ -34,7 +38,9 @@
       "email": "azrielramadhan434@gmail.com",
       "category": "goldacok",
       "timestamp": 1794330686452,
-      "createdAt": "2026-11-10T17:11:26.879Z"
+      "createdAt": "2026-11-10T17:11:26.879Z",
+      "harga": 1500,
+      "updatedAt": "2026-11-13T05:45:01.851Z"
     },
     {
       "id": "mway5q6hjzz",
@@ -46,7 +52,9 @@
       "email": "azrielramadhan434@gmail.com",
       "category": "goldacok",
       "timestamp": 1794330680777,
-      "createdAt": "2026-11-10T17:11:21.230Z"
+      "createdAt": "2026-11-10T17:11:21.230Z",
+      "harga": 1500,
+      "updatedAt": "2026-11-13T05:45:01.851Z"
     },
     {
       "id": "mwaus8murd0",
@@ -763,7 +771,7 @@
       "updatedAt": "2026-10-31T15:01:49.586Z"
     }
   ],
-  "updatedAt": "2026-11-10T17:18:58.930Z",
-  "_added": 1,
-  "_updated": 0
+  "updatedAt": "2026-11-13T05:45:01.851Z",
+  "_added": 0,
+  "_updated": 4
 }

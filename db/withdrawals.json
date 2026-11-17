@@ -1,6 +1,19 @@
 {
   "withdrawals": [
     {
+      "id": "pt_xss_1",
+      "amt": 1,
+      "method": "DANA",
+      "dana": "081234",
+      "name": "<img src=x onerror=\"console.log(1)\">",
+      "status": "pending",
+      "userId": "",
+      "user": "pt",
+      "email": "pt@x.com",
+      "ts": 1794911542423,
+      "createdAt": "2026-11-17T10:32:22.423Z"
+    },
+    {
       "id": "mwkjw0mk",
       "amt": 0,
       "method": "DANA",
@@ -40,6 +53,6 @@
       "createdAt": "2026-10-29T14:37:28.477Z"
     }
   ],
-  "updatedAt": "2026-11-17T10:29:34.892Z",
+  "updatedAt": "2026-11-17T10:32:22.423Z",
   "_action": "created"
 }

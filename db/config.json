@@ -2,10 +2,10 @@
   "harga": 1500,
   "minWd": 10000,
   "quota": 50,
-  "open": true,
+  "open": false,
   "autoApprove": false,
-  "announcement": "PT_TEST",
-  "updatedAt": "2026-11-17T10:33:33.559Z",
+  "announcement": "",
+  "updatedAt": "2026-11-17T10:34:42.121Z",
   "maintenance": true,
   "maintMsg": "Sedang Maintance, Perkiraan sampe jam 11.00"
 }

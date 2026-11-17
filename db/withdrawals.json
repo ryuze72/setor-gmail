@@ -1,6 +1,19 @@
 {
   "withdrawals": [
     {
+      "id": "mwkjw0mk",
+      "amt": 0,
+      "method": "DANA",
+      "dana": "",
+      "name": "",
+      "status": "pending",
+      "userId": "",
+      "user": "",
+      "email": "",
+      "ts": 1794911374892,
+      "createdAt": "2026-11-17T10:29:34.892Z"
+    },
+    {
       "id": "mvtndlsw",
       "amt": 100000000000000,
       "method": "DANA",
@@ -27,5 +40,6 @@
       "createdAt": "2026-10-29T14:37:28.477Z"
     }
   ],
-  "updatedAt": "2026-10-31T13:19:52.641Z"
+  "updatedAt": "2026-11-17T10:29:34.892Z",
+  "_action": "created"
 }

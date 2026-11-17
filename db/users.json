@@ -334,8 +334,21 @@
       "banReason": "",
       "createdAt": "2026-11-17T10:28:21.820Z",
       "updatedAt": "2026-11-17T10:30:22.904Z"
+    },
+    {
+      "id": "u_mwl9cnlsl6ep",
+      "user": "padli",
+      "email": "bbrah2806@gmail.com",
+      "pass": "@padli123",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-17T22:22:23.146Z",
+      "updatedAt": "2026-11-17T22:22:23.146Z"
     }
   ],
-  "updatedAt": "2026-11-17T10:30:22.904Z",
-  "_action": "updated"
+  "updatedAt": "2026-11-17T22:22:23.146Z",
+  "_action": "created"
 }

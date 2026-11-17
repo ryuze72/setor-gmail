@@ -321,8 +321,21 @@
       "banReason": "",
       "createdAt": "2026-11-17T10:11:59.444Z",
       "updatedAt": "2026-11-17T10:11:59.444Z"
+    },
+    {
+      "id": "u_mwkjug8subxn",
+      "user": "x",
+      "email": "a@b.com; sleep 6",
+      "pass": "y",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-17T10:28:21.820Z",
+      "updatedAt": "2026-11-17T10:28:21.820Z"
     }
   ],
-  "updatedAt": "2026-11-17T10:11:59.444Z",
+  "updatedAt": "2026-11-17T10:28:21.820Z",
   "_action": "created"
 }

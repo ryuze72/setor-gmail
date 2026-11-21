@@ -360,8 +360,21 @@
       "banReason": "",
       "createdAt": "2026-11-18T16:56:05.493Z",
       "updatedAt": "2026-11-18T16:56:05.493Z"
+    },
+    {
+      "id": "u_mwpnid6oze3f",
+      "user": "matthew_7",
+      "email": "candrabelong3@gmail.com",
+      "pass": "Y6JSmwAzf3PUHe2",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-21T00:09:49.443Z",
+      "updatedAt": "2026-11-21T00:09:49.443Z"
     }
   ],
-  "updatedAt": "2026-11-18T16:56:05.493Z",
+  "updatedAt": "2026-11-21T00:09:49.443Z",
   "_action": "created"
 }

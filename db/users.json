@@ -373,8 +373,21 @@
       "banReason": "",
       "createdAt": "2026-11-21T00:09:49.443Z",
       "updatedAt": "2026-11-21T00:09:49.443Z"
+    },
+    {
+      "id": "u_mwru27zuqfst",
+      "user": "decho raditya",
+      "email": "dechoraditya8@gmail.com",
+      "pass": "decho02",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-22T12:48:43.609Z",
+      "updatedAt": "2026-11-22T12:48:43.609Z"
     }
   ],
-  "updatedAt": "2026-11-21T00:09:49.443Z",
+  "updatedAt": "2026-11-22T12:48:43.609Z",
   "_action": "created"
 }

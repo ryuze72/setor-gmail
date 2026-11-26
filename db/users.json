@@ -399,8 +399,21 @@
       "banReason": "",
       "createdAt": "2026-11-26T01:43:50.477Z",
       "updatedAt": "2026-11-26T13:18:22.465Z"
+    },
+    {
+      "id": "u_mwxuj1htgowo",
+      "user": "kihri",
+      "email": "yuraalfian6@gmail.com",
+      "pass": "kihri11",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-26T17:48:27.862Z",
+      "updatedAt": "2026-11-26T17:48:27.862Z"
     }
   ],
-  "updatedAt": "2026-11-26T13:18:22.465Z",
-  "_action": "updated"
+  "updatedAt": "2026-11-26T17:48:27.862Z",
+  "_action": "created"
 }

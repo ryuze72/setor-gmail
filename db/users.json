@@ -412,8 +412,21 @@
       "banReason": "",
       "createdAt": "2026-11-26T17:48:27.862Z",
       "updatedAt": "2026-11-26T17:48:27.862Z"
+    },
+    {
+      "id": "u_mwyrmgcllgxp",
+      "user": "benceng",
+      "email": "bencenghihu@gmail.com",
+      "pass": "galdacok",
+      "ref": "",
+      "refCode": "",
+      "role": "user",
+      "banned": false,
+      "banReason": "",
+      "createdAt": "2026-11-27T09:14:53.029Z",
+      "updatedAt": "2026-11-27T09:14:53.029Z"
     }
   ],
-  "updatedAt": "2026-11-26T17:48:27.862Z",
+  "updatedAt": "2026-11-27T09:14:53.029Z",
   "_action": "created"
 }
